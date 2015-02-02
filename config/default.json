@@ -1,0 +1,15 @@
+{
+  "Hoist": {
+    "aws": {
+      "account": "AKIAJR2Q5BFBILVJFP3A",
+      "secret": "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",
+      "prefix": "PRODUCTION_",
+      "region": "us-west-2"
+    },
+    "chef":{
+      "user":"buildmaster",
+      "key":"../chef/.chef/buildmaster.pem",
+      "server":"https://api.opscode.com/organizations/hoist-apps-ltd"
+    }
+  }
+}
