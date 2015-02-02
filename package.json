@@ -32,6 +32,7 @@
     "sinon-chai": "^2.5.0"
   },
   "dependencies": {
+    "agenda": "^0.6.26",
     "aws-sdk": "^2.1.8",
     "bluebird": "^2.9.5",
     "chef": "^0.3.0",
