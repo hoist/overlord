@@ -5,6 +5,7 @@ var config = require('config');
 var agenda = new Agenda();
 var chefJob = require('./lib/chef_task');
 var countQueuesJob = require('./lib/count_queues_task');
+var checkEC2Job = require('./lib/ec2_check_status');
 agenda.database(config.get('Hoist.overlord.mongo.db'), 'operational-jobs');
 logger.info('starting server');
 logger.info('registering chef maintainance job');
@@ -16,10 +17,15 @@ agenda.define('count queues', function (job, done) {
   logger.info('starting count queues job');
   countQueuesJob().nodeify(done);
 });
+agenda.define('check ec2 instances', function (job, done) {
+  logger.info('starting ec2 check job');
+  checkEC2Job().nodeify(done);
+});
 
 logger.info('registering schedule');
 agenda.every('2 minutes', 'maintain chef nodes');
 agenda.every('1 minute', 'count queues');
+agenda.every('5 minutes', 'check ec2 instances');
 
 logger.info('starting agenda');
 agenda.start();

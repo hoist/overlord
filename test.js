@@ -1,2 +1,2 @@
-var countTask = require('./lib/count_queues_task');
-countTask();
+var task = require('./lib/ec2_check_status');
+task();
