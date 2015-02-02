@@ -1,9 +1,9 @@
 {
   "Hoist": {
     "aws": {
-      "account": "AKIAJR2Q5BFBILVJFP3A",
-      "secret": "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",
-      "prefix": "PRODUCTION_",
+      "account": "acc",
+      "secret": "sec",
+      "prefix": "DEV_",
       "region": "us-west-2"
     },
     "chef":{
