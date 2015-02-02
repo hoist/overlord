@@ -19,7 +19,7 @@ agenda.define('count queues', function (job, done) {
 
 logger.info('registering schedule');
 agenda.every('2 minutes', 'maintain chef nodes');
-agenda.every('5 minutes', 'count queues');
+agenda.every('1 minute', 'count queues');
 
 logger.info('starting agenda');
 agenda.start();
