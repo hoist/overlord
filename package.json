@@ -1,0 +1,34 @@
+{
+  "name": "overlord",
+  "version": "1.0.0",
+  "description": "Hoist's Infrastructure Management Portal",
+  "main": "server.js",
+  "scripts": {
+    "test": "gulp test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/hoist/overlord.git"
+  },
+  "author": "Hoist Apps Ltd",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/hoist/overlord/issues"
+  },
+  "homepage": "https://github.com/hoist/overlord",
+  "devDependencies": {
+    "chai": "^1.9.1",
+    "chai-as-promised": "^4.1.1",
+    "gulp": "^3.8.8",
+    "gulp-istanbul": "^0.3.0",
+    "gulp-istanbul-enforcer": "^1.0.3",
+    "gulp-jshint": "^1.8.4",
+    "gulp-mocha": "^1.1.0",
+    "jshint-growl-reporter": "^0.1.1",
+    "jshint-stylish": "^0.4.0",
+    "request-promise": "^0.3.3",
+    "run-sequence": "^0.3.6",
+    "sinon": "^1.10.3",
+    "sinon-chai": "^2.5.0"
+  }
+}
