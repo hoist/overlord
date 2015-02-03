@@ -4,7 +4,7 @@
   "cwd": "./",
   "error_file": "/var/log/node/overlord.stderr.log",
   "out_file": "/var/log/node/overlord.stdout.log",
-  "instances": "2",
+  "instances": "1",
   "merge_logs": false,
   "exec_mode": "fork_mode",
   "env": {
