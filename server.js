@@ -31,7 +31,7 @@ logger.info('registering schedule');
 agenda.every('2 minutes', 'maintain chef nodes');
 agenda.every('1 minute', 'count queues');
 agenda.every('5 minutes', 'check ec2 instances');
-agenda.every('5 minutes', 'rebalance executors');
+agenda.every('2 minutes', 'rebalance executors');
 
 logger.info('starting agenda');
 agenda.start();
