@@ -16,8 +16,7 @@ agenda.define('maintain chef nodes', function (job, done) {
 });
 agenda.define('rebalance executors', function (job, done) {
   logger.info('starting rebalance job');
-  done();
-//  rebalanceJob().nodeify(done);
+  rebalanceJob().nodeify(done);
 });
 agenda.define('count queues', function (job, done) {
   logger.info('starting count queues job');
