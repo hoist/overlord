@@ -14,7 +14,9 @@ agenda.define('maintain chef nodes', function (job, done) {
   logger.info('starting chef job');
   chefJob().nodeify(done);
 });
-agenda.define('rebalance executors', function (job, done) {
+agenda.define('rebalance executors', {
+  lockLifetime: 10000
+}, function (job, done) {
   logger.info('starting rebalance job');
   rebalanceJob().nodeify(done);
 });
