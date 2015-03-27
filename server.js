@@ -8,7 +8,7 @@ var countQueuesJob = require('./lib/count_queues_task');
 var checkEC2Job = require('./lib/ec2_check_status');
 var rebalanceJob = require('./lib/rebalance_executors_task');
 var pruneNewRelicJob = require('./lib/prune_new_relic');
-
+var cullQueuesTask = require('./lib/cull_queues_task');
 agenda.database(config.get('Hoist.overlord.mongo.db'), 'operational-jobs');
 logger.info('starting server');
 logger.info('registering chef maintainance job');
@@ -41,6 +41,12 @@ agenda.define('prune new relic servers', {
   logger.info('starting new relic prune job');
   pruneNewRelicJob().nodeify(done);
 });
+agenda.define('prune rabbitmq queues', {
+  lockLifetime: 10000
+}, function (job, done) {
+  logger.info('starting rabbitmq prune job');
+  cullQueuesTask().nodeify(done);
+});
 
 logger.info('registering schedule');
 agenda.every('2 minutes', 'maintain chef nodes');
@@ -48,6 +54,7 @@ agenda.every('1 minute', 'count queues');
 agenda.every('5 minutes', 'check ec2 instances');
 agenda.every('2 minutes', 'rebalance executors');
 agenda.every('5 minutes', 'prune new relic servers');
+agenda.every('30 minutes', 'prune rabbitmq queues');
 
 logger.info('starting agenda');
 agenda.start();
