@@ -3,13 +3,14 @@ var logger = require('hoist-logger');
 var Agenda = require('agenda');
 var config = require('config');
 var agenda = new Agenda();
-var chefJob = require('./lib/chef_task');
-var countQueuesJob = require('./lib/count_queues_task');
-var checkEC2Job = require('./lib/ec2_check_status');
-var rebalanceJob = require('./lib/rebalance_executors_task');
-var pruneNewRelicJob = require('./lib/prune_new_relic');
-var cullQueuesTask = require('./lib/cull_queues_task');
+var chefJob = require('./lib/tasks/chef_task');
+var countQueuesJob = require('./lib/tasks/count_queues_task');
+var checkEC2Job = require('./lib/tasks/ec2_check_status_task');
+var rebalanceJob = require('./lib/tasks/rebalance_executors_task');
+var pruneNewRelicJob = require('./lib/tasks/prune_new_relic_task');
+var cullQueuesTask = require('./lib/tasks/cull_queues_task');
 agenda.database(config.get('Hoist.overlord.mongo.db'), 'operational-jobs');
+
 logger.info('starting server');
 logger.info('registering chef maintainance job');
 agenda.define('maintain chef nodes', function (job, done) {
@@ -49,6 +50,7 @@ agenda.define('prune rabbitmq queues', {
 });
 
 logger.info('registering schedule');
+
 agenda.every('2 minutes', 'maintain chef nodes');
 agenda.every('1 minute', 'count queues');
 agenda.every('5 minutes', 'check ec2 instances');

@@ -44,3 +44,4 @@ coverage/*
 log/*
 config/runtime.json
 .queues
+config/production_test.json

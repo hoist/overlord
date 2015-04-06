@@ -1,0 +1,7 @@
+mongoexport -d hoist-connect-production -c executionlogevents -q "{ createdAt:{ \$lt: new Date(1422835200000) } }" --out event_log_backup_20150202.json
+
+mongoexport -d hoist-connect-production -c events -q "{ createdAt:{ \$lt: new Date(1422835200000) } }" --out events_backup_20150202.json
+
+/usr/local/bin/aws s3 cp event_log_backup_20150202.json s3://hoist-event-backups/event_log_backup_20150202.json
+
+/usr/local/bin/aws s3 cp events_backup_20150202.json s3://hoist-event-backups/events_backup_20150202.json
