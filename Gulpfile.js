@@ -5,12 +5,35 @@ var istanbul = require('gulp-istanbul');
 var mocha = require('gulp-mocha');
 var coverageEnforcer = require('gulp-istanbul-enforcer');
 var runSequence = require('run-sequence');
+var livereload = require('gulp-livereload');
+var nodemon = require('gulp-nodemon');
+var sass = require('gulp-sass');
+var sourcemaps = require('gulp-sourcemaps');
+var imagemin = require('gulp-imagemin');
+var pngquant = require('imagemin-pngquant');
+var sprite = require('css-sprite').stream;
+var gulpif = require('gulp-if');
 
 var globs = {
   js: {
-    lib: ['lib/**/*.js', 'start.js'],
+    lib: ['lib/**/*.js', '!lib/assets/**/*.js'],
     gulpfile: ['Gulpfile.js'],
     specs: ['tests/**/*.js', '!tests/fixtures/**/*']
+  },
+  web: {
+    views: ['lib/web_app/views/**/*.jsx'],
+    assets: {
+      raw: {
+        all: ['lib/web_app/assets/src'],
+        scss: ['lib/web_app/assets/src/scss/**/*.scss'],
+        images: ['lib/web_app/assets/src/img/**/*']
+      },
+      compiled: ['lib/web_app/assets/compiled']
+    },
+    js: {
+      all: ['lib/web_app/**/*.js'],
+      server: ['lib/web_app/**/*.js', '!lib/web_app/assets/**/*.js']
+    }
   },
   specs: ['tests/**/*.js', '!tests/fixtures/**/*']
 };
@@ -27,15 +50,15 @@ function runJshint() {
 
 function mochaServer(options) {
 
-  return gulp.src(globs.specs, {
-      read: false
-    })
-    .pipe(mocha(options || {
-      reporter: 'nyan',
-      growl: true
-    }));
-}
-// Testing
+    return gulp.src(globs.specs, {
+        read: false
+      })
+      .pipe(mocha(options || {
+        reporter: 'nyan',
+        growl: true
+      }));
+  }
+  // Testing
 var coverageOptions = {
   dir: './coverage',
   reporters: ['html', 'lcov', 'text-summary', 'html', 'json'],
@@ -61,10 +84,10 @@ gulp.task('mocha-server-continue', function (cb) {
     })
     .on('finish', function () {
       mochaServer().on('error', function (err) {
-        console.trace(err);
-        this.emit('end');
-        cb();
-      }).pipe(istanbul.writeReports(coverageOptions))
+          console.trace(err);
+          this.emit('end');
+          cb();
+        }).pipe(istanbul.writeReports(coverageOptions))
         .on('end', cb);
     });
 });
@@ -87,30 +110,87 @@ gulp.task('mocha-server', function (cb) {
     .pipe(istanbul())
     .on('finish', function () {
       mochaServer({
-        reporter: 'spec'
-      })
+          reporter: 'spec'
+        })
         .pipe(istanbul.writeReports(coverageOptions))
         .on('end', cb);
     });
 });
-
+gulp.task('sprite', ['imagemin'], function () {
+  return gulp.src('lib/web_app/assets/compiled/img/sprites/*.png')
+    .pipe(sprite({
+      name: 'sprite',
+      style: '_sprite.scss',
+      cssPath: '/img/',
+      processor: 'scss',
+      retina: true
+    }))
+    .pipe(
+      gulpif('*.png',
+        gulp.dest('lib/web_app/assets/compiled/img'),
+        gulp.dest('lib/web_app/assets/src/scss/includes')
+      )).on('error', function (error) {
+      console.log(error);
+    });
+});
+gulp.task('imagemin', function () {
+  return gulp.src(globs.web.assets.raw.images)
+    .pipe(imagemin({
+      progressive: true,
+      svgoPlugins: [{
+        removeViewBox: false
+      }],
+      use: [pngquant()]
+    }))
+    .pipe(gulp.dest('lib/web_app/assets/compiled/img')).pipe(livereload({
+      basePath: '/Volumes/Store/Projects/hoist/overlord/lib/web_app/assets/compiled'
+    }));
+});
+gulp.task('scss', function () {
+  gulp.src(globs.web.assets.raw.scss)
+    .pipe(sourcemaps.init())
+    .pipe(sass({
+      includePaths: require('node-reset-scss').includePath
+    }))
+    .pipe(sourcemaps.write('./maps'))
+    .pipe(gulp.dest('lib/web_app/assets/compiled/css')).pipe(livereload({
+      basePath: '/Volumes/Store/Projects/hoist/overlord/lib/web_app/assets/compiled'
+    }));
+});
 gulp.task('watch', function () {
 
   var watching = false;
   gulp.start(
+    'scss',
+    'imagemin',
+    'sprite',
     'jshint',
-    'mocha-server-continue', function () {
+    'mocha-server-continue',
+    function () {
       // Protect against this function being called twice
       if (!watching) {
         watching = true;
-        gulp.watch(globs.js.lib.concat(
-          globs.js.specs), ['seq-test']);
+        livereload.listen();
+        gulp.watch('lib/web_app/assets/compiled/img/sprites/*.png', ['sprite']);
         gulp.watch(globs.js.Gulpfile, ['jshint']);
+        gulp.watch(globs.web.assets.raw.scss, ['scss']);
+        gulp.watch(globs.web.assets.raw.images, ['imagemin']);
+        nodemon({
+          script: 'web_server.js',
+          ext: 'js jsx',
+          watch: 'lib/web_app/**/*.js*',
+          ignore: '**/assets/*.*',
+          env: {
+            'NODE_ENV': 'development'
+          }
+        }).on('restart', function () {
+          setTimeout(livereload.reload, 500);
+        });
       }
     });
 });
 gulp.task('seq-test', function () {
-  runSequence('jshint', 'mocha-server-continue');
+  return runSequence('jshint', 'mocha-server-continue');
 });
 gulp.task('test', function () {
   return gulp.start('jshint-build',

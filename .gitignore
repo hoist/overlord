@@ -45,3 +45,5 @@ log/*
 config/runtime.json
 .queues
 config/production_test.json
+
+lib/web_app/assets/compiled

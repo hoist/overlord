@@ -1,7 +1,95 @@
-mongoexport -d hoist-connect-production -c executionlogevents -q "{ createdAt:{ \$lt: new Date(1422835200000) } }" --out event_log_backup_20150202.json
+use hoist-connect-production
 
-mongoexport -d hoist-connect-production -c events -q "{ createdAt:{ \$lt: new Date(1422835200000) } }" --out events_backup_20150202.json
+db.executionlogevents.remove({ createdAt:{ $lt: new Date(1422748800000) } })
+db.events.remove({ createdAt:{ $lt: new Date(1422748800000) } });
 
-/usr/local/bin/aws s3 cp event_log_backup_20150202.json s3://hoist-event-backups/event_log_backup_20150202.json
+db.executionlogevents.remove({ createdAt:{ $lt: new Date(1423353600000) } })
+db.events.remove({ createdAt:{ $lt: new Date(1423353600000) } });
 
-/usr/local/bin/aws s3 cp events_backup_20150202.json s3://hoist-event-backups/events_backup_20150202.json
+db.executionlogevents.remove({ createdAt:{ $lt: new Date(1423958400000) } })
+db.events.remove({ createdAt:{ $lt: new Date(1423958400000) } });
+
+db.executionlogevents.remove({ createdAt:{ $lt: new Date(1424304000000) } })
+db.events.remove({ createdAt:{ $lt: new Date(1424304000000) } });
+
+db.executionlogevents.remove({ createdAt:{ $lt: new Date(1424908800000) } })
+db.events.remove({ createdAt:{ $lt: new Date(1424908800000) } });
+
+db.executionlogevents.remove({ createdAt:{ $lt: new Date(1425513600000) } })
+db.events.remove({ createdAt:{ $lt: new Date(1425513600000) } });
+
+db.executionlogevents.remove({ createdAt:{ $lt: new Date(1426118400000) } })
+db.events.remove({ createdAt:{ $lt: new Date(1426118400000) } });
+
+db.executionlogevents.remove({ createdAt:{ $lt: new Date(1426723200000) } })
+db.events.remove({ createdAt:{ $lt: new Date(1426723200000) } });
+
+db.executionlogevents.remove({ createdAt:{ $lt: new Date(1427328000000) } })
+db.events.remove({ createdAt:{ $lt: new Date(1427328000000) } });
+
+
+moment.utc('2015-02-19').format('x')
+
+mongoexport -d hoist-connect-production -c executionlogevents -q "{ createdAt:{ \$lt: new Date(1424304000000) } }" --out event_log_backup_20150219.json
+
+mongoexport -d hoist-connect-production -c events -q "{ createdAt:{ \$lt: new Date(1424304000000) } }" --out events_backup_20150219.json
+
+/usr/local/bin/aws s3 cp event_log_backup_20150219.json s3://hoist-event-backups/event_log_backup_20150219.json
+
+/usr/local/bin/aws s3 cp events_backup_20150219.json s3://hoist-event-backups/events_backup_20150219.json
+
+
+moment.utc('2015-02-26').format('x')
+
+mongoexport -d hoist-connect-production -c executionlogevents -q "{ createdAt:{ \$lt: new Date(1424908800000) } }" --out event_log_backup_20150226.json
+
+mongoexport -d hoist-connect-production -c events -q "{ createdAt:{ \$lt: new Date(1424908800000) } }" --out events_backup_20150226.json
+
+/usr/local/bin/aws s3 cp event_log_backup_20150226.json s3://hoist-event-backups/event_log_backup_20150226.json
+
+/usr/local/bin/aws s3 cp events_backup_20150226.json s3://hoist-event-backups/events_backup_20150226.json
+
+
+moment.utc('2015-03-05').format('x')
+1425513600000
+
+mongoexport -d hoist-connect-production -c executionlogevents -q "{ createdAt:{ \$lt: new Date(1425513600000) } }" --out event_log_backup_20150305.json
+
+mongoexport -d hoist-connect-production -c events -q "{ createdAt:{ \$lt: new Date(1425513600000) } }" --out events_backup_20150305.json
+
+/usr/local/bin/aws s3 cp event_log_backup_20150305.json s3://hoist-event-backups/event_log_backup_20150305.json
+
+/usr/local/bin/aws s3 cp events_backup_20150305.json s3://hoist-event-backups/events_backup_20150305.json
+
+moment.utc('2015-03-12').format('x')
+1426118400000
+
+mongoexport -d hoist-connect-production -c executionlogevents -q "{ createdAt:{ \$lt: new Date(1426118400000) } }" --out event_log_backup_20150312.json
+
+mongoexport -d hoist-connect-production -c events -q "{ createdAt:{ \$lt: new Date(1426118400000) } }" --out events_backup_20150312.json
+
+/usr/local/bin/aws s3 cp event_log_backup_20150312.json s3://hoist-event-backups/event_log_backup_20150312.json
+
+/usr/local/bin/aws s3 cp events_backup_20150312.json s3://hoist-event-backups/events_backup_20150312.json
+
+moment.utc('2015-03-19').format('x')
+1426723200000
+
+mongoexport -d hoist-connect-production -c executionlogevents -q "{ createdAt:{ \$lt: new Date(1426723200000) } }" --out event_log_backup_20150319.json
+
+mongoexport -d hoist-connect-production -c events -q "{ createdAt:{ \$lt: new Date(1426723200000) } }" --out events_backup_20150319.json
+
+/usr/local/bin/aws s3 cp event_log_backup_20150319.json s3://hoist-event-backups/event_log_backup_20150319.json
+
+/usr/local/bin/aws s3 cp events_backup_20150319.json s3://hoist-event-backups/events_backup_20150319.json
+
+moment.utc('2015-03-26').format('x')
+1427328000000
+
+mongoexport -d hoist-connect-production -c executionlogevents -q "{ createdAt:{ \$lt: new Date(1427328000000) } }" --out event_log_backup_20150326.json
+
+mongoexport -d hoist-connect-production -c events -q "{ createdAt:{ \$lt: new Date(1427328000000) } }" --out events_backup_20150326.json
+
+/usr/local/bin/aws s3 cp event_log_backup_20150326.json s3://hoist-event-backups/event_log_backup_20150326.json
+
+/usr/local/bin/aws s3 cp events_backup_20150326.json s3://hoist-event-backups/events_backup_20150326.json

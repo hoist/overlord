@@ -1,6 +1,13 @@
-var server = require('./lib/web_app/server');
+'use strict';
+var configureServer = require('./lib/web_app/server');
 
 
-server.start();
-process.on('SIGTERM', server.stop);
-process.on('SIGINT', server.stop);
+configureServer().then(function (server) {
+  server.start();
+  process.on('SIGTERM', function () {
+    server.stop();
+  });
+  process.on('SIGINT', function () {
+    server.stop();
+  });
+});
