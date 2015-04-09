@@ -1,4 +1,4 @@
-$herbert: -2px -2px 11px 13px;
+$menu_expand: -4px -4px 15px 6px;
 
 @mixin sprite-width($sprite) {
   width: nth($sprite, 3);
@@ -35,9 +35,3 @@ $herbert: -2px -2px 11px 13px;
   background-image: url('/img/sprite.png');
 }
 
-@media (min--moz-device-pixel-ratio: 1.5), (-o-min-device-pixel-ratio: 3/2), (-webkit-min-device-pixel-ratio: 1.5), (min-device-pixel-ratio: 1.5), (min-resolution: 1.5dppx) {
-  .icon {
-    background-image: url('/img/sprite@2x.png');
-    background-size: 15px 17px;
-  }
-}

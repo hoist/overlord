@@ -1,0 +1,18 @@
+.panel{
+  border:2px solid #F2F2F2;
+  border-radius: 5px;
+  margin-bottom:52px;
+  .body{
+    padding:17px;
+    color:#808080;
+    font-family:Helvetica, Arial, freesans, sans-serif;
+    font-size:14px;
+  }
+  .head{
+    border-bottom: 2px solid #F2F2F2;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    background: #FAFAFA;
+    padding: 8px 18px 8px 8px;
+  }
+}

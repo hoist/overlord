@@ -122,8 +122,7 @@ gulp.task('sprite', ['imagemin'], function () {
       name: 'sprite',
       style: '_sprite.scss',
       cssPath: '/img/',
-      processor: 'scss',
-      retina: true
+      processor: 'scss'
     }))
     .pipe(
       gulpif('*.png',
@@ -184,7 +183,7 @@ gulp.task('watch', function () {
             'NODE_ENV': 'development'
           }
         }).on('restart', function () {
-          setTimeout(livereload.reload, 500);
+          setTimeout(livereload.reload, 1000);
         });
       }
     });
