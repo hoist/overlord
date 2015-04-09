@@ -7,7 +7,7 @@ section#header {
   width:100%;
   background-color: #2B3038;
   color:#CCCCCC;
-  font-weight: 400;
+  font-weight: 200;
   font-size: 20px;
   display:inline-flex;
   nav{
@@ -18,17 +18,32 @@ section#header {
       margin: auto 50px;
       display:inline-block;
     }
+    a{
+      text-decoration: none;
+      color:#CCC;
+    }
+    a:hover{
+      color:#FFF;
+    }
     .logo{
-      float:left;
+      font-weight: 400;
       display:inline;
-      vertical-align: middle;
-      padding-left:30px;
+      padding-left:40px;
+      padding-top:5px;
       height:30px;
+      @media (min--moz-device-pixel-ratio: 1.5), (-o-min-device-pixel-ratio: 3/2), (-webkit-min-device-pixel-ratio: 1.5), (min-device-pixel-ratio: 1.5), (min-resolution: 1.5dppx) {
+        background-image: url('/img/herbert@2x.png');
+        background-size: 22px 27px;
+      }
       background-image: url('/img/herbert.png');
       background-repeat: no-repeat;
       background-position: 4px 2px;
       overflow: hidden;
       background-size:22px 27px;
     }
+  }
+  .user-menu{
+    margin auto 50px;
+    float:right;
   }
 }

@@ -15,9 +15,14 @@ var Header = React.createClass({
             </li>
             <li><a href="/projects">Projects</a></li>
             <li><a href="/servers">Servers</a></li>
+            <li><a href="/servers">Queues</a></li>
             <li><a href="/users">Users</a></li>
           </ul>
         </nav>
+        <div className='user-menu'>
+          Owen <div className='icon icon-menu'/>
+        </div>
+
       </section>
     );
   }
