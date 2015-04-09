@@ -43,4 +43,5 @@ public/css/style.css
 coverage/*
 log/*
 config/runtime.json
+config/production_test.json
 .queues
