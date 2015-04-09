@@ -206,3 +206,8 @@ gulp.task('default', function () {
     'mocha-server',
     'enforce-coverage');
 });
+gulp.task('postdeploy', function () {
+  return gulp.start(
+    'scss',
+    'sprite');
+});

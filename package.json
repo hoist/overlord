@@ -4,7 +4,8 @@
   "description": "Hoist's Infrastructure Management Portal",
   "main": "server.js",
   "scripts": {
-    "test": "gulp test"
+    "test": "gulp test",
+     "postdeploy": "npm install && gulp postdeploy"
   },
   "repository": {
     "type": "git",
