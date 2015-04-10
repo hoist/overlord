@@ -1,7 +1,7 @@
 /** @jsx React.DOM */
 
 var React = require('react');
-var DefaultLayout = require('../_layouts/default');
+var DefaultLayout = require('../_layouts/default.jsx');
 var Dashboard = React.createClass({
   render: function () {
     var properties = this.props;

@@ -13,6 +13,12 @@ var imagemin = require('gulp-imagemin');
 var pngquant = require('imagemin-pngquant');
 var sprite = require('css-sprite').stream;
 var gulpif = require('gulp-if');
+var browserify = require('browserify');
+var reactify = require('reactify');
+var source = require('vinyl-source-stream');
+var buffer = require('vinyl-buffer');
+var gutil = require('gulp-util');
+var uglify = require('gulp-uglify');
 
 var globs = {
   js: {
@@ -74,6 +80,31 @@ gulp.task('jshint', function () {
   return runJshint();
 });
 
+gulp.task('browserify-react', function () {
+  var b = browserify({
+    entries: './lib/web_app/assets/src/javascript/react_components.js',
+    debug: true,
+    extensions: ['jsx'],
+    // defining transforms here will avoid crashing your stream
+    transform: [reactify]
+  });
+  return b.bundle()
+    //create a fake source file
+    .pipe(source('react_components.js'))
+    //buffer all the output so it looks like a single file to the next step
+    .pipe(buffer())
+    //create source maps
+    .pipe(sourcemaps.init({
+      loadMaps: true
+    }))
+    //uglify
+    .pipe(uglify())
+    .on('error', gutil.log)
+    //write maps to maps sub directory
+    .pipe(sourcemaps.write('./maps'))
+    //write the bundled uglified files
+    .pipe(gulp.dest('lib/web_app/assets/compiled/js'));
+});
 
 
 gulp.task('mocha-server-continue', function (cb) {

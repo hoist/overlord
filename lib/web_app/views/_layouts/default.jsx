@@ -1,8 +1,8 @@
 /** @jsx React.DOM */
 
 var React = require('react');
-var Header = require('../_partials/header');
-var BreadCrumbs = require('../_partials/breadcrumbs');
+var Header = require('../_partials/header.jsx');
+var BreadCrumbs = require('../_partials/breadcrumbs.jsx');
 var DefaultLayout = React.createClass({
   render: function() {
     return (
