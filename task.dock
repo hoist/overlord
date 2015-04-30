@@ -1,0 +1,5 @@
+FROM quay.io/hoist/nodejs
+
+WORKDIR /usr/src/app
+
+CMD [ "node", "task_server.js"]

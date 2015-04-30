@@ -1,0 +1,17 @@
+[Unit]
+Description=overlord-web
+BindsTo=overlord-web@%i.service
+
+[Service]
+User=core
+ExecStartPre=-/usr/bin/docker kill overlord-web-%i
+ExecStartPre=-/usr/bin/docker rm overlord-web-%i
+ExecStartPre=-/usr/bin/docker login -u="buildmaster" quay.io
+ExecStartPre=-/usr/bin/docker pull quay.io/hoist/overlord-web
+ExecStart=/usr/bin/docker run --name overlord-web-%i  -e "SERVICE_TAGS=http,nodejs,overlord,production" -e "SERVICE_NAME=overlord" -P quay.io/hoist/overlord-web
+ExecStop=/usr/bin/docker stop overlord-web-%i
+TimeoutStartSec=30m
+
+[X-Fleet]
+Conflicts=overlord-web@*.service
+MachineMetadata=application_type=web
