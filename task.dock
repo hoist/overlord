@@ -1,5 +1,3 @@
-FROM quay.io/hoist/nodejs
-
-WORKDIR /usr/src/app
+FROM quay.io/hoist/overlord:web
 
 CMD [ "node", "task_server.js"]

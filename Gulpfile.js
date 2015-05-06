@@ -228,9 +228,7 @@ gulp.task('test', function () {
     'enforce-coverage');
 });
 gulp.task('build', function () {
-  return gulp.start('jshint-build',
-    'mocha-server',
-    'enforce-coverage');
+  return gulp.start('scss','sprite');
 });
 gulp.task('default', function () {
   return gulp.start('jshint-build',

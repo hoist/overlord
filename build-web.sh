@@ -1,5 +1,12 @@
 #!/bin/bash
 
 #source ./build-base.sh
+set +e
 
-gtar --transform='s|web.dock|Dockerfile|' -cz * | docker build -t quay.io/hoist/overlord-web -
+gulp build
+
+cp web.dock Dockerfile
+
+docker build -t quay.io/hoist/overlord:web .
+
+rm Dockerfile

@@ -1,12 +1,11 @@
-FROM quay.io/hoist/nodejs
+FROM quay.io/hoist/configured-runtime:0.10
 
 WORKDIR /usr/src/app
 
 RUN npm install gulp -g
 
-RUN gulp postdeploy
+RUN cp -f /config/production.json /usr/src/app/config/production.json
 
 CMD [ "node", "web_server.js"]
 
-# Expose the ports that your app uses. For example:
 EXPOSE 8000

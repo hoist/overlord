@@ -2,4 +2,10 @@
 
 #source ./build-base.sh
 
-gtar --transform='s|task.dock|Dockerfile|' -cz * | docker build -t hoist/overlord-tasks -
+set +e
+
+cp task.dock Dockerfile
+
+docker build -t quay.io/hoist/overlord:task .
+
+rm Dockerfile
