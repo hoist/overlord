@@ -1,14 +1,20 @@
-FROM quay.io/hoist/configured-runtime:0.10
+FROM node:0.10
+
+RUN mkdir -p /usr/src/app
 
 WORKDIR /usr/src/app
 
-RUN cp -f /config/production.json /usr/src/app/config/production.json
-
 ENV NODE_MONGOOSE_MIGRATIONS_CONFIG=./config/migrations.js
 
-RUN npm install mongoose-migrate -g
+ADD package.json /usr/src/app/package.json
 
+RUN npm config set loglevel warn
+RUN npm install mongoose-migrate -g
+RUN npm install -g npm
 RUN npm install --production
+RUN npm install -g npm
+
+ADD . /usr/src/app
 
 CMD [ "./scripts/start_web.sh"]
 

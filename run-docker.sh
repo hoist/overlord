@@ -12,6 +12,6 @@ docker-compose stop
 docker-compose rm -f
 docker-compose up -d
 
-sleep 30s
+sleep 5s
 
 open http://$(boot2docker ip):8000
