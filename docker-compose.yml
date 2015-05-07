@@ -1,13 +1,13 @@
 web:
-  image: quay.io/hoist/overlord-web
+  image: quay.io/hoist/overlord:web
   links:
-   - db:mongo.db
+   - db:mongo
   ports:
    - "8000:8000"
   environment:
    - NODE_ENV=docker
 #task:
-#  image: quay.io/hoist/overlord-task
+#  image: quay.io/hoist/overlord:task
 #  links:
 #   - db:mongo.db
 #  environment:

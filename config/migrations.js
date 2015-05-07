@@ -8,6 +8,7 @@ var migrationConfig = {
 };
 module.exports = {
   development: migrationConfig,
+  docker:migrationConfig,
   test: migrationConfig,
   production: migrationConfig
 };

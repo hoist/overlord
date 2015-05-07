@@ -2,16 +2,14 @@ FROM quay.io/hoist/configured-runtime:0.10
 
 WORKDIR /usr/src/app
 
-RUN npm install gulp -g
-
 RUN cp -f /config/production.json /usr/src/app/config/production.json
 
 ENV NODE_MONGOOSE_MIGRATIONS_CONFIG=./config/migrations.js
 
 RUN npm install mongoose-migrate -g
 
-RUN mongoose-migrate
+RUN npm install --production
 
-CMD [ "node", "web_server.js"]
+CMD [ "./scripts/start_web.sh"]
 
 EXPOSE 8000
