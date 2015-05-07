@@ -34,6 +34,9 @@ section#header {
       background-size:22px 27px;
     }
     ul{
+      .hidden{
+        display:none;
+      }
       padding-left:0px;
       margin:14px 0;
       &.right-options{

@@ -6,6 +6,12 @@ RUN npm install gulp -g
 
 RUN cp -f /config/production.json /usr/src/app/config/production.json
 
+ENV NODE_MONGOOSE_MIGRATIONS_CONFIG=./config/migrations.js
+
+RUN npm install mongoose-migrate -g
+
+RUN mongoose-migrate
+
 CMD [ "node", "web_server.js"]
 
 EXPOSE 8000

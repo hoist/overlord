@@ -1,8 +1,6 @@
-/** @jsx React.DOM */
-
 var React = require('react');
 var DefaultLayout = require('../_layouts/default.jsx');
-var ProjectsList = React.createClass({
+var ProjectsIndex = React.createClass({
   render: function () {
     var properties = this.props;
     return (
@@ -25,4 +23,4 @@ var ProjectsList = React.createClass({
   }
 });
 
-module.exports = ProjectsList;
+module.exports = ProjectsIndex;

@@ -14,15 +14,14 @@ var pngquant = require('imagemin-pngquant');
 var sprite = require('css-sprite').stream;
 var gulpif = require('gulp-if');
 var browserify = require('browserify');
-var reactify = require('reactify');
 var source = require('vinyl-source-stream');
 var buffer = require('vinyl-buffer');
 var gutil = require('gulp-util');
-var uglify = require('gulp-uglify');
+var babelify = require("babelify");
 
 var globs = {
   js: {
-    lib: ['lib/**/*.js', '!lib/assets/**/*.js'],
+    lib: ['lib/**/*.js', '!lib/web_app/assets/**/*.js'],
     gulpfile: ['Gulpfile.js'],
     specs: ['tests/**/*.js', '!tests/fixtures/**/*']
   },
@@ -86,7 +85,7 @@ gulp.task('browserify-react', function () {
     debug: true,
     extensions: ['jsx'],
     // defining transforms here will avoid crashing your stream
-    transform: [reactify]
+    transform: [babelify]
   });
   return b.bundle()
     //create a fake source file
@@ -98,7 +97,7 @@ gulp.task('browserify-react', function () {
       loadMaps: true
     }))
     //uglify
-    .pipe(uglify())
+    //.pipe(uglify())
     .on('error', gutil.log)
     //write maps to maps sub directory
     .pipe(sourcemaps.write('./maps'))
@@ -110,14 +109,15 @@ gulp.task('browserify-react', function () {
 gulp.task('mocha-server-continue', function (cb) {
   gulp.src(globs.js.lib)
     .pipe(istanbul())
+    .pipe(istanbul.hookRequire())
     .on('error', function (err) {
       console.log('istanbul error', err);
     })
     .on('finish', function () {
-      mochaServer().on('error', function (err) {
+      mochaServer()
+        .on('error', function (err) {
           console.trace(err);
           this.emit('end');
-          cb();
         }).pipe(istanbul.writeReports(coverageOptions))
         .on('end', cb);
     });
@@ -209,8 +209,9 @@ gulp.task('watch', function () {
           script: 'web_server.js',
           ext: 'js jsx',
           watch: 'lib/web_app/**/*.js*',
-          ignore: '**/assets/*.*',
+          ignore: '**/assets/**/*.*',
           env: {
+            'NODE_HEAPDUMP_OPTIONS':'nosignal',
             'NODE_ENV': 'development'
           }
         }).on('restart', function () {
@@ -228,7 +229,7 @@ gulp.task('test', function () {
     'enforce-coverage');
 });
 gulp.task('build', function () {
-  return gulp.start('scss','sprite');
+  return gulp.start('scss', 'sprite');
 });
 gulp.task('default', function () {
   return gulp.start('jshint-build',
