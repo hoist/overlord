@@ -5,11 +5,14 @@ machine:
     version: v0.10.35
 checkout:
   post:
+    - git fetch --unshallow 2>/dev/null || true
+    - git fetch --tags
+    # Nasty hack: Because we get a freshly restored repo, timestamps do not
+    # correspond any more to when the file was last changed. To rectify this,
+    # first set everything to a timestamp in the past and then update the
+    # timestamp for all git-tracked files based on their last committed change.
     - find . -exec touch -t 201401010000 {} \;
-    - for x in $(git ls-tree --full-tree --name-only -r HEAD);\
-      do touch -t \
-      $(date -d "$(git log -1 --format=%ci "${x}")" +%y%m%d%H%M.%S) \
-      "${x}"; done
+    - for x in $(git ls-tree --full-tree --name-only -r HEAD); do touch -t $(date -d "$(git log -1 --format=%ci "${x}")" +%y%m%d%H%M.%S) "${x}"; done
 dependencies:
   pre:
     - npm install npm -g
@@ -28,15 +31,11 @@ dependencies:
   cache_directories:
     - /home/ubuntu/optipng-0.7.5
     - "~/docker"
-  override:
-    - if [[ -e ~/docker/image.tar ]]; then \
-        docker load -i ~/docker/image.tar; fi
   post:
-    - if [[ -e ~/docker/image.tar ]]; then \
-        docker load -i ~/docker/image.tar;
+    - mkdir -p ~/docker
+    - if [[ -e ~/docker/base.tar ]]; then docker load -i ~/docker/base.tar; fi
     - ./build-scripts/build-all.sh -$CIRCLE_BRANCH-$CIRCLE_BUILD_NUM
-    - mkdir -p ~/docker; docker save quay.io/hoist/overlord \
-        > ~/docker/image.tar
+    - docker save "quay.io/hoist/overlord" > ~/docker/base.tar
 general:
   artifacts:
     - coverage/*
