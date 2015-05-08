@@ -3,6 +3,13 @@ machine:
     - docker
   node:
     version: v0.10.35
+checkout:
+  post:
+    - find . -exec touch -t 201401010000 {} \;
+    - for x in $(git ls-tree --full-tree --name-only -r HEAD);\
+      do touch -t \
+      $(date -d "$(git log -1 --format=%ci "${x}")" +%y%m%d%H%M.%S) \
+      "${x}"; don
 dependencies:
   pre:
     - npm install npm -g
@@ -20,8 +27,16 @@ dependencies:
         cp optipng ../bin
   cache_directories:
     - /home/ubuntu/optipng-0.7.5
+    - "~/docker"
+  override:
+    - if [[ -e ~/docker/image.tar ]]; then \
+        docker load -i ~/docker/image.tar; fi
   post:
+    - if [[ -e ~/docker/image.tar ]]; then \
+        docker load -i ~/docker/image.tar;
     - ./build-scripts/build-all.sh -$CIRCLE_BRANCH-$CIRCLE_BUILD_NUM
+    - mkdir -p ~/docker; docker save quay.io/hoist/overlord \
+        > ~/docker/image.tar
 general:
   artifacts:
     - coverage/*
