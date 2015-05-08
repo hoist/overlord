@@ -9,7 +9,7 @@ checkout:
     - for x in $(git ls-tree --full-tree --name-only -r HEAD);\
       do touch -t \
       $(date -d "$(git log -1 --format=%ci "${x}")" +%y%m%d%H%M.%S) \
-      "${x}"; don
+      "${x}"; done
 dependencies:
   pre:
     - npm install npm -g
@@ -45,7 +45,6 @@ general:
     - npm-debug.log
 deployment:
   docker:
-    branch: [master, /feature*/]
     owner: hoist
     commands:
       - docker login -e $DOCKER_EMAIL -u $DOCKER_USER -p $DOCKER_PASS quay.io
