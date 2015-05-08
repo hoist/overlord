@@ -23,7 +23,7 @@ dependencies:
     - gulp build --verbose
     - mkdir -p ~/docker
     - if [[ -e ~/docker/base.tar ]]; then docker load -i ~/docker/base.tar; fi
-    - ./build-scripts/build-all.sh -$CIRCLE_BRANCH-$CIRCLE_BUILD_NUM
+    - ./build-scripts/build-all.sh -$CIRCLE_BRANCH
     - docker save "quay.io/hoist/overlord" > ~/docker/base.tar
 general:
   artifacts:
