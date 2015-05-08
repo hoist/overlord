@@ -1,0 +1,5 @@
+FROM quay.io/hoist/overlord:base
+
+CMD [ "./scripts/start_web.sh"]
+
+EXPOSE 8000

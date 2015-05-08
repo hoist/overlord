@@ -139,6 +139,7 @@ gulp.task('enforce-coverage', ['mocha-server'], function () {
 gulp.task('mocha-server', function (cb) {
   gulp.src(globs.js.lib)
     .pipe(istanbul())
+    .pip(istanbul.hookRequire())
     .on('finish', function () {
       mochaServer({
           reporter: 'spec'

@@ -12,10 +12,5 @@ RUN npm config set loglevel warn
 RUN npm install mongoose-migrate -g
 RUN npm install -g npm
 RUN npm install --production
-RUN npm install -g npm
 
 ADD . /usr/src/app
-
-CMD [ "./scripts/start_web.sh"]
-
-EXPOSE 8000

@@ -1,8 +1,11 @@
 machine:
-  ruby:
-    version: 2.1.2
+  services:
+    - docker
   node:
     version: v0.10.35
+dependencies:
+  pre:
+    - ./build-scripts/build-all.sh -$CIRCLE_BRANCH-$CIRCLE_BUILD_NUM
 general:
   artifacts:
     - coverage/*
@@ -10,8 +13,12 @@ general:
     - log/*.log
     - npm-debug.log
 deployment:
-  production:
-    branch: master
+  quayio:
+    branch: [master, /feature\/*/]
+    owner: hoist
     commands:
-      - git submodule add git@github.com:hoist/deploy.git
-      - cd deploy && bundle install && bundle exec cap web_servers deploy
+      - docker login -e $DOCKER_EMAIL -u $DOCKER_USER -p $DOCKER_PASS quay.io
+      - docker push quay.io/hoist/overlord
+      - echo "https://overlord.hoist.io/register-build/overlord"
+      - echo "{build:\"$CIRCLE_BUILD_NUM\",branch:\"$CIRCLE_BRANCH\",sha1:\"$CIRCLE_SHA1\",compareurl:\"$CIRCLE_COMPARE_URL\"}"
+

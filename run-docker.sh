@@ -1,8 +1,7 @@
 #!/bin/bash
 set +e
 
-./build-web.sh
-./build-task.sh
+./build-scripts/build-all.sh
 
 mkdir -p ~/.hoist
 
