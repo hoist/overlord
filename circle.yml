@@ -5,6 +5,7 @@ machine:
     version: v0.10.35
 dependencies:
   pre:
+    - npm install npm -g
     - >
       if [ ! -d /home/ubuntu/optipng-0.7.5 ]; then
         (set -e
