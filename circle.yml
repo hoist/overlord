@@ -33,6 +33,7 @@ dependencies:
     - "~/docker"
   post:
     - npm install gulp -g
+    - gulp build --verbose
     - mkdir -p ~/docker
     - if [[ -e ~/docker/base.tar ]]; then docker load -i ~/docker/base.tar; fi
     - ./build-scripts/build-all.sh -$CIRCLE_BRANCH-$CIRCLE_BUILD_NUM
