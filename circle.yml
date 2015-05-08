@@ -32,6 +32,7 @@ dependencies:
     - /home/ubuntu/optipng-0.7.5
     - "~/docker"
   post:
+    - npm install gulp -g
     - mkdir -p ~/docker
     - if [[ -e ~/docker/base.tar ]]; then docker load -i ~/docker/base.tar; fi
     - ./build-scripts/build-all.sh -$CIRCLE_BRANCH-$CIRCLE_BUILD_NUM
