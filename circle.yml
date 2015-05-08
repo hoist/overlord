@@ -29,8 +29,8 @@ general:
     - log/*.log
     - npm-debug.log
 deployment:
-  quayio:
-    branch: [master, /feature\/*/]
+  docker:
+    branch: [master, /feature*/]
     owner: hoist
     commands:
       - docker login -e $DOCKER_EMAIL -u $DOCKER_USER -p $DOCKER_PASS quay.io
