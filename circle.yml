@@ -4,7 +4,7 @@ machine:
   node:
     version: v0.10.35
 dependencies:
- pre:
+  pre:
     - >
       if [ ! -d /home/ubuntu/optipng-0.7.5 ]; then
         (set -e
@@ -17,7 +17,6 @@ dependencies:
         fi
         cd /home/ubuntu/optipng-0.7.5
         cp optipng ../bin
-
   cache_directories:
     - /home/ubuntu/optipng-0.7.5
   post:
