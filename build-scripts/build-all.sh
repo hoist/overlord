@@ -1,5 +1,5 @@
 #!/bin/bash
-set +e
+set -e
 
 ./build-scripts/build-base.sh
 ./build-scripts/build-web.sh ${1}
