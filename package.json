@@ -55,6 +55,7 @@
     "browserify": "^10.1.1",
     "chef": "^0.3.0",
     "config": "^1.13.0",
+    "fleetctl": "^1.0.0",
     "glob": "^5.0.3",
     "hapi": "^8.4.0",
     "hapi-auth-cookie": "^2.2.0",

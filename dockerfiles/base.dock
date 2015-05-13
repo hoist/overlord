@@ -9,7 +9,7 @@ ENV NODE_MONGOOSE_MIGRATIONS_CONFIG=./config/migrations.js
 ADD package.json /usr/src/app/package.json
 
 RUN npm config set loglevel warn
-RUN npm install mongoose-migrate -g
+RUN npm install mongoose-data-migrate -g
 RUN npm install -g npm
 RUN npm install --production
 
