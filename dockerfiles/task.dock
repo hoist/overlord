@@ -1,3 +1,3 @@
 FROM quay.io/hoist/overlord:base
 
-CMD [ "node", "task_server.js"]
+CMD [ "nodemon", "--watch", "/config", "--exec", "./scripts/start_task.sh"]

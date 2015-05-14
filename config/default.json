@@ -20,6 +20,11 @@
       "host": "0.0.0.0",
       "port": 8000
     },
+    "chef": {
+      "user": "buildmaster",
+      "key": "/Volumes/Store/Projects/hoist/chef/.chef/buildmaster.pem",
+      "server": "https://api.opscode.com/organizations/hoist-apps-ltd"
+    },
     "debug": true
   }
 }

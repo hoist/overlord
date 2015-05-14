@@ -9,7 +9,7 @@ var checkEC2Job = require('./lib/tasks/ec2_check_status_task');
 var rebalanceJob = require('./lib/tasks/rebalance_executors_task');
 var pruneNewRelicJob = require('./lib/tasks/prune_new_relic_task');
 var cullQueuesTask = require('./lib/tasks/cull_queues_task');
-agenda.database(config.get('Hoist.overlord.mongo.db'), 'operational-jobs');
+agenda.database(config.get('Hoist.mongo.overlord'), 'operational-jobs');
 
 logger.info('starting server');
 logger.info('registering chef maintainance job');
