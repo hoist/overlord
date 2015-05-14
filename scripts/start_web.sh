@@ -6,7 +6,7 @@ echo "setting up ssh for fleetctl"
 eval $(ssh-agent -s)
 mkdir -p ~/.ssh
 cp /config/internal ~/.ssh/internal
-ssh-add
+ssh-add ~/.ssh/internal
 
 #setup config
 echo "setting up app config"

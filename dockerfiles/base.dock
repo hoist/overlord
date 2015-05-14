@@ -15,6 +15,5 @@ run npm install -g nodemon
 RUN npm install --production
 
 ENV NODE_HEAPDUMP_OPTIONS=nosignal
-RUN eval $(ssh-agent -s)
 
 ADD . /usr/src/app
