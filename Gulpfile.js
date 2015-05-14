@@ -1,9 +1,7 @@
 'use strict';
 var gulp = require('gulp');
 var jshint = require('gulp-jshint');
-var istanbul = require('gulp-istanbul');
 var mocha = require('gulp-mocha');
-var coverageEnforcer = require('gulp-istanbul-enforcer');
 var runSequence = require('run-sequence');
 var livereload = require('gulp-livereload');
 var nodemon = require('gulp-nodemon');
@@ -65,14 +63,6 @@ function mochaServer(options) {
         growl: true
       }));
   }
-  // Testing
-var coverageOptions = {
-  dir: './coverage',
-  reporters: ['html', 'lcov', 'text-summary', 'html', 'json'],
-  reportOpts: {
-    dir: './coverage'
-  }
-};
 
 gulp.task('jshint-build', function () {
   return runJshint().pipe(jshint.reporter('fail'));
@@ -109,46 +99,18 @@ gulp.task('browserify-react', function () {
 
 
 gulp.task('mocha-server-continue', function (cb) {
-  //gulp.src(globs.js.lib)
-    //.pipe(istanbul())
-    //.pipe(istanbul.hookRequire())
-    //.on('error', function (err) {
-      //console.log('istanbul error', err);
-    //})
-    //.on('finish', function () {
-      mochaServer()
-        .on('error', function (err) {
-          console.trace(err);
-          this.emit('end');
-        })//.pipe(istanbul.writeReports(coverageOptions))
-        .on('end', cb);
-    //.});
+
+  mochaServer()
+    .on('error', function (err) {
+      console.trace(err);
+      this.emit('end');
+    })
+    .on('end', cb);
 });
-gulp.task('enforce-coverage', ['mocha-server'], function () {
-  var options = {
-    thresholds: {
-      statements: 80,
-      branches: 80,
-      lines: 80,
-      functions: 80
-    },
-    coverageDirectory: 'coverage',
-    rootDirectory: process.cwd()
-  };
-  return gulp.src(globs.js.lib)
-    .pipe(coverageEnforcer(options));
-});
-gulp.task('mocha-server', function (cb) {
-  gulp.src(globs.js.lib)
-    .pipe(istanbul())
-    .pipe(istanbul.hookRequire())
-    .on('finish', function () {
-      mochaServer({
-          reporter: 'spec'
-        })
-        .pipe(istanbul.writeReports(coverageOptions))
-        .on('end', cb);
-    });
+gulp.task('mocha-server', function () {
+  mochaServer({
+    reporter: 'spec'
+  });
 });
 gulp.task('sprite', ['imagemin'], function () {
   return gulp.src('lib/web_app/assets/compiled/img/sprites/*.png')
@@ -214,7 +176,7 @@ gulp.task('watch', function () {
           watch: 'lib/web_app/**/*.js*',
           ignore: '**/assets/**/*.*',
           env: {
-            'NODE_HEAPDUMP_OPTIONS':'nosignal',
+            'NODE_HEAPDUMP_OPTIONS': 'nosignal',
             'NODE_ENV': 'development'
           }
         }).on('restart', function () {
@@ -228,16 +190,14 @@ gulp.task('seq-test', function () {
 });
 gulp.task('test', function () {
   return gulp.start('jshint-build',
-    'mocha-server',
-    'enforce-coverage');
+    'mocha-server');
 });
 gulp.task('build', function () {
   return gulp.start('scss', 'sprite');
 });
 gulp.task('default', function () {
   return gulp.start('jshint-build',
-    'mocha-server',
-    'enforce-coverage');
+    'mocha-server');
 });
 gulp.task('postdeploy', function () {
   return gulp.start(
