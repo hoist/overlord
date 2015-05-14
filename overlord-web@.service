@@ -9,8 +9,8 @@ Restart=always
 ExecStartPre=-/usr/bin/docker kill overlord-web-%i
 ExecStartPre=-/usr/bin/docker rm overlord-web-%i
 ExecStartPre=-/usr/bin/docker login -u="buildmaster" quay.io
-ExecStartPre=-/usr/bin/docker pull quay.io/hoist/overlord:web-web_server
-ExecStart=/usr/bin/docker run --name overlord-web-%i  -e "SERVICE_TAGS=http,nodejs,overlord,production,https-hoist-io" -e "SERVICE_NAME=overlord" -e "NODE_ENV=production" -e "FLEETCTL_STRICT_HOST_KEY_CHECKING=false" -e "FLEETCTL_TUNNEL=fleet.hoist.internal:2222" -v /usr/bin/fleetctl:/usr/bin/fleetctl --volumes-from config -P quay.io/hoist/overlord:web-web_server
+ExecStartPre=-/usr/bin/docker pull quay.io/hoist/overlord:web_server
+ExecStart=/usr/bin/docker run --name overlord-web-%i  -e "SERVICE_TAGS=http,nodejs,overlord,production,https-hoist-io" -e "SERVICE_NAME=overlord" -e "NODE_ENV=production" -e "FLEETCTL_STRICT_HOST_KEY_CHECKING=false" -e "FLEETCTL_TUNNEL=fleet.hoist.internal:2222" -v /usr/bin/fleetctl:/usr/bin/fleetctl --volumes-from config -P quay.io/hoist/overlord:web_server
 ExecStop=/usr/bin/docker stop overlord-web-%i
 TimeoutStartSec=30m
 

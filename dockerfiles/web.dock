@@ -1,5 +1,0 @@
-FROM quay.io/hoist/overlord:base
-
-CMD [ "nodemon", "--watch", "/config", "--exec", "./scripts/start_web.sh"]
-
-EXPOSE 8000

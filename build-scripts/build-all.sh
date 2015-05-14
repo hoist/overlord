@@ -1,6 +1,6 @@
 #!/bin/bash
 set -e
 
-./build-scripts/build-base.sh
-./build-scripts/build-web.sh ${1}
-./build-scripts/build-task.sh ${1}
+gulp build
+
+docker build -t quay.io/hoist/overlord:${1//feature\//} .

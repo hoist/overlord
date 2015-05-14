@@ -17,3 +17,9 @@ RUN npm install --production
 ENV NODE_HEAPDUMP_OPTIONS=nosignal
 
 ADD . /usr/src/app
+
+EXPOSE 8000
+
+ENTRYPOINT ["nodemon", "--watch", "/config", "--exec"]
+
+CMD [ "./scripts/start_web.sh"]
