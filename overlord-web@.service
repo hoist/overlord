@@ -1,6 +1,5 @@
 [Unit]
 Description=overlord-web
-Requires=config.service
 After=config.service
 
 [Service]
