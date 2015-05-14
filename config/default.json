@@ -1,20 +1,30 @@
 {
   "Hoist": {
-    "aws": {
-      "account": "acc",
-      "secret": "sec",
-      "prefix": "DEV_",
-      "region": "us-west-2"
+    "application": {
+      "name": "overlord"
     },
-    "chef":{
-      "user":"buildmaster",
-      "key":"../chef/.chef/buildmaster.pem",
-      "server":"https://api.opscode.com/organizations/hoist-apps-ltd"
+    "mongo": {
+      "overlord": "mongodb://localhost/hoist-overlord"
     },
-    "overlord":{
-      "mongo":{
-        "db":"mongodb://localhost/hoist-overloard"
+    "cookies": {
+      "overlord": {
+        "secure": false,
+        "password": "overlord-secret",
+        "name": "overlord-sid"
       }
-    }
+    },
+    "security": {
+      "passwordStrength": 5
+    },
+    "server": {
+      "host": "0.0.0.0",
+      "port": 8000
+    },
+    "chef": {
+      "user": "buildmaster",
+      "key": "/Volumes/Store/Projects/hoist/chef/.chef/buildmaster.pem",
+      "server": "https://api.opscode.com/organizations/hoist-apps-ltd"
+    },
+    "debug": true
   }
 }

@@ -1,8 +1,30 @@
 machine:
-  ruby:
-    version: 2.1.2
+  services:
+    - docker
   node:
     version: v0.10.35
+checkout:
+  post:
+    - git fetch --unshallow 2>/dev/null || true
+    - git fetch --tags
+    # Nasty hack: Because we get a freshly restored repo, timestamps do not
+    # correspond any more to when the file was last changed. To rectify this,
+    # first set everything to a timestamp in the past and then update the
+    # timestamp for all git-tracked files based on their last committed change.
+    - find . -exec touch -t 201401010000 {} \;
+    - for x in $(git ls-tree --full-tree --name-only -r HEAD); do touch -t $(date -d "$(git log -1 --format=%ci "${x}")" +%y%m%d%H%M.%S) "${x}"; done
+dependencies:
+  pre:
+    - npm install npm -g
+  cache_directories:
+    - "~/docker"
+  post:
+    - npm install gulp -g
+    - gulp build --verbose
+    - mkdir -p ~/docker
+    - if [[ -e ~/docker/base.tar ]]; then docker load -i ~/docker/base.tar; fi
+    - ./build-scripts/build-all.sh $CIRCLE_BRANCH
+    - docker save "quay.io/hoist/overlord" > ~/docker/base.tar
 general:
   artifacts:
     - coverage/*
@@ -10,8 +32,12 @@ general:
     - log/*.log
     - npm-debug.log
 deployment:
-  production:
-    branch: master
+  master:
+    branch: [master,/feature\/.*/]
+    owner: hoist
     commands:
-      - git submodule add git@github.com:hoist/deploy.git
-      - cd deploy && bundle install && bundle exec cap web_servers deploy
+      - docker login -e $DOCKER_EMAIL -u $DOCKER_USER -p $DOCKER_PASS quay.io
+      - docker push quay.io/hoist/overlord
+      - echo "https://overlord.hoist.io/register-build/overlord"
+      - echo "{build:\"$CIRCLE_BUILD_NUM\",branch:\"$CIRCLE_BRANCH\",sha1:\"$CIRCLE_SHA1\",compareurl:\"$CIRCLE_COMPARE_URL\"}"
+

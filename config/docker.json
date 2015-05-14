@@ -1,0 +1,7 @@
+{
+  "Hoist": {
+    "mongo": {
+      "overlord": "mongodb://mongo/hoist-overlord"
+    }
+  }
+}

@@ -1,0 +1,83 @@
+@import 'sprite';
+.icon-menu-dropdown{
+  @include sprite($menu_expand);
+  display:inline-block;
+  margin-left:10px;
+  margin-bottom:3px;
+}
+section#header {
+  color:#CCC;
+  font-weight: 200;
+  font-size: 20px;
+  margin-bottom:36px;
+  nav{
+    height:80px;
+    background-color: #2B3038;
+    position:relative;
+    z-index:10;
+    display:block;
+    .logo{
+      font-weight: 400;
+      display:inline;
+      padding-left:40px;
+      padding-top:5px;
+      margin-right:40px;
+      height:30px;
+      @media (min--moz-device-pixel-ratio: 1.5), (-o-min-device-pixel-ratio: 3/2), (-webkit-min-device-pixel-ratio: 1.5), (min-device-pixel-ratio: 1.5), (min-resolution: 1.5dppx) {
+        background-image: url('/img/herbert@2x.png');
+        background-size: 22px 27px;
+      }
+       background-image: url('/img/herbert.png');
+      background-repeat: no-repeat;
+      background-position: 4px 2px;
+      overflow: hidden;
+      background-size:22px 27px;
+    }
+    ul{
+      .hidden{
+        display:none;
+      }
+      padding-left:0px;
+      margin:14px 0;
+      &.right-options{
+        float:right;
+        padding:0 25px;
+      }
+      &.left-options{
+        padding:0px 40px;
+        float:left;
+      }
+      li{
+        position: relative;
+        list-style:none;
+        display:inline-block;
+        margin-right:25px;
+        &.line-break{
+          border-left:1px solid #383C44;
+          line-height:52px;
+          background:#272C34;
+          width:1px;
+        }
+        &.nav-links{
+          margin-right:40px;
+        }
+        a{
+          display: block;
+          color:#CCC;
+          line-height:52px;
+          text-decoration: none;
+          &:hover{
+            color:#FFF;
+          }
+        }
+        &.active{
+          a{
+            color:#FFF;
+            font-weight: 400;
+          }
+        }
+
+      }
+    }
+  }
+}
