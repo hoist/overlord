@@ -19,6 +19,8 @@ var buffer = require('vinyl-buffer');
 var gutil = require('gulp-util');
 var babelify = require("babelify");
 
+require("babel/register");
+
 var globs = {
   js: {
     lib: ['lib/**/*.js', '!lib/web_app/assets/**/*.js'],
@@ -107,20 +109,20 @@ gulp.task('browserify-react', function () {
 
 
 gulp.task('mocha-server-continue', function (cb) {
-  gulp.src(globs.js.lib)
-    .pipe(istanbul())
-    .pipe(istanbul.hookRequire())
-    .on('error', function (err) {
-      console.log('istanbul error', err);
-    })
-    .on('finish', function () {
+  //gulp.src(globs.js.lib)
+    //.pipe(istanbul())
+    //.pipe(istanbul.hookRequire())
+    //.on('error', function (err) {
+      //console.log('istanbul error', err);
+    //})
+    //.on('finish', function () {
       mochaServer()
         .on('error', function (err) {
           console.trace(err);
           this.emit('end');
-        }).pipe(istanbul.writeReports(coverageOptions))
+        })//.pipe(istanbul.writeReports(coverageOptions))
         .on('end', cb);
-    });
+    //.});
 });
 gulp.task('enforce-coverage', ['mocha-server'], function () {
   var options = {
