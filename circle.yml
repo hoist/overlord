@@ -25,7 +25,7 @@ dependencies:
     - docker save "quay.io/hoist/overlord" > ~/docker/base.tar
 test:
   override:
-    - docker run --entrypoint gulp --rm quay.io/hoist/overlord:${CIRCLE_BRANCH//feature\//} test
+    - docker run --entrypoint gulp quay.io/hoist/overlord:${CIRCLE_BRANCH//feature\//} test
 general:
   artifacts:
     - coverage/*
