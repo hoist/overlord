@@ -11,12 +11,17 @@ ADD package.json /usr/src/app/package.json
 RUN npm config set loglevel warn
 RUN npm install mongoose-data-migrate -g
 RUN npm install -g npm
-run npm install -g nodemon
-RUN npm install --production
+RUN npm install -g nodemon
+RUN npm install -g gulp
+RUN npm install
 
 ENV NODE_HEAPDUMP_OPTIONS=nosignal
 
 ADD . /usr/src/app
+
+RUN gulp build
+
+RUN npm prune --production
 
 EXPOSE 8000
 

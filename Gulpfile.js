@@ -9,13 +9,14 @@ var sass = require('gulp-sass');
 var sourcemaps = require('gulp-sourcemaps');
 var imagemin = require('gulp-imagemin');
 var pngquant = require('imagemin-pngquant');
-var sprite = require('css-sprite').stream;
 var gulpif = require('gulp-if');
 var browserify = require('browserify');
 var source = require('vinyl-source-stream');
 var buffer = require('vinyl-buffer');
 var gutil = require('gulp-util');
 var babelify = require("babelify");
+var sprity = require('sprity');
+var path = require('path');
 
 require("babel/register");
 
@@ -55,14 +56,14 @@ function runJshint() {
 
 function mochaServer(options) {
 
-    return gulp.src(globs.specs, {
-        read: false
-      })
-      .pipe(mocha(options || {
-        reporter: 'nyan',
-        growl: true
-      }));
-  }
+  return gulp.src(globs.specs, {
+      read: false
+    })
+    .pipe(mocha(options || {
+      reporter: 'nyan',
+      growl: true
+    }));
+}
 
 gulp.task('jshint-build', function () {
   return runJshint().pipe(jshint.reporter('fail'));
@@ -113,17 +114,18 @@ gulp.task('mocha-server', function () {
   });
 });
 gulp.task('sprite', ['imagemin'], function () {
-  return gulp.src('lib/web_app/assets/compiled/img/sprites/*.png')
-    .pipe(sprite({
+  return sprity.src({
+      src: './lib/web_app/assets/compiled/img/sprites/*.png',
       name: 'sprite',
+      out: __dirname,
       style: '_sprite.scss',
       cssPath: '/img/',
-      processor: 'scss'
-    }))
+      processor: 'sprity-sass'
+    })
     .pipe(
       gulpif('*.png',
-        gulp.dest('lib/web_app/assets/compiled/img'),
-        gulp.dest('lib/web_app/assets/src/scss/includes')
+        gulp.dest('./lib/web_app/assets/compiled/img'),
+        gulp.dest('./lib/web_app/assets/src/scss/includes')
       )).on('error', function (error) {
       console.log(error);
     });
@@ -138,10 +140,10 @@ gulp.task('imagemin', function () {
       use: [pngquant()]
     }))
     .pipe(gulp.dest('lib/web_app/assets/compiled/img')).pipe(livereload({
-      basePath: '/Volumes/Store/Projects/hoist/overlord/lib/web_app/assets/compiled'
+      basePath: path.resolve(__dirname,'./lib/web_app/assets/compiled')
     }));
 });
-gulp.task('scss', function () {
+gulp.task('scss',['sprite'], function () {
   gulp.src(globs.web.assets.raw.scss)
     .pipe(sourcemaps.init())
     .pipe(sass({
@@ -193,7 +195,7 @@ gulp.task('test', function () {
     'mocha-server');
 });
 gulp.task('build', function () {
-  return gulp.start('scss', 'sprite');
+  return gulp.start('scss');
 });
 gulp.task('default', function () {
   return gulp.start('jshint-build',
