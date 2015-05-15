@@ -19,8 +19,6 @@ dependencies:
   cache_directories:
     - "~/docker"
   override:
-    - npm install gulp -g
-    - gulp build --verbose
     - mkdir -p ~/docker
     - if [[ -e ~/docker/base.tar ]]; then docker load -i ~/docker/base.tar; fi
     - docker build -t quay.io/hoist/overlord:${CIRCLE_BRANCH//feature\//} .
