@@ -18,13 +18,14 @@ dependencies:
     - npm install npm -g
   cache_directories:
     - "~/docker"
-  post:
-    - npm install gulp -g
-    - gulp build --verbose
+  override:
     - mkdir -p ~/docker
     - if [[ -e ~/docker/base.tar ]]; then docker load -i ~/docker/base.tar; fi
-    - ./build-scripts/build-all.sh $CIRCLE_BRANCH
+    - docker build -t quay.io/hoist/overlord:${CIRCLE_BRANCH//feature\//} .
     - docker save "quay.io/hoist/overlord" > ~/docker/base.tar
+test:
+  override:
+    - docker run --entrypoint gulp quay.io/hoist/overlord:${CIRCLE_BRANCH//feature\//} test
 general:
   artifacts:
     - coverage/*
@@ -36,8 +37,6 @@ deployment:
     branch: [master,/feature\/.*/]
     owner: hoist
     commands:
-      - docker login -e $DOCKER_EMAIL -u $DOCKER_USER -p $DOCKER_PASS quay.io
-      - docker push quay.io/hoist/overlord
       - echo "https://overlord.hoist.io/register-build/overlord"
       - echo "{build:\"$CIRCLE_BUILD_NUM\",branch:\"$CIRCLE_BRANCH\",sha1:\"$CIRCLE_SHA1\",compareurl:\"$CIRCLE_COMPARE_URL\"}"
 
