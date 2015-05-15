@@ -21,8 +21,6 @@ ADD . /usr/src/app
 
 RUN gulp build
 
-RUN npm prune --production
-
 EXPOSE 8000
 
 ENTRYPOINT ["nodemon", "--watch", "/config", "--exec"]
