@@ -1,18 +1,19 @@
 web:
-  image: quay.io/hoist/overlord:web
-  links:
-   - db:mongo
+  build: .
+  external_links:
+    - hoist_db_1:db
   ports:
-   - "8000:8000"
+   - "8000"
   environment:
    - NODE_ENV=docker
+  volumes_from:
+   - hoist_storage_1
+
+# task doesn't really work without live services
 #task:
-#  image: quay.io/hoist/overlord:task
-#  links:
-#   - db:mongo.db
+#  build: .
+#  command: ./scripts/start_task.sh
+#  external_links:
+#    - hoist_db_1:db
 #  environment:
 #   - NODE_ENV=docker
-db:
-  image: mongo
-  volumes:
-   - /mnt/sda1/dev:/data/db

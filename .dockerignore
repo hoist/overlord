@@ -7,5 +7,4 @@ dockerfiles
 node_modules
 docker-compose.yml
 coverage
-lib\web_app\assets\src
 circle.yml
