@@ -1,7 +1,12 @@
 {
   "Hoist": {
     "mongo": {
-      "overlord": "mongodb://mongo/hoist-overlord"
+      "overlord": "mongodb://db/hoist-overlord"
+    },
+    "chef": {
+      "user": "buildmaster",
+      "key": "/Volumes/Store/Projects/hoist/chef/.chef/buildmaster.pem",
+      "server": "https://api.opscode.com/organizations/hoist-apps-ltd"
     }
   }
 }

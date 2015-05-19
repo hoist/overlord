@@ -20,7 +20,6 @@
   "devDependencies": {
     "chai": "^2.3.0",
     "chai-as-promised": "^5.0.0",
-    "css-sprite": "^0.9.8",
     "gulp": "^3.8.8",
     "gulp-if": "^1.2.5",
     "gulp-imagemin": "^2.2.1",
