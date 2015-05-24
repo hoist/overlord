@@ -1,10 +1,13 @@
 'use strict';
+require("babel/register")({
+  optional: ['es7.objectRestSpread']
+});
 var configureServer = require('./lib/web_app/server');
-var logger = require('hoist-logger');
+var logger = require('@hoist/logger');
 var BBPromise = require('bluebird');
 var mongoConnection = require('./lib/mongoose_connection');
 
-require("babel/register");
+
 
 configureServer().then(function (server) {
   mongoConnection.connect().then(function () {

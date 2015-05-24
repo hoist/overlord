@@ -1,5 +1,5 @@
 'use strict';
-var logger = require('hoist-logger');
+var logger = require('@hoist/logger');
 var Agenda = require('agenda');
 var config = require('config');
 var agenda = new Agenda();

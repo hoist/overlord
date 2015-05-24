@@ -72,9 +72,9 @@ gulp.task('jshint', function () {
   return runJshint();
 });
 
-gulp.task('browserify-react', function () {
+gulp.task('browserify', function () {
   var b = browserify({
-    entries: './lib/web_app/assets/src/javascript/react_components.js',
+    entries: './lib/web_app/assets/src/javascript/client.js',
     debug: true,
     extensions: ['jsx'],
     // defining transforms here will avoid crashing your stream
@@ -82,7 +82,7 @@ gulp.task('browserify-react', function () {
   });
   return b.bundle()
     //create a fake source file
-    .pipe(source('react_components.js'))
+    .pipe(source('client.js'))
     //buffer all the output so it looks like a single file to the next step
     .pipe(buffer())
     //create source maps

@@ -1,35 +1,14 @@
-var React = require('react');
-var MachineProperty = React.createClass({
-
-  render: function(){
-    console.log(this.props);
-    function friendlyName(name) {
-      switch(name) {
-        case 'aws_az':
-          return 'AWS Zone';
-        case 'consul_role':
-          return 'Consul Role';
-        case 'container_type':
-          return 'Container Types';
-        case 'ec2_id':
-          return 'EC2 Instance Id';
-        default:
-          return name;
-      }
-    }
-   return ( <div className="property">
-        {friendlyName(this.props.propertyName)}: {this.props.propertyValue}
-    </div>)
-  }
-})
+'use strict';
+import React from 'react';
+import MachineProperty from './machine_property.jsx';
 
 
-var MachineView = React.createClass({
+class MachineView extends React.Component{
 
-  render: function(){
+  render (){
     var _this = this;
-    var machineProperties = Object.getOwnPropertyNames(this.props.machine.metadata).map(function (property, i) {
-      return <MachineProperty propertyName={property} propertyValue={_this.props.machine.metadata[property]} key={i} />
+    var machineProperties = Object.getOwnPropertyNames(this.props.machine.metadata).map((property, i) => {
+      return <MachineProperty key={i} propertyName={property} propertyValue={_this.props.machine.metadata[property]} />;
     });
     return (
         <div className="machine box">
@@ -40,7 +19,12 @@ var MachineView = React.createClass({
             {machineProperties}
           </div>
         </div>
-      )
+      );
   }
-});
-module.exports = MachineView
+}
+MachineView.displayName = 'Machine View';
+MachineView.propTypes = {
+    machine: React.PropTypes.object.isRequired
+};
+
+export default MachineView;

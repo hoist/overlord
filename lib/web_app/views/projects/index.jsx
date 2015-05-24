@@ -1,26 +1,21 @@
-var React = require('react');
-var DefaultLayout = require('../_layouts/default.jsx');
-var ProjectsIndex = React.createClass({
-  render: function () {
-    var properties = this.props;
+'use strict';
+import React from "react";
+import Transmit from "react-transmit";
+import Page from '../_components/page.jsx';
+
+class ProjectIndex extends React.Component{
+  render () {
     return (
-      <DefaultLayout {...this.props}>
-        <div className="col col3">
-          <div className="clear-fix">
-            <a href="/projects/create" className="button create right">
-              Add
-            </a>
+       <Page {...this.props}>
+          <div className="col col3">
           </div>
-          <div className="panel">
-            <div className="head">Projects</div>
-            <div className="body">
-              {this.props.controller}
-            </div>
-          </div>
-        </div>
-      </DefaultLayout>
+       </Page>
       );
   }
-});
+}
 
-module.exports = ProjectsIndex;
+ProjectIndex.displayName = 'Project Index';
+export default Transmit.createContainer(ProjectIndex, {
+  queryParams: {},
+  queries: {}
+});

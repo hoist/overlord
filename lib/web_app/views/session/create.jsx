@@ -1,18 +1,23 @@
-var React = require('react');
-var UnauthenticatedLayout = require('../_layouts/unauthenticated.jsx');
-var LoginForm = require('../_components/login.jsx');
-var LoginPage = React.createClass({
-  render: function () {
-    var properties = this.props;
-    return (
-      <UnauthenticatedLayout {...this.props}>
-        <section id="main" className="container ua-form clear-fix">
-          <a className="logo" href="/"></a>
-          <LoginForm />
-        </section>
-      </UnauthenticatedLayout>
-      );
-  }
-});
+'use strict';
+import React from "react";
+import Transmit from "react-transmit";
+import LoginForm from "../_components/login.jsx";
 
-module.exports = LoginPage;
+class LoginPage extends React.Component {
+  render () {
+      return (
+          <section className="container ua-form clear-fix" id="main">
+            <a className="logo" href="/"></a>
+            <LoginForm />
+          </section>
+        );
+  }
+}
+LoginPage.displayName = 'Logn Page';
+
+
+
+export default Transmit.createContainer(LoginPage, {
+	queryParams: {},
+	queries: {}
+});
