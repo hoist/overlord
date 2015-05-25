@@ -37,6 +37,6 @@ deployment:
     commands:
       - docker login -e $DOCKER_EMAIL -u $DOCKER_USER -p $DOCKER_PASS quay.io
       - docker push quay.io/hoist/overlord:${CIRCLE_BRANCH//feature\//}
-      - echo "https://overlord.hoist.io/register-build/overlord"
+      - echo "https://overlord.hoist.io/api/build/overlord"
       - echo "{build:\"$CIRCLE_BUILD_NUM\",branch:\"$CIRCLE_BRANCH\",sha1:\"$CIRCLE_SHA1\",compareurl:\"$CIRCLE_COMPARE_URL\"}"
 

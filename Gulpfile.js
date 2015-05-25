@@ -1,7 +1,7 @@
 'use strict';
+require("babel/register");
 var gulp = require('gulp');
-var jshint = require('gulp-jshint');
-var mocha = require('gulp-mocha');
+var eslint = require('gulp-eslint');
 var runSequence = require('run-sequence');
 var livereload = require('gulp-livereload');
 var nodemon = require('gulp-nodemon');
@@ -17,8 +17,7 @@ var gutil = require('gulp-util');
 var babelify = require("babelify");
 var sprity = require('sprity');
 var path = require('path');
-
-require("babel/register");
+var mocha = require('gulp-spawn-mocha');
 
 var globs = {
   js: {
@@ -44,32 +43,32 @@ var globs = {
   specs: ['tests/**/*.js', '!tests/fixtures/**/*']
 };
 
-function runJshint() {
+function runESLint() {
   return gulp.src(
       globs.js.lib.concat(
-        globs.js.gulpfile)
+        globs.js.gulpfile,
+        globs.specs)
     )
-    .pipe(jshint())
-    .pipe(jshint.reporter('jshint-stylish'))
-    .pipe(jshint.reporter('jshint-growl-reporter'));
+    .pipe(eslint())
+    .pipe(eslint.formatEach());
 }
 
 function mochaServer(options) {
-
+  options = options || { reporter: 'nyan',
+      growl: true};
+  options.require = options.require || [];
+  options.require.push(path.resolve(__dirname, './tests/bootstrap.js'));
   return gulp.src(globs.specs, {
       read: false
     })
-    .pipe(mocha(options || {
-      reporter: 'nyan',
-      growl: true
-    }));
+    .pipe(mocha(options));
 }
 
-gulp.task('jshint-build', function () {
-  return runJshint().pipe(jshint.reporter('fail'));
+gulp.task('eslint-build', function () {
+  return runESLint().pipe(eslint.failOnError());
 });
-gulp.task('jshint', function () {
-  return runJshint();
+gulp.task('eslint', ['scss'], function () {
+  return runESLint();
 });
 
 gulp.task('browserify', function () {
@@ -99,14 +98,19 @@ gulp.task('browserify', function () {
 });
 
 
-gulp.task('mocha-server-continue', function (cb) {
-
+gulp.task('mocha-server-continue', ['eslint'], function (cb) {
+  var ended;
   mochaServer()
-    .on('error', function (err) {
-      console.trace(err);
+    .on('error', function () {
       this.emit('end');
     })
-    .on('end', cb);
+    .on('end', function(){
+      if(ended){
+        return;
+      }
+      ended = true;
+      cb();
+    });
 });
 gulp.task('mocha-server', function () {
   mochaServer({
@@ -140,10 +144,10 @@ gulp.task('imagemin', function () {
       use: [pngquant()]
     }))
     .pipe(gulp.dest('lib/web_app/assets/compiled/img')).pipe(livereload({
-      basePath: path.resolve(__dirname,'./lib/web_app/assets/compiled')
+      basePath: path.resolve(__dirname, './lib/web_app/assets/compiled')
     }));
 });
-gulp.task('scss',['sprite'], function () {
+gulp.task('scss', ['sprite'], function () {
   gulp.src(globs.web.assets.raw.scss)
     .pipe(sourcemaps.init())
     .pipe(sass({
@@ -155,13 +159,11 @@ gulp.task('scss',['sprite'], function () {
     }));
 });
 gulp.task('watch', function () {
-
+  process.env.NODE_HEAPDUMP_OPTIONS = 'nosignal';
+  var spawn = require('child_process').spawn;
+  var bunyan;
   var watching = false;
   gulp.start(
-    'scss',
-    'imagemin',
-    'sprite',
-    'jshint',
     'mocha-server-continue',
     function () {
       // Protect against this function being called twice
@@ -172,33 +174,56 @@ gulp.task('watch', function () {
         gulp.watch(globs.js.Gulpfile, ['jshint']);
         gulp.watch(globs.web.assets.raw.scss, ['scss']);
         gulp.watch(globs.web.assets.raw.images, ['imagemin']);
+        gulp.watch(globs.specs.concat(globs.js.lib), ['mocha-server-continue']);
         nodemon({
           script: 'web_server.js',
           ext: 'js jsx',
-          watch: 'lib/web_app/**/*.js*',
+          watch: ['lib/**/*.js*', 'web_server.js'],
           ignore: '**/assets/**/*.*',
           env: {
             'NODE_HEAPDUMP_OPTIONS': 'nosignal',
             'NODE_ENV': 'development'
-          }
+          },
+          stdout: false
         }).on('restart', function () {
           setTimeout(livereload.reload, 1000);
+        }).on('readable', function () {
+
+          // free memory
+          if (bunyan) {
+            bunyan.kill();
+          }
+          var level = 'info';
+          if (process.env.DEBUG) {
+            level = 'debug';
+          }
+          bunyan = spawn('./node_modules/@hoist/logger/node_modules/bunyan/bin/bunyan', [
+            '--output', 'short',
+            '--color',
+            '-l', level
+          ]);
+
+          bunyan.stdout.pipe(process.stdout);
+          bunyan.stderr.pipe(process.stderr);
+
+          this.stdout.pipe(bunyan.stdin);
+          this.stderr.pipe(bunyan.stdin);
         });
       }
     });
 });
 gulp.task('seq-test', function () {
-  return runSequence('jshint', 'mocha-server-continue');
+  return runSequence('eslint', 'mocha-server-continue');
 });
 gulp.task('test', function () {
-  return gulp.start('jshint-build',
+  return gulp.start('eslint-build',
     'mocha-server');
 });
 gulp.task('build', function () {
   return gulp.start('scss');
 });
 gulp.task('default', function () {
-  return gulp.start('jshint-build',
+  return gulp.start('eslint-build',
     'mocha-server');
 });
 gulp.task('postdeploy', function () {
