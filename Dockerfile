@@ -24,7 +24,7 @@ WORKDIR /usr/src/app
 ENV NPM_CONFIG_LOGLEVEL=warn
 
 #install global packages
-RUN npm install mongoose-data-migrate -g && npm install -g nodemon && npm install -g gulp
+RUN npm install mongoose-data-migrate -g && npm install -g nodemon && npm install -g gulp && npm install -g bson
 
 #npm install
 ADD package.json /usr/src/app/package.json
