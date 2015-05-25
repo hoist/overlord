@@ -1,6 +1,4 @@
 'use strict';
-import {}
-from '../../bootstrap';
 import configureServer from '../../../lib/web_app/server';
 import {
 	expect

@@ -113,8 +113,9 @@ gulp.task('mocha-server-continue', ['eslint'], function (cb) {
     });
 });
 gulp.task('mocha-server', function () {
-  mochaServer({
-    reporter: 'spec'
+  return mochaServer({
+    reporter: 'spec',
+    istanbul: true
   });
 });
 gulp.task('sprite', ['imagemin'], function () {
@@ -125,8 +126,7 @@ gulp.task('sprite', ['imagemin'], function () {
       style: '_sprite.scss',
       cssPath: '/img/',
       processor: 'sprity-sass'
-    })
-    .pipe(
+    }).pipe(
       gulpif('*.png',
         gulp.dest('./lib/web_app/assets/compiled/img'),
         gulp.dest('./lib/web_app/assets/src/scss/includes')
