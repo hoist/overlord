@@ -4,7 +4,7 @@ FROM iojs:1.8
 RUN addgroup --gid 1001 hoist && adduser --system --uid 1020 --ingroup hoist --disabled-password hoist && usermod -a -G staff hoist && chown -R root:staff /usr/local/
 
 #create and set the working directory
-RUN mkdir -p /usr/src/app && mkdir /home/hoist/.npm
+RUN mkdir -p /usr/src/app/coverage && mkdir /home/hoist/.npm
 
 #copy npmrc to enable login to private npm
 COPY .npmrc /home/hoist/.npmrc

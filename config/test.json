@@ -1,0 +1,8 @@
+{
+  "Hoist": {
+    "mongo": {
+      "overlord": "mongodb://db/hoist-test"
+    },
+    "debug": true
+  }
+}

@@ -23,7 +23,13 @@ dependencies:
     - docker save "quay.io/hoist/overlord" > ~/docker/base.tar
 test:
   override:
-    - docker run -v /home/ubuntu/overlord/coverage:/usr/src/app/coverage --entrypoint gulp quay.io/hoist/overlord:${CIRCLE_BRANCH//feature\//} test
+    - docker kill mongodb; true;
+    - docker rm mongodb; true;
+    - docker kill overlord-test; true;
+    - docker rm overlord-test; true;
+    - docker run -d --name mongodb mongo
+    - docker run --link mongodb:db --name overlord-test --entrypoint gulp quay.io/hoist/overlord:${CIRCLE_BRANCH//feature\//} test
+    - docker cp overlord-test:/usr/src/app/coverage ~/
 general:
   artifacts:
     - coverage/*
