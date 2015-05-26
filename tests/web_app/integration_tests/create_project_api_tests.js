@@ -60,8 +60,8 @@ describe('create project API', function () {
 		after(() => {
 			return Project.removeAsync({});
 		});
-		it('returns [OK]', () => {
-			expect(response.statusCode).to.eql(200);
+		it('returns [CREATED]', () => {
+			expect(response.statusCode).to.eql(201);
 		});
 		it('creates the project', () => {
 			return Project.findOneAsync({

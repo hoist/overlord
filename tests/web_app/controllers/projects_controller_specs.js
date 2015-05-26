@@ -70,6 +70,8 @@ describe('project controller', () => {
 	describe('#registerBuild', () => {
 		let request;
 		let reply = Sinon.stub();
+		reply.returns(reply);
+		reply.code = Sinon.stub();
 		let savedProject;
 		let savedProjectBuild;
 		let apiToken = new APIToken({
@@ -79,11 +81,11 @@ describe('project controller', () => {
 			Sinon.stub(Project, 'findOneAsync');
 			Sinon.stub(Project.prototype, 'saveAsync', function () {
 				savedProject = this;
-				return Promise.resolve(null);
+				return Promise.resolve([this, 1]);
 			});
 			Sinon.stub(ProjectBuild.prototype, 'saveAsync', function () {
 				savedProjectBuild = this;
-				return Promise.resolve(null);
+				return Promise.resolve([this, 1]);
 			});
 		});
 		after(() => {
@@ -120,9 +122,13 @@ describe('project controller', () => {
 				savedProjectBuild = undefined;
 
 			});
-			it('returns 200', () => {
+			it('returns project build', () => {
 				return expect(reply)
-					.to.have.been.calledWith(200);
+					.to.have.been.calledWith(savedProjectBuild);
+			});
+			it('returns [created]', () => {
+				return expect(reply.code)
+					.to.have.been.calledWith(201);
 			});
 			it('creates project', () => {
 				return expect(savedProject.name)
@@ -181,6 +187,14 @@ describe('project controller', () => {
 			after(() => {
 				savedProject = undefined;
 				savedProjectBuild = undefined;
+			});
+			it('returns project build', () => {
+				return expect(reply)
+					.to.have.been.calledWith(savedProjectBuild);
+			});
+			it('returns [created]', () => {
+				return expect(reply.code)
+					.to.have.been.calledWith(201);
 			});
 			it('creates build', () => {
 				return expect(savedProjectBuild.project)

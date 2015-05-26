@@ -80,7 +80,7 @@ function mochaServer(options) {
 gulp.task('eslint-build', function () {
   return runESLint().pipe(eslint.failOnError());
 });
-gulp.task('eslint', ['scss'], function () {
+gulp.task('eslint', function () {
   return runESLint();
 });
 
@@ -198,85 +198,90 @@ gulp.task('gzip', function () {
     .pipe(gzip())
     .pipe(gulp.dest('lib/web_app/assets/compiled'));
 });
-gulp.task('version', ['version-files'], function () {
+gulp.task('version-assets', ['version-files'], function () {
   var manifest = gulp.src("./lib/web_app/assets/rev-manifest.json").pipe(debug({
     manifest: 'version:'
   }));
-
-  return es.merge([
-    gulp.src(['lib/web_app/assets/compiled/**/*'])
-    .pipe(debug({
-      title: 'version:'
-    }))
+  return gulp.src(['lib/web_app/assets/compiled/**/*'])
     .pipe(revReplace({
       manifest: manifest
     }))
-    .pipe(gulp.dest('lib/web_app/assets/compiled')),
-    gulp.src(['lib/web_app/views/_layouts/**/*'], {
+    .pipe(gulp.dest('lib/web_app/assets/compiled'));
+});
+gulp.task('version-layouts', ['version-files'], function () {
+  var manifest = gulp.src("./lib/web_app/assets/rev-manifest.json").pipe(debug({
+    manifest: 'version:'
+  }));
+  return gulp.src(['lib/web_app/views/_layouts/**/*'], {
       base: 'lib/web_app/views'
     })
-    .pipe(debug({
-      title: 'version:'
-    }))
     .pipe(revReplace({
       manifest: manifest
     }))
-    .pipe(gulp.dest('lib/web_app/assets/compiled'))
-  ]);
+    .pipe(gulp.dest('lib/web_app/assets/compiled'));
+});
+gulp.task('version', ['version-assets', 'version-layouts'], function () {
+
 });
 gulp.task('watch', function () {
   process.env.NODE_HEAPDUMP_OPTIONS = 'nosignal';
   var spawn = require('child_process').spawn;
   var bunyan;
   var watching = false;
-  gulp.start(
-    'mocha-server-continue',
-    function () {
-      // Protect against this function being called twice
-      if (!watching) {
-        watching = true;
-        livereload.listen();
-        gulp.watch('lib/web_app/assets/compiled/img/sprites/*.png', ['sprite']);
-        gulp.watch(globs.js.Gulpfile, ['jshint']);
-        gulp.watch(globs.web.assets.raw.scss, ['scss']);
-        gulp.watch(globs.web.assets.raw.images, ['imagemin']);
-        gulp.watch(globs.specs.concat(globs.js.lib), ['mocha-server-continue']);
-        nodemon({
-          script: 'web_server.js',
-          ext: 'js jsx',
-          watch: ['lib/**/*.js*', 'web_server.js'],
-          ignore: '**/assets/**/*.*',
-          env: {
-            'NODE_HEAPDUMP_OPTIONS': 'nosignal',
-            'NODE_ENV': 'development'
-          },
-          stdout: false
-        }).on('restart', function () {
-          setTimeout(livereload.reload, 1000);
-        }).on('readable', function () {
-
-          // free memory
-          if (bunyan) {
-            bunyan.kill();
-          }
-          var level = 'info';
-          if (process.env.DEBUG) {
-            level = 'debug';
-          }
-          bunyan = spawn('./node_modules/@hoist/logger/node_modules/bunyan/bin/bunyan', [
-            '--output', 'short',
-            '--color',
-            '-l', level
-          ]);
-
-          bunyan.stdout.pipe(process.stdout);
-          bunyan.stderr.pipe(process.stderr);
-
-          this.stdout.pipe(bunyan.stdin);
-          this.stderr.pipe(bunyan.stdin);
+  return runSequence('mocha-server-continue', 'build', function () {
+    if (!watching) {
+      console.log('running watch');
+      livereload.listen();
+      gulp.watch('lib/web_app/assets/compiled/img/sprites/*.png', ['sprite']);
+      gulp.watch(globs.js.Gulpfile, ['eslint']);
+      gulp.watch(globs.web.assets.raw.scss, ['build']);
+      gulp.watch(globs.web.assets.raw.images, ['build']);
+      gulp.watch(globs.specs.concat(globs.js.lib), ['mocha-server-continue']);
+      gulp.watch(globs.web.views, ['build']);
+      console.log('running nodemon');
+      nodemon({
+        script: 'web_server.js',
+        ext: 'js jsx',
+        watch: ['lib/**/*.js*', 'web_server.js'],
+        ignore: '**/assets/**/*.*',
+        env: {
+          'NODE_HEAPDUMP_OPTIONS': 'nosignal',
+          'NODE_ENV': 'development'
+        },
+        stdout: false
+      }).on('restart', function () {
+        setTimeout(livereload.reload, 1000);
+      }).on('readable', function () {
+        // free memory
+        if (bunyan) {
+          bunyan.kill();
+        }
+        var level = 'info';
+        if (process.env.DEBUG) {
+          level = 'debug';
+        }
+        bunyan = spawn('./node_modules/@hoist/logger/node_modules/bunyan/bin/bunyan', [
+          '--output', 'short',
+          '--color',
+          '-l', level
+        ]);
+        bunyan.stdout.pipe(process.stdout).on('error', function (err) {
+          console.log(4, err);
         });
-      }
-    });
+        bunyan.stderr.pipe(process.stderr).on('error', function (err) {
+          console.log(3, err);
+        });
+        this.stdout.pipe(bunyan.stdin).on('error', function (err) {
+          console.log(1, err);
+        });
+        this.stderr.pipe(bunyan.stdin).on('error', function (err) {
+          console.log(2, err);
+        });
+      }).on('error', function (err) {
+        console.log(err);
+      });
+    }
+  });
 });
 gulp.task('seq-test', function (callback) {
   runSequence('eslint', 'mocha-server-continue', callback);
