@@ -1,0 +1,11 @@
+{
+  "css/default.css": "css/default-4f4fcbe045.css",
+  "img/herbert.png": "img/herbert-a5ea59a311.png",
+  "img/herbert@2x.png": "img/herbert@2x-27f4279a7e.png",
+  "img/sprite.png": "img/sprite-5e43ecda73.png",
+  "img/sprites/menu_expand.png": "img/sprites/menu_expand-d48dca653a.png",
+  "js/templates/dashboard/index.js": "js/templates/dashboard/index-b92f1865fc.js",
+  "js/templates/servers/index.js": "js/templates/servers/index-f1fd66eb88.js",
+  "js/templates/projects/index.js": "js/templates/projects/index-597ef26f19.js",
+  "js/templates/session/create.js": "js/templates/session/create-4bdea063c3.js"
+}
