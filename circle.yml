@@ -43,4 +43,4 @@ deployment:
     commands:
       - docker login -e $DOCKER_EMAIL -u $DOCKER_USER -p $DOCKER_PASS quay.io
       - docker push quay.io/hoist/overlord:${CIRCLE_BRANCH//feature\//}
-      - echo "curl -v --request POST --header 'Content-Type: application/json' --data '{\"build\":$CIRCLE_BUILD_NUM,\"branch\":\"$CIRCLE_BRANCH\",\"sha1\":\"$CIRCLE_SHA1\",\"compareUrl\":\"$CIRCLE_COMPARE_URL\"}' https://overlord.hoist.io/api/build/overlord?api_token=$HOIST_API_TOKEN"
+      - curl -v --request POST --header $contenttype --data-urlencode build=$CIRCLE_BUILD_NUM --data-urlencode branch=$CIRCLE_BRANCH --data-urlencode sha1=$CIRCLE_SHA1 --data-urlencode compareUrl=$CIRCLE_COMPARE_URL https://overlord.hoist.io/api/build/overlord?api_token=$HOIST_API_TOKEN"
