@@ -1,9 +1,14 @@
+@import 'variables';
+
 .breadcrumbs {
-  &.container{
-    margin-bottom:30px;
-  }
+  color: $color-breadcrumbs;
   font-size: 21px;
   line-height: 21px;
-  color: #606670;
+
+  &.container {
+    margin-bottom: 30px;
+  }
+
+  
 
 }

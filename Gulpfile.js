@@ -27,6 +27,7 @@ var revReplace = require("gulp-rev-replace");
 var debug = require('gulp-debug');
 var gzip = require('gulp-gzip');
 
+
 var globs = {
   js: {
     lib: ['lib/**/*.js', '!lib/web_app/assets/**/*.js'],
@@ -186,20 +187,51 @@ gulp.task('scss', ['sprite'], function () {
       basePath: '/Volumes/Store/Projects/hoist/overlord/lib/web_app/assets/compiled'
     }));
 });
-gulp.task('version-files', function () {
+
+gulp.task('clean-versions', ['clean-gzipped'], function (callback) {
+  var fs = require('fs');
+  if (!fs.existsSync('lib/web_app/rev-manifest.json')) {
+    console.log('no manifest');
+    return callback();
+  }
+  del(['lib/web_app/assets/compiled/_layouts'], function () {
+    fs.readFile('lib/web_app/rev-manifest.json', {
+      encoding: 'utf8'
+    }, function (err, contents) {
+      if (err) {
+        throw err;
+      }
+      var manifest = JSON.parse(contents);
+      for (var propertyName in manifest) {
+        var filename = 'lib/web_app/assets/compiled/' + manifest[propertyName];
+        console.log('unlinking: ', filename);
+        try {
+          fs.unlinkSync(filename);
+        } catch (deleteError) {
+          console.log(deleteError.message);
+        }
+      }
+      callback();
+    });
+  });
+});
+gulp.task('version-files', ['clean-versions'], function () {
   return gulp.src(globs.web.assets.compiled.concat(['!**/*.map']))
     .pipe(rev())
     .pipe(gulp.dest('lib/web_app/assets/compiled'))
     .pipe(rev.manifest())
-    .pipe(gulp.dest('lib/web_app/assets/'));
+    .pipe(gulp.dest('lib/web_app'));
 });
-gulp.task('gzip', function () {
+gulp.task('clean-gzipped', function (callback) {
+  del(['lib/web_app/assets/compiled/**/*.gz'], callback);
+});
+gulp.task('gzip', ['clean-gzipped'], function () {
   return gulp.src(globs.web.assets.compiled.concat(['!**/*.map']))
     .pipe(gzip())
     .pipe(gulp.dest('lib/web_app/assets/compiled'));
 });
 gulp.task('version-assets', ['version-files'], function () {
-  var manifest = gulp.src("./lib/web_app/assets/rev-manifest.json").pipe(debug({
+  var manifest = gulp.src("./lib/web_app/rev-manifest.json").pipe(debug({
     manifest: 'version:'
   }));
   return gulp.src(['lib/web_app/assets/compiled/**/*'])
@@ -209,7 +241,7 @@ gulp.task('version-assets', ['version-files'], function () {
     .pipe(gulp.dest('lib/web_app/assets/compiled'));
 });
 gulp.task('version-layouts', ['version-files'], function () {
-  var manifest = gulp.src("./lib/web_app/assets/rev-manifest.json").pipe(debug({
+  var manifest = gulp.src("./lib/web_app/rev-manifest.json").pipe(debug({
     manifest: 'version:'
   }));
   return gulp.src(['lib/web_app/views/_layouts/**/*'], {
@@ -223,27 +255,29 @@ gulp.task('version-layouts', ['version-files'], function () {
 gulp.task('version', ['version-assets', 'version-layouts'], function () {
 
 });
-gulp.task('watch', function () {
+gulp.task('watch', function (callback) {
   process.env.NODE_HEAPDUMP_OPTIONS = 'nosignal';
   var spawn = require('child_process').spawn;
   var bunyan;
   var watching = false;
-  return runSequence('mocha-server-continue', 'build', function () {
+  runSequence(['clean', 'browserify', 'scss'], 'mocha-server-continue', function () {
     if (!watching) {
       console.log('running watch');
       livereload.listen();
-      gulp.watch('lib/web_app/assets/compiled/img/sprites/*.png', ['sprite']);
       gulp.watch(globs.js.Gulpfile, ['eslint']);
-      gulp.watch(globs.web.assets.raw.scss, ['build']);
-      gulp.watch(globs.web.assets.raw.images, ['build']);
+      gulp.watch(globs.web.assets.raw.scss, function () {
+        return runSequence('scss');
+      });
+      gulp.watch(globs.web.assets.raw.images, function () {
+        return runSequence('sprite');
+      });
       gulp.watch(globs.specs.concat(globs.js.lib), ['mocha-server-continue']);
-      gulp.watch(globs.web.views, ['build']);
       console.log('running nodemon');
       nodemon({
         script: 'web_server.js',
         ext: 'js jsx',
         watch: ['lib/**/*.js*', 'web_server.js'],
-        ignore: '**/assets/**/*.*',
+        ignore: ['**/assets/**/*'],
         env: {
           'NODE_HEAPDUMP_OPTIONS': 'nosignal',
           'NODE_ENV': 'development'
@@ -280,15 +314,17 @@ gulp.task('watch', function () {
       }).on('error', function (err) {
         console.log(err);
       });
+      callback();
     }
   });
 });
 gulp.task('seq-test', function (callback) {
   runSequence('eslint', 'mocha-server-continue', callback);
 });
-gulp.task('test', function () {
-  return gulp.start('eslint-build',
-    'mocha-server');
+gulp.task('test', function (callback) {
+  runSequence('build', ['eslint-build',
+    'mocha-server'
+  ], callback);
 });
 gulp.task('clean', function (callback) {
   del(globs.web.assets.compiled, callback);

@@ -1,8 +1,7 @@
 'use strict';
-var React = require('react');
-var LoginForm = React.createClass({
-  displayName: 'Login Form',
-  render: function(){
+import React from 'react';
+class LoginForm extends React.Component {
+  render(){
     return (
         <div className="form">
           <div className = "form-group">
@@ -15,5 +14,6 @@ var LoginForm = React.createClass({
         </div>
       );
   }
-});
-module.exports = LoginForm;
+}
+LoginForm.displayName = 'Login Form';
+export default LoginForm;

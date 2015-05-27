@@ -1,32 +1,39 @@
-@import "includes/reset";
-@import "includes/header";
-@import "includes/breadcrumbs";
-@import "includes/columns";
-@import "includes/panels";
-@import "includes/buttons";
-@import "includes/layouts/unauthenticated";
+@import 'includes/variables';
+@import 'includes/reset';
+@import 'includes/header';
+@import 'includes/breadcrumbs';
+@import 'includes/columns';
+@import 'includes/panels';
+@import 'includes/buttons';
+@import 'includes/tables';
+@import 'includes/layouts/unauthenticated';
 
-html{
+html {
   font-family: "source-sans-pro",sans-serif;
+  font-size: 14px;
   font-style: normal;
   font-weight: 400;
-  font-size: 14px;
 }
-.container{
-  width:960px;
-  margin:0 auto;
+
+.container {
+  margin: 0 auto;
+  width: 960px;
 }
-.clear-fix{
-  &:before, &:after{
-    content: " ";
+
+.clear-fix {
+  &:before, 
+  &:after {
+    content: ' ';
     display: table;
   }
-  &:after{
-    clear:both;
+
+  &:after {
+    clear: both;
   }
 }
-.right{
-  float:right;
+
+.right {
+  float: right;
 }
 
 

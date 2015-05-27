@@ -10,7 +10,7 @@ class Page extends React.Component {
         return (
             <div>
                 <Header {...otherProps}/>
-                <BreadCrumbs title={this.props.title} />
+                <BreadCrumbs breadcrumbs={this.props.breadcrumbs} title={this.props.title} />
                 <section className="container clear-fix" id="main">
                     {this.props.children}
                 </section>
@@ -22,6 +22,7 @@ class Page extends React.Component {
 Page.displayName = 'Page';
 Page.propTypes = {
     children: React.PropTypes.object.isRequired,
+    breadcrumbs: React.PropTypes.arrayOf(React.PropTypes.object),
     title: React.PropTypes.string.isRequired
 };
 

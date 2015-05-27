@@ -13,9 +13,7 @@ class LoginPage extends React.Component {
         );
   }
 }
-LoginPage.displayName = 'Logn Page';
-
-
+LoginPage.displayName = 'Login Page';
 
 export default Transmit.createContainer(LoginPage, {
 	queryParams: {},

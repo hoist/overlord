@@ -8,6 +8,7 @@ import {} from 'isomorphic-fetch';
 class ServerIndex extends React.Component {
   componentWillMount() {
     if (process && process.browser) {
+      //this forces a reload of components on the client
       this.props.setQueryParams({
         run: true
       });

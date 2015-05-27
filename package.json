@@ -45,6 +45,7 @@
     "gulp-util": "^3.0.4",
     "imagemin-pngquant": "^4.0.0",
     "node-reset-scss": "^1.0.1",
+    "rev-del": "^1.0.4",
     "run-sequence": "^1.1.0",
     "sinon": "^1.10.3",
     "sinon-chai": "^2.5.0",
