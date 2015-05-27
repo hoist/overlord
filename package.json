@@ -89,6 +89,7 @@
     "react-transmit": "^2.6.1",
     "request-promise": "^0.4.0",
     "stream-to-promise": "^1.0.4",
+    "systemjs": "^0.16.11",
     "throat": "^2.0.2",
     "validator": "^3.39.0"
   }
