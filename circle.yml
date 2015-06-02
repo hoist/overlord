@@ -43,8 +43,6 @@ deployment:
     commands:
       - docker login -e $DOCKER_EMAIL -u $DOCKER_USER -p $DOCKER_PASS quay.io
       - docker push quay.io/hoist/overlord:${CIRCLE_BRANCH//feature\//}
-      - "curl --request POST --header $contenttype --data-urlencode build=$CIRCLE_BUILD_NUM --data-urlencode branch=$CIRCLE_BRANCH --data-urlencode sha1=$CIRCLE_SHA1 --data-urlencode compareUrl=$CIRCLE_COMPARE_URL https://overlord.hoist.io/api/build/overlord?api_token=$HOIST_API_TOKEN"
 notify:
   webhooks:
-    # A list of hook hashes, containing the url field
-    - url: https://overlord.hoist.io/api/webhook/circlci?api_token=$HOIST_API_TOKEN      
+    - url: https://overlord.hoist.io/api/webhook/circleci?api_token=xc1zrzacmxp9samlj9nya4gzay
