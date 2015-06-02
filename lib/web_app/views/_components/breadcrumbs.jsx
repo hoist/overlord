@@ -7,21 +7,22 @@ class Breadcrumbs extends React.Component{
     if(this.props.breadcrumbs){
       breadcrumbs = this.props.breadcrumbs.map((breadcrumb, i)=>{
         return (
-          <span className="breadcrumb" key={i}>
+          <li key={i}>
             <a href={breadcrumb.url}>
               {breadcrumb.name}
             </a>
-            &raquo;
-          </span>
+          </li>
           );
       });
     }
     return (
-      <div className="breadcrumbs container clear-fix">
+      <div className="row">
+      <ol className="breadcrumb">
         {breadcrumbs}
-        <span>
+        <li className="active">
           {this.props.title}
-        </span>
+        </li>
+      </ol>
       </div>
       );
   }

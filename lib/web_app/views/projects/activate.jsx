@@ -2,14 +2,14 @@
 import React from "react";
 import Transmit from "react-transmit";
 import Page from '../_components/page.jsx';
+import ProjectForm from '../_components/project_form.jsx';
 
 class ProjectActivatePage extends React.Component{
   render () {
 
     return (
        <Page {...this.props}>
-          <div className="col col3">
-          </div>
+          <ProjectForm action="activate" project={this.props.project} />
        </Page>
       );
   }

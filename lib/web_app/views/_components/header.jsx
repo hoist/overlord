@@ -5,12 +5,19 @@ import MainNavMenu from './main_nav_menu.jsx';
 class Header extends React.Component {
   render() {
     return (
-      <section className='page-header' id='header'>
-        <nav id="main-nav">
-          <MainNavMenu authenticated={this.props.authenticated} controller={this.props.controller}/>
-          <UserDropdownMenu authenticated={this.props.authenticated} user={this.props.user}/>
-        </nav>
-      </section>
+      <header className="navbar navbar-inverse navbar-static-top" role="banner">
+        <div className="container">
+         <nav className="collapse navbar-collapse">
+            <div className='navbar-header'>
+              <a className="navbar-brand" href="/">
+                <img alt="overlord" src="/img/herbert.png" />
+              </a>
+            </div>
+            <MainNavMenu authenticated={this.props.authenticated} controller={this.props.controller}/>
+            <UserDropdownMenu authenticated={this.props.authenticated} user={this.props.user}/>
+          </nav>
+        </div>
+      </header>
     );
   }
 }

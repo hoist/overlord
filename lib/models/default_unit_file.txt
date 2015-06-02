@@ -1,0 +1,17 @@
+[Unit]
+Description={name}
+After=config.service
+
+[Service]
+User=core
+Restart=always
+ExecStartPre=-/usr/bin/docker kill {name}-%i
+ExecStartPre=-/usr/bin/docker rm {name}-%i
+ExecStartPre=-/usr/bin/docker pull quay.io/hoist/{name}:{branch}
+ExecStart=/usr/bin/docker run --name overlord-task-%i -e "NODE_ENV=production" --volumes-from config quay.io/hoist/{name}:{branch}
+ExecStop=/usr/bin/docker stop {name}-%i
+TimeoutStartSec=30m
+
+[X-Fleet]
+Conflicts={name}@*.service
+MachineMetadata=container_type=web

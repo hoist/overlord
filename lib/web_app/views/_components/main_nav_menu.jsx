@@ -13,14 +13,7 @@ class MainNavMenu extends React.Component {
               );
     }
     return (
-      <ul className="nav left-options" id="main-nav-menu">
-        <li>
-          <div id="home">
-            <div className="logo">
-              Overlord
-            </div>
-          </div>
-        </li>
+      <ul className="nav navbar-nav">
         {navigation}
       </ul>
       );

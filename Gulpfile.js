@@ -1,5 +1,8 @@
 'use strict';
-require("babel/register");
+var mocha = require('@hoist/gulp-mocha');
+require("babel/register")({
+  optional: ['es7.objectRestSpread']
+});
 var gulp = require('gulp');
 var eslint = require('gulp-eslint');
 var runSequence = require('run-sequence');
@@ -14,7 +17,6 @@ var browserify = require('browserify');
 var babelify = require("babelify");
 var sprity = require('sprity');
 var path = require('path');
-var mocha = require('gulp-spawn-mocha');
 var source = require('vinyl-source-stream');
 var buffer = require('vinyl-buffer');
 var uglify = require('gulp-uglify');
@@ -26,7 +28,9 @@ var del = require('del');
 var revReplace = require("gulp-rev-replace");
 var debug = require('gulp-debug');
 var gzip = require('gulp-gzip');
-
+var istanbul = require('gulp-istanbul');
+var isparta = require('isparta');
+var plumber = require('gulp-plumber');
 
 var globs = {
   js: {
@@ -65,19 +69,6 @@ function runESLint() {
     .pipe(eslint.formatEach());
 }
 
-function mochaServer(options) {
-  options = options || {
-    reporter: 'nyan',
-    growl: true
-  };
-  options.require = options.require || [];
-  options.require.push(path.resolve(__dirname, './tests/bootstrap.js'));
-  return gulp.src(globs.specs, {
-      read: false
-    })
-    .pipe(mocha(options));
-}
-
 gulp.task('eslint-build', function () {
   return runESLint().pipe(eslint.failOnError());
 });
@@ -85,7 +76,9 @@ gulp.task('eslint', function () {
   return runESLint();
 });
 
-
+var errorHandler = function () {
+  console.log('Error occured... ');
+};
 
 gulp.task('browserify', function () {
   var files = globby.sync(globs.jsx.views);
@@ -127,25 +120,50 @@ gulp.task('browserify', function () {
 });
 
 
-gulp.task('mocha-server-continue', ['eslint'], function (cb) {
-  var ended;
-  mochaServer()
-    .on('error', function () {
-      this.emit('end');
+
+function runMocha(options) {
+  options = options || {};
+  options.require = options.require || [];
+  options.require.concat(path.resolve(__dirname, './tests/bootstrap.js'));
+  options.reporter = options.reporter || 'spec';
+  return gulp.src(globs.specs, {
+      read: false
     })
-    .on('end', function () {
-      if (ended) {
-        return;
-      }
-      ended = true;
-      cb();
+    .pipe(plumber({
+      errorHandler: errorHandler
+    }))
+    .pipe(mocha(options));
+}
+
+gulp.task('mocha-server', ['eslint'], function (cb) {
+  gulp.src(globs.js.lib)
+    .pipe(istanbul({
+      instrumenter: isparta.Instrumenter
+    }))
+    .pipe(istanbul.hookRequire())
+    .on('finish', function () {
+      runMocha()
+        .pipe(istanbul.writeReports())
+        .on('end', cb);
     });
 });
-gulp.task('mocha-server', function () {
-  return mochaServer({
-    reporter: 'spec',
-    istanbul: true
-  });
+gulp.task('mocha-server-without-coverage', ['eslint'], function () {
+  return runMocha();
+});
+gulp.task('mocha-server-continue', ['eslint'], function (cb) {
+  gulp.src(globs.js.lib)
+    .pipe(plumber({
+      errorHandler: errorHandler
+    }))
+    .pipe(istanbul({
+      instrumenter: isparta.Instrumenter
+    }))
+    .pipe(istanbul.hookRequire())
+    .on('finish', function () {
+      runMocha()
+        .pipe(istanbul.writeReports())
+        .on('end', cb);
+    });
 });
 gulp.task('sprite', ['imagemin'], function () {
   return sprity.src({
@@ -177,10 +195,14 @@ gulp.task('imagemin', function () {
     }));
 });
 gulp.task('scss', ['sprite'], function () {
-  gulp.src(globs.web.assets.raw.scss)
+  return gulp.src(globs.web.assets.raw.scss)
     .pipe(sourcemaps.init())
     .pipe(sass({
-      includePaths: require('node-reset-scss').includePath
+      includePaths: [
+        require('node-reset-scss').includePath,
+        path.resolve(__dirname, './node_modules/bootstrap-sass/assets/stylesheets')
+      ]
+
     }))
     .pipe(sourcemaps.write('./maps'))
     .pipe(gulp.dest('lib/web_app/assets/compiled/css')).pipe(livereload({
@@ -260,7 +282,7 @@ gulp.task('watch', function (callback) {
   var spawn = require('child_process').spawn;
   var bunyan;
   var watching = false;
-  runSequence(['clean', 'browserify', 'scss'], 'mocha-server-continue', function () {
+  runSequence('clean', ['scss'], 'mocha-server-without-coverage', function () {
     if (!watching) {
       console.log('running watch');
       livereload.listen();
@@ -271,7 +293,7 @@ gulp.task('watch', function (callback) {
       gulp.watch(globs.web.assets.raw.images, function () {
         return runSequence('sprite');
       });
-      gulp.watch(globs.specs.concat(globs.js.lib), ['mocha-server-continue']);
+      gulp.watch(globs.specs.concat(globs.js.lib), ['mocha-server-without-coverage']);
       console.log('running nodemon');
       nodemon({
         script: 'web_server.js',
@@ -319,7 +341,7 @@ gulp.task('watch', function (callback) {
   });
 });
 gulp.task('seq-test', function (callback) {
-  runSequence('eslint', 'mocha-server-continue', callback);
+  runSequence('eslint', 'mocha-server', callback);
 });
 gulp.task('test', function (callback) {
   runSequence('build', ['eslint-build',

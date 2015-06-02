@@ -11,24 +11,16 @@ class ProjectRow extends React.Component{
   }
 
   render (){
-    var markup;
-    if (this.props.project.status === "PENDING") {
-      markup = (
-        <tr>
-          <td>{this.props.project.name}</td>
-          <td className="col col1"><div className="button button-success" onClick={this.activateProject}>Activate</div></td>
-        </tr>
+    return (
+        <div className="row">
+          <div className="col-sm-4">
+            {this.props.project.name}
+          </div>
+          <div className="col-sm-8 pull-right">
+            <a className="btn btn-success" onClick={this.activateProject}>Activate</a>
+          </div>
+        </div>
         );
-    } else {
-      markup = (
-        <tr>
-          <td>{this.props.project.name}</td>
-          <td className="col col1">View Builds</td>
-        </tr>
-        );
-    }
-
-    return markup;
   }
 }
 ProjectRow.displayName = 'Project Table Row';

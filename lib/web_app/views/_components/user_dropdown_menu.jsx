@@ -17,16 +17,16 @@ class UserDropdownMenu extends React.Component {
   render() {
     if(this.props.authenticated){
       return (
-        <ul className="nav right-options" id="secondary-menu">
-            <li className="line-break line-break-profile">
+        <ul className="nav navbar-right navbar-nav" id="secondary-menu">
+            <li className="divider">
               &nbsp;
             </li>
-            <li>
-              <a className="menu-option" onClick={this.toggleMenu}>
+            <li className={this.state.expanded ? 'dropdown open' : 'dropdown'}>
+              <a aria-expanded={this.state.expanded ? 'true' : 'false'} className="dropdown-toggle" onClick={this.toggleMenu} role="button">
                 {this.props.user}
-                <span className="icon icon-menu-dropdown"/>
+                <span className="caret"></span>
               </a>
-              <ul className={this.state.expanded ? '' : 'hidden'}>
+              <ul className='dropdown-menu' role="menu">
                 <li>
                   <a href="/session/destroy">Sign Out</a>
                 </li>

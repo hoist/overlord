@@ -48,3 +48,4 @@ config/production_test.json
 config/production_test.json
 
 lib/web_app/assets/compiled
+*.heapsnapshot
