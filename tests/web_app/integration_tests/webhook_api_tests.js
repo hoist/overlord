@@ -235,7 +235,7 @@ describe('Webhook API', () => {
 			let response;
 			let project;
 			before(() => {
-				examplePayload.status = 'failed';
+				examplePayload.payload.status = 'failed';
 				return new Project({
 						name: 'overlord',
 						status: 'ACTIVE',
@@ -272,7 +272,7 @@ describe('Webhook API', () => {
 					});
 			});
 			after(() => {
-				examplePayload.status = 'success';
+				examplePayload.payload.status = 'success';
 				return Promise.all([
 					Project.removeAsync({}),
 					ProjectDeployConfiguration.removeAsync({}),
@@ -281,12 +281,10 @@ describe('Webhook API', () => {
 				]);
 			});
 			it('does not create a deploy', () => {
-				it('creates a project deployment', () => {
-					return ProjectDeployment.countAsync()
-						.then((count) => {
-							return expect(count).to.eql(0);
-						});
-				});
+				return ProjectDeployment.countAsync()
+					.then((count) => {
+						return expect(count).to.eql(0);
+					});
 			});
 			it('responds with an [ok|200] status', () => {
 				return expect(response.statusCode).to.eql(200);
