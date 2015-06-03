@@ -24,7 +24,7 @@ class Page extends React.Component {
 Page.displayName = 'Page';
 Page.propTypes = {
     breadcrumbs: React.PropTypes.arrayOf(React.PropTypes.object),
-    children: React.PropTypes.object.isRequired,
+    children: React.PropTypes.node.isRequired,
     title: React.PropTypes.string.isRequired
 };
 

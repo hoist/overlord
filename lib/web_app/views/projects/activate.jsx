@@ -2,7 +2,7 @@
 import React from "react";
 import Transmit from "react-transmit";
 import Page from '../_components/page.jsx';
-import ProjectForm from '../_components/project_form.jsx';
+import ProjectForm from './components/project_form.jsx';
 
 class ProjectActivatePage extends React.Component{
   render () {

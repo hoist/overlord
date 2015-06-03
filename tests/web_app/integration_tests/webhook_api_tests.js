@@ -33,7 +33,8 @@ describe('Webhook API', () => {
 				apiToken = token;
 			}),
 			new Environment({
-				name: 'live'
+				name: 'live',
+				fleetUrl: 'some url'
 			}).saveAsync().spread((env) => {
 				environment = env;
 			})
@@ -41,7 +42,7 @@ describe('Webhook API', () => {
 		]);
 	});
 	after(() => {
-		Bluebird.promisify(mongoose.connection.db.dropDatabase, mongoose.connection.db)()
+		return Bluebird.promisify(mongoose.connection.db.dropDatabase, mongoose.connection.db)()
 			.then(() => {
 				return mongoose.disconnectAsync();
 			});

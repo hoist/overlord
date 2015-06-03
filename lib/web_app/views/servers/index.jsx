@@ -2,7 +2,7 @@
 import React from "react";
 import Transmit from "react-transmit";
 import Page from '../_components/page.jsx';
-import MachineView from '../_components/machine_view.jsx';
+import MachineView from './components/machine_view.jsx';
 import {} from 'isomorphic-fetch';
 
 class ServerIndex extends React.Component {

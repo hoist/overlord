@@ -1,7 +1,7 @@
 'use strict';
 import React from "react";
 import Transmit from "react-transmit";
-import LoginForm from "../_components/login.jsx";
+import LoginForm from "./components/login.jsx";
 
 class LoginPage extends React.Component {
   render () {

@@ -2,7 +2,7 @@
 import React from "react";
 import Transmit from "react-transmit";
 import Page from '../_components/page.jsx';
-import ProjectTable from '../_components/project_table.jsx';
+import ProjectTable from './components/project_table.jsx';
 import {} from 'isomorphic-fetch';
 
 class ProjectIndex extends React.Component{
