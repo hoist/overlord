@@ -16,11 +16,23 @@
   "bugs": {
     "url": "https://github.com/hoist/overlord/issues"
   },
+  "jest": {
+    "scriptPreprocessor": "<rootDir>/node_modules/babel-jest",
+    "testFileExtensions": [
+      "js"
+    ],
+    "moduleFileExtensions": [
+      "jsx",
+      "json",
+      "js"
+    ]
+  },
   "homepage": "https://github.com/hoist/overlord",
   "devDependencies": {
     "@hoist/gulp-mocha": "^2.0.1",
     "atom-ui-reporter": "0.0.1",
     "babel-eslint": "^3.1.8",
+    "babel-jest": "^5.2.0",
     "bootstrap-sass": "^3.3.4",
     "chai": "^2.3.0",
     "chai-as-promised": "^5.0.0",
@@ -28,7 +40,6 @@
     "del": "^1.2.0",
     "eslint": "^0.22.1",
     "eslint-plugin-react": "^2.3.0",
-    "event-stream": "^3.3.1",
     "globby": "^2.0.0",
     "gulp": "^3.8.11",
     "gulp-debug": "^2.0.1",
@@ -37,7 +48,9 @@
     "gulp-if": "^1.2.5",
     "gulp-imagemin": "^2.2.1",
     "gulp-istanbul": "^0.9.0",
+    "gulp-jest": "^0.4.0",
     "gulp-livereload": "^3.8.0",
+    "gulp-load-plugins": "^0.10.0",
     "gulp-nodemon": "^2.0.2",
     "gulp-plumber": "^1.0.1",
     "gulp-rev": "^4.0.0",
@@ -51,13 +64,17 @@
     "isparta": "^3.0.3",
     "mocha": "^2.2.5",
     "mocha-notifier-reporter": "^0.1.1",
+    "node-notifier": "^4.2.1",
     "node-reset-scss": "^1.0.1",
+    "require-dir": "^0.3.0",
     "rev-del": "^1.0.4",
     "run-sequence": "^1.1.0",
     "sinon": "^1.10.3",
     "sinon-chai": "^2.5.0",
     "sprity": "^1.0.2",
     "sprity-sass": "^1.0.2",
+    "stream-to-promise": "^1.0.4",
+    "throat": "^2.0.2",
     "through2": "^0.6.5",
     "vinyl-buffer": "^1.0.0",
     "vinyl-source-stream": "^1.1.0",

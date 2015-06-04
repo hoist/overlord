@@ -15,18 +15,31 @@ class EnvironmentForm extends React.Component {
       e.preventDefault();
       var name = React.findDOMNode(this.refs.name).value.trim();
       var fleetUrl = React.findDOMNode(this.refs.fleetUrl).value.trim();
+      var isNew = React.findDOMNode(this.refs.isNew).value.trim();
+      var _id = React.findDOMNode(this.refs._id).value.trim();
+      var slug = React.findDOMNode(this.refs.slug).value.trim();
       var environment = {
+        _id: _id,
+        slug: slug,
         name: name,
-        fleetUrl: fleetUrl
+        fleetUrl: fleetUrl,
+        isNew: isNew
       };
       this.saveEnvironment(environment);
     };
   }
 
   saveEnvironment(environment) {
-    return global.fetch('/api/environment', {
+    let method = 'post';
+    let path = '/api/environment';
+    if (environment.isNew === 'false') {
+      //make this an update
+      method = 'put';
+      path = `/api/environment/${environment.slug}`;
+    }
+    return global.fetch(path, {
       credentials: 'include',
-      method: 'post',
+      method: method,
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json'
@@ -42,7 +55,7 @@ class EnvironmentForm extends React.Component {
           errors: response.errors || {}
         });
       } else {
-        global.location = '/environments';
+        global.location = `/environment/${response.slug}`;
       }
     }).catch((err) => {
       console.log('error', err);
@@ -89,6 +102,9 @@ class EnvironmentForm extends React.Component {
 
     return (
       <form className="form-horizontal" onSubmit={this.handleSubmit}>
+        <input aria-hidden="true" defaultValue={this.state.environment._id} id="_id" ref="_id" type="hidden"/>
+        <input aria-hidden="true" defaultValue={this.state.environment.slug} id="slug" ref="slug" type="hidden"/>
+        <input aria-hidden="true" defaultValue={this.state.environment.isNew} id="isNew" ref="isNew" type="hidden"/>
         <div className={nameGroupClasses}>
           <div className={nameAlertClasses} role="alert">
             <span aria-hidden="true" className="glyphicon glyphicon-exclamation-sign"></span>

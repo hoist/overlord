@@ -41,11 +41,41 @@ describe('environment view routes', () => {
         return mongoose.disconnectAsync();
       });
   });
-  describe('GET /environment/new', () => {
-    describe('if logged in', () => {});
+  describe('GET /environment', () => {
+    describe('if logged in', () => {
+      let response;
+      let $;
+      before(() => {
+        return serverHelper.getAuthCookie().then((cookie) => {
+          return new Promise((resolve) => {
+            server.inject({
+              method: 'GET',
+              url: `/environment`,
+              headers: {
+                cookie: cookie
+              }
+            }, (res) => {
+              resolve(res);
+            });
+          });
+        }).then((res) => {
+          response = res;
+          $ = cheerio.load(response.payload);
+        });
+      });
+      it('serves up new environment page', () => {
+        return expect($('title').text()).to.eql('Environments => New Environment');
+      });
+      it('populates form with defaults', () => {
+        return expect($('#name').val()).to.not.exist &&
+          expect($('#fleetUrl').val()).to.not.exist &&
+          expect($('#slug').val()).to.not.exist &&
+          expect($('#isNew').val()).to.eql('true');
+      });
+    });
     describe('if not logged in', () => {
       before(function () {
-        serverHelper.testSecuredRoute('/environment/new').then((res) => {
+        serverHelper.testSecuredRoute('/environment').then((res) => {
           this.response = res;
         });
       });
@@ -55,9 +85,36 @@ describe('environment view routes', () => {
   describe('GET /environment/{slug}', () => {
     describe('if logged in', () => {
       describe('if environment exists', () => {
-        before(() => {});
-        it('serves up edit page');
-        it('populates form');
+        let response;
+        let $;
+        before(() => {
+          return serverHelper.getAuthCookie().then((cookie) => {
+            return new Promise((resolve) => {
+              server.inject({
+                method: 'GET',
+                url: `/environment/${existingEnvironment.slug}`,
+                headers: {
+                  cookie: cookie
+                }
+              }, (res) => {
+                resolve(res);
+              });
+            });
+          }).then((res) => {
+            response = res;
+            $ = cheerio.load(response.payload);
+          });
+        });
+        it('serves up edit page', () => {
+          return expect($('title').text()).to.eql('Environments => Edit');
+        });
+        it('populates form', () => {
+          return expect($('#name').val()).to.eql(existingEnvironment.name) &&
+            expect($('#fleetUrl').val()).to.eql(existingEnvironment.fleetUrl) &&
+            expect($('#_id').val()).to.eql(existingEnvironment._id.toString()) &&
+            expect($('#slug').val()).to.eql(existingEnvironment.slug) &&
+            expect($('#isNew').val()).to.eql('false');
+        });
       });
     });
     describe('if not logged in', () => {

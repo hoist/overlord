@@ -12,7 +12,7 @@ class NewEnvironment extends React.Component {
     );
   }
 }
-NewEnvironment.displayName = 'New Environment Page';
+NewEnvironment.displayName = 'Edit Environment Page';
 NewEnvironment.propTypes = {
   environment: React.PropTypes.object.isRequired,
   setQueryParams: React.PropTypes.func.isRequired
