@@ -1,7 +1,7 @@
 'use strict';
 import React from 'react';
 import Transmit from 'react-transmit';
-
+import EnvironmentRow from './environment_row.jsx';
 class EnvironmentTable extends React.Component {
   constructor(props) {
     super(props);
@@ -9,30 +9,25 @@ class EnvironmentTable extends React.Component {
       loading: true
     };
   }
-  render () {
+  render() {
     var body = 'No Environments';
     if (this.props.environments.length > 0) {
       body = (
-          <table className="table table-striped">
+        <table className="table table-striped">
             <thead className=''>
               <tr>
-                <td>
+                <th>
                   Name
-                </td>
-                <td>
+                </th>
+                <th collSpan="2">
                   Fleet Url
-                </td>
-                <td></td>
+                </th>
               </tr>
             </thead>
             <tbody>
-              {this.props.environments.map((environment) => {
+              {this.props.environments.map((environment, i) => {
             return (
-                <tr>
-                  <td>{environment.name}</td>
-                  <td>{environment.fleetUrl}</td>
-                  <td></td>
-                </tr>
+               <EnvironmentRow environment={environment} key={i} />
             );
           })}
             </tbody>
@@ -53,7 +48,7 @@ class EnvironmentTable extends React.Component {
     );
   }
 }
-EnvironmentTable.displayName = 'Project Table';
+EnvironmentTable.displayName = 'Environments Table';
 EnvironmentTable.propTypes = {
   environments: React.PropTypes.arrayOf(React.PropTypes.object).isRequired,
   setQueryParams: React.PropTypes.func
@@ -61,6 +56,6 @@ EnvironmentTable.propTypes = {
 
 export
 default Transmit.createContainer(EnvironmentTable, {
-queryParams: {},
-queries: {}
+  queryParams: {},
+  queries: {}
 });

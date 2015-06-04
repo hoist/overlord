@@ -1,49 +1,118 @@
 'use strict';
-import React from "react";
+import React from 'react';
+import classnames from 'classnames';
+import {}
+from 'isomorphic-fetch';
 
 class EnvironmentForm extends React.Component {
-  construct(props) {
+  constructor(props) {
     super(props);
     this.state = {
       environment: props.initialEnvironment,
       errors: {}
     };
+    this.handleSubmit = (e) => {
+      e.preventDefault();
+      var name = React.findDOMNode(this.refs.name).value.trim();
+      var fleetUrl = React.findDOMNode(this.refs.fleetUrl).value.trim();
+      var environment = {
+        name: name,
+        fleetUrl: fleetUrl
+      };
+      this.saveEnvironment(environment);
+    };
   }
-  handleSubmit(e) {
-    e.preventDefault();
-    var name = React.findDOMNode(this.refs.name).value.trim();
-    var fleetUrl = React.findDOMNode(this.refs.name).value.trim();
 
+  saveEnvironment(environment) {
+    return global.fetch('/api/environment', {
+      credentials: 'include',
+      method: 'post',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(environment)
+    }).then((response) => {
+      return response.json();
+    }).then((response) => {
+      //presence of response.statuscode indicates a non 200 response
+      if (response.statusCode) {
+        this.setState({
+          environment: environment,
+          errors: response.errors || {}
+        });
+      } else {
+        global.location = '/environments';
+      }
+    }).catch((err) => {
+      console.log('error', err);
+    });
   }
 
   render() {
-    let nameGroupClasses = React.addons.classSet({
+    let nameGroupClasses = classnames({
       'form-group': true,
       'has-error': this.state.errors.name,
-      'has-feedback': this.stat.errors.name
+      'has-feedback': this.state.errors.name
     });
-    let fleetUrlGroupClasses = React.addons.classSet({
+    let fleetUrlGroupClasses = classnames({
       'form-group': true,
       'has-error': this.state.errors.fleetUrl,
       'has-feedback': this.state.errors.fleetUrl
     });
 
+    let feedbackIconClasses = {
+      "glyphicon": true,
+      "glyphicon-remove": true,
+      "form-control-feedback": true
+    };
+    let fleetUrlFeedbackIconClasses = classnames(feedbackIconClasses, {
+      "hidden": !(this.state.errors.fleetUrl)
+    });
+    let nameFeedbackIconClasses = classnames(feedbackIconClasses, {
+      "hidden": !(this.state.errors.name)
+    });
+    let nameAlertClasses = classnames({
+      "col-sm-10": true,
+      "col-sm-offset-2": true,
+      "alert": true,
+      "alert-danger": true,
+      "hidden": !(this.state.errors.name)
+    });
+    let fleetUrlAlertClasses = classnames({
+      "col-sm-10": true,
+      "col-sm-offset-2": true,
+      "alert": true,
+      "alert-danger": true,
+      "hidden": !(this.state.errors.fleetUrl)
+    });
+
     return (
       <form className="form-horizontal" onSubmit={this.handleSubmit}>
         <div className={nameGroupClasses}>
+          <div className={nameAlertClasses} role="alert">
+            <span aria-hidden="true" className="glyphicon glyphicon-exclamation-sign"></span>
+            <span className="sr-only">Error:</span>
+            &nbsp;{(this.state.errors.name) ? this.state.errors.name.message : '' }
+          </div>
           <label className="control-label col-sm-2" htmlFor="name">Name</label>
           <div className="col-sm-10">
-            <input aria-describedby="nameStatus" className='form-control' defaultValue={this.state.environment.name} id="name" placeholder="name" ref="name" required="true"/>
-            <span aria-hidden="true" className="glyphicon glyphicon-remove form-control-feedback"></span>
-            <span className="sr-only" id="nameStatus">{this.state.errors.name}</span>
+            <input aria-describedby="nameStatus" className='form-control' defaultValue={this.state.environment.name} id="name" placeholder="name" ref="name"/>
+            <span aria-hidden="true" className={nameFeedbackIconClasses}></span>
+            <span className="sr-only" id="nameStatus">{(this.state.errors.name) ? this.state.errors.name.message : ''}</span>
           </div>
         </div>
         <div className={fleetUrlGroupClasses}>
+          <div className={fleetUrlAlertClasses} role="alert">
+            <span aria-hidden="true" className="glyphicon glyphicon-exclamation-sign"></span>
+            <span className="sr-only">Error:</span>
+            &nbsp;{(this.state.errors.fleetUrl) ? this.state.errors.fleetUrl.message : '' }
+          </div>
           <label className="control-label col-sm-2" htmlFor="fleetUrl">Fleet URL:</label>
           <div className="col-sm-10">
-            <input aria-describedby="fleetUrlStatus" className='form-control' defaultValue={this.state.environment.fleetUrl} id="fleetUrl" placeholder="someurl:3001" ref="fleetUrl" required="true"/>
-            <span aria-hidden="true" className="glyphicon glyphicon-remove form-control-feedback"></span>
-            <span className="sr-only" id="fleetUrlStatus">{this.state.errors.fleetUrl}</span>
+            <input aria-describedby="fleetUrlStatus" className='form-control' defaultValue={this.state.environment.fleetUrl} id="fleetUrl" placeholder="someurl:3001" ref="fleetUrl"/>
+            <span aria-hidden="true" className={fleetUrlFeedbackIconClasses}></span>
+            <span className="sr-only" id="fleetUrlStatus">{(this.state.errors.fleetUrl) ? this.state.errors.fleetUrl.message : ''}</span>
           </div>
         </div>
         <div className="form-group">

@@ -34,7 +34,7 @@ describe('Webhook API', () => {
       }),
       new Environment({
         name: 'live',
-        fleetUrl: 'some url'
+        fleetUrl: 'http://test.hoist.io/fleet'
       }).saveAsync().spread((env) => {
         environment = env;
       })

@@ -1,11 +1,10 @@
 'use strict';
-import configureServer from '../../../lib/web_app/server';
-import User from '../../../lib/models/user';
-import Environment from '../../../lib/models/environment';
+import configureServer from '../../../../lib/web_app/server';
+import Environment from '../../../../lib/models/environment';
 import mongoose from 'mongoose';
 import Bluebird from 'bluebird';
 import config from 'config';
-import cheerio from 'cheerio';
+import {ServerHelper} from '../../../fixtures/helpers';
 import {
   expect
 }
@@ -13,52 +12,15 @@ from 'chai';
 Bluebird.promisifyAll(mongoose);
 describe('environment api', () => {
   let server;
-  let getAuthCookie = () => {
-    return new Promise((resolve) => {
-      server.inject({
-        method: 'GET',
-        url: '/TEST/login'
-      }, (loginResponse) => {
-        var header = loginResponse.headers['set-cookie'];
-        var cookie = header[0].match(/(?:[^\x00-\x20\(\)<>@\,;\:\\"\/\[\]\?\=\{\}\x7F]+)\s*=\s*(?:([^\x00-\x20\"\,\;\\\x7F]*))/);
-        resolve(cookie[0]);
-      });
-    });
-  };
+  let serverHelper;
   before(() => {
     return Promise.all([
       mongoose.connectAsync(config.get('Hoist.mongo.overlord')),
       configureServer().then((s) => {
         server = Bluebird.promisifyAll(s);
+        serverHelper = new ServerHelper(s);
       }).then(() => {
-        return new User({
-          name: 'unit test user',
-          username: 'tests@hoist.io'
-        }).saveAsync().spread((user) => {
-          return user;
-        });
-      }).then((testUser) => {
-        server.route({
-          method: 'GET',
-          path: '/TEST/login',
-          config: {
-            auth: {
-              mode: 'try',
-              strategy: 'session'
-            },
-            plugins: {
-              'hapi-auth-cookie': {
-                redirectTo: false
-              }
-            },
-            handler: function (request, reply) {
-              request.auth.session.set({
-                user: testUser
-              });
-              return reply(testUser);
-            }
-          }
-        });
+        return serverHelper.setupTestUser();
       })
     ]);
   });
@@ -68,60 +30,10 @@ describe('environment api', () => {
         return mongoose.disconnectAsync();
       });
   });
-  describe('GET /environments', () => {
-    describe('if logged in', () => {
-      let response;
-      before(() => {
-        return getAuthCookie().then((cookie) => {
-          return new Promise((resolve) => {
-            server.inject({
-              method: 'GET',
-              url: `/environments`,
-              headers: {
-                cookie: cookie
-              }
-            }, (res) => {
-              resolve(res);
-            });
-          });
-        }).then((res) => {
-          response = res;
-        });
-      });
-      it('returns view', () => {
-        let $ = cheerio.load(response.payload);
-        return expect($('title').text()).to.eql('Environments');
-      });
-      it('returns [ok|200] response', () => {
-        return expect(response.statusCode).to.eql(200);
-      });
-    });
-    describe('if not logged in', () => {
-      let response;
-      before(() => {
-        return new Promise((resolve) => {
-          server.inject({
-            method: 'GET',
-            url: `/environments`
-          }, (res) => {
-            resolve(res);
-          });
-        }).then((res) => {
-          response = res;
-        });
-      });
-      it('returns [redirect|302] response', () => {
-        return expect(response.statusCode).to.eql(302);
-      });
-      it('redirects to login page', () => {
-        return expect(response.headers.location).to.eql('/session/create');
-      });
-    });
-  });
   describe('POST /api/environment', () => {
     let testPayload = {
       name: 'test environment',
-      fleetUrl: 'http://testfleeturl'
+      fleetUrl: 'http://testfleeturl.com'
     };
     describe('if not logged in', () => {
       let response;
@@ -145,7 +57,7 @@ describe('environment api', () => {
     describe('with valid payload', () => {
       let response;
       before(() => {
-        return getAuthCookie().then((cookie) => {
+        return serverHelper.getAuthCookie().then((cookie) => {
           return new Promise((resolve) => {
             server.inject({
               method: 'POST',
@@ -180,9 +92,9 @@ describe('environment api', () => {
       before(() => {
         return new Environment({
           name: 'test environment',
-          fleetUrl: 'someurl'
+          fleetUrl: 'http://test.hoist.io/fleet'
         }).saveAsync().then(() => {
-          return getAuthCookie().then((cookie) => {
+          return serverHelper.getAuthCookie().then((cookie) => {
             return new Promise((resolve) => {
               server.inject({
                 method: 'POST',
@@ -225,7 +137,7 @@ describe('environment api', () => {
       before(() => {
         originalName = testPayload.name;
         delete testPayload.name;
-        return getAuthCookie().then((cookie) => {
+        return serverHelper.getAuthCookie().then((cookie) => {
           return new Promise((resolve) => {
             server.inject({
               method: 'POST',
@@ -268,7 +180,7 @@ describe('environment api', () => {
       before(() => {
         originalUrl = testPayload.fleetUrl;
         delete testPayload.fleetUrl;
-        return getAuthCookie().then((cookie) => {
+        return serverHelper.getAuthCookie().then((cookie) => {
           return new Promise((resolve) => {
             server.inject({
               method: 'POST',

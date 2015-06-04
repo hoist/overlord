@@ -31,6 +31,7 @@ var gzip = require('gulp-gzip');
 var istanbul = require('gulp-istanbul');
 var isparta = require('isparta');
 var plumber = require('gulp-plumber');
+var notifierReporter = require('mocha-notifier-reporter');
 
 var globs = {
   js: {
@@ -125,7 +126,7 @@ function runMocha(options) {
   options = options || {};
   options.require = options.require || [];
   options.require.concat(path.resolve(__dirname, './tests/bootstrap.js'));
-  options.reporter = options.reporter || 'spec';
+  options.reporter = options.reporter || notifierReporter.decorate('spec');
   return gulp.src(globs.specs, {
       read: false
     })

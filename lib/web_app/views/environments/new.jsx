@@ -7,12 +7,12 @@ class NewEnvironment extends React.Component {
   render () {
     return (
       <Page {...this.props}>
-        <EnvironmentForm environment={this.props.environment}/>
+        <EnvironmentForm initialEnvironment={this.props.environment}/>
       </Page>
     );
   }
 }
-NewEnvironment.displayName = 'Environment Index Page';
+NewEnvironment.displayName = 'New Environment Page';
 NewEnvironment.propTypes = {
   environment: React.PropTypes.object.isRequired,
   setQueryParams: React.PropTypes.func.isRequired
