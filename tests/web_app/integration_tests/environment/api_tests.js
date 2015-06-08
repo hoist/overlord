@@ -49,9 +49,7 @@ describe('environment api', () => {
       });
     });
     after(() => {
-      return Environment.removeAsync({
-        slug: existingEnvironment.slug
-      });
+      return Environment.removeAsync({});
     });
     describe('if not logged in', () => {
       let response;
