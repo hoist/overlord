@@ -7,10 +7,10 @@ requireDir('./gulp/tasks', { recurse: true });
 gulp.task('seq-test', function (callback) {
   runSequence('eslint', 'mocha-server', callback);
 });
-gulp.task('test', function (callback) {
-  runSequence('build', ['eslint-build',
+gulp.task('test', function () {
+  return gulp.start('eslint-build',
     'mocha-server-without-coverage'
-  ], callback);
+  );
 });
 gulp.task('build', ['clean'], function (callback) {
   runSequence(['scss', 'browserify'],

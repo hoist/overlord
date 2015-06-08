@@ -64,6 +64,10 @@ gulp.task('watch', function (callback) {
       }).on('error', function (err) {
         console.log(err);
       });
+      setTimeout(function () {
+        var open = require('open');
+        open('http://localhost:8000');
+      }, 5000);
       callback();
     }
   });

@@ -1,5 +1,4 @@
 'use strict';
-var mocha = require('@hoist/gulp-mocha');
 var gulp = require('gulp');
 var path = require('path');
 var loadPlugins = require('gulp-load-plugins');
@@ -19,9 +18,9 @@ function runMocha(options) {
       read: false
     })
     .pipe(plugins.plumber({
-      errorHandler: helpers.errorHandler
+      errorHandler: options.errorHandler || helpers.errorHandler
     }))
-    .pipe(mocha(options));
+    .pipe(plugins.mocha(options));
 }
 
 gulp.task('mocha-server', ['eslint'], function (cb) {
@@ -50,6 +49,7 @@ gulp.task('mocha-server-continue', ['eslint'], function (cb) {
   require("babel/register")({
     optional: ['es7.objectRestSpread']
   });
+  var ended;
   gulp.src(globs.js.lib)
     .pipe(plugins.plumber({
       errorHandler: helpers.errorHandler
@@ -62,9 +62,27 @@ gulp.task('mocha-server-continue', ['eslint'], function (cb) {
       require("babel/register")({
         optional: ['es7.objectRestSpread']
       });
-      runMocha()
+      runMocha({
+          errorHandler: function () {
+            this.emit('end');
+          }
+        })
+        .pipe(plugins.plumber.stop())
+        .pipe(plugins.plumber({
+          errorHandler: helpers.errorHandler
+        }))
         .pipe(plugins.istanbul.writeReports())
-        .pipe(plugins.istanbul.enforceThresholds({ thresholds: { global: 80 } }))
-        .on('end', cb);
+        .pipe(plugins.istanbul.enforceThresholds({
+          thresholds: {
+            global: 80
+          }
+        }))
+        .on('end', function () {
+          if (!ended) {
+            ended = true;
+            cb();
+          }
+        });
     });
+
 });

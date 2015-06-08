@@ -15,24 +15,25 @@ class EnvironmentForm extends React.Component {
       e.preventDefault();
       var name = React.findDOMNode(this.refs.name).value.trim();
       var fleetUrl = React.findDOMNode(this.refs.fleetUrl).value.trim();
-      var isNew = React.findDOMNode(this.refs.isNew).value.trim();
       var _id = React.findDOMNode(this.refs._id).value.trim();
       var slug = React.findDOMNode(this.refs.slug).value.trim();
       var environment = {
         _id: _id,
         slug: slug,
         name: name,
-        fleetUrl: fleetUrl,
-        isNew: isNew
+        fleetUrl: fleetUrl
       };
       this.saveEnvironment(environment);
     };
   }
-
+  handleCancel(e) {
+    e.preventDefault();
+    global.location = '/environments';
+  }
   saveEnvironment(environment) {
     let method = 'post';
     let path = '/api/environment';
-    if (environment.isNew === 'false') {
+    if (environment.slug) {
       //make this an update
       method = 'put';
       path = `/api/environment/${environment.slug}`;
@@ -104,16 +105,15 @@ class EnvironmentForm extends React.Component {
       <form className="form-horizontal" onSubmit={this.handleSubmit}>
         <input aria-hidden="true" defaultValue={this.state.environment._id} id="_id" ref="_id" type="hidden"/>
         <input aria-hidden="true" defaultValue={this.state.environment.slug} id="slug" ref="slug" type="hidden"/>
-        <input aria-hidden="true" defaultValue={this.state.environment.isNew} id="isNew" ref="isNew" type="hidden"/>
         <div className={nameGroupClasses}>
           <div className={nameAlertClasses} role="alert">
             <span aria-hidden="true" className="glyphicon glyphicon-exclamation-sign"></span>
             <span className="sr-only">Error:</span>
-            &nbsp;{(this.state.errors.name) ? this.state.errors.name.message : '' }
+            {(this.state.errors.name) ? this.state.errors.name.message : '' }
           </div>
           <label className="control-label col-sm-2" htmlFor="name">Name</label>
           <div className="col-sm-10">
-            <input aria-describedby="nameStatus" className='form-control' defaultValue={this.state.environment.name} id="name" placeholder="name" ref="name"/>
+            <input aria-describedby="nameStatus" className='form-control' defaultValue={this.state.environment.name} id="name" placeholder="name" ref="name" required="true"/>
             <span aria-hidden="true" className={nameFeedbackIconClasses}></span>
             <span className="sr-only" id="nameStatus">{(this.state.errors.name) ? this.state.errors.name.message : ''}</span>
           </div>
@@ -122,18 +122,18 @@ class EnvironmentForm extends React.Component {
           <div className={fleetUrlAlertClasses} role="alert">
             <span aria-hidden="true" className="glyphicon glyphicon-exclamation-sign"></span>
             <span className="sr-only">Error:</span>
-            &nbsp;{(this.state.errors.fleetUrl) ? this.state.errors.fleetUrl.message : '' }
+            {(this.state.errors.fleetUrl) ? this.state.errors.fleetUrl.message : '' }
           </div>
           <label className="control-label col-sm-2" htmlFor="fleetUrl">Fleet URL:</label>
           <div className="col-sm-10">
-            <input aria-describedby="fleetUrlStatus" className='form-control' defaultValue={this.state.environment.fleetUrl} id="fleetUrl" placeholder="someurl:3001" ref="fleetUrl"/>
+            <input aria-describedby="fleetUrlStatus" className='form-control' defaultValue={this.state.environment.fleetUrl} id="fleetUrl" placeholder="someurl:3001" ref="fleetUrl" required="true"/>
             <span aria-hidden="true" className={fleetUrlFeedbackIconClasses}></span>
             <span className="sr-only" id="fleetUrlStatus">{(this.state.errors.fleetUrl) ? this.state.errors.fleetUrl.message : ''}</span>
           </div>
         </div>
         <div className="form-group">
           <div className="col-sm-offset-2 col-sm-10 btn-group">
-            <button className="btn btn-default">Cancel</button>
+            <button className="btn btn-default" onClick={this.handleCancel}>Cancel</button>
             <button className="btn btn-success" type="submit">Save</button>
           </div>
         </div>

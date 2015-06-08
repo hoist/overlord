@@ -8,6 +8,6 @@ module.exports = {
 			title: 'A Gulp error occurred',
 			message: err.message
 		});
-		console.log('Error:', err.message);
+		console.log('Error:', err.message, err.stack);
 	}
 };

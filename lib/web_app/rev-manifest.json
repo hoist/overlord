@@ -4,11 +4,11 @@
   "img/herbert@2x.png": "img/herbert@2x-27f4279a7e.png",
   "img/sprite.png": "img/sprite-5e43ecda73.png",
   "img/sprites/menu_expand.png": "img/sprites/menu_expand-d48dca653a.png",
-  "js/templates/dashboard/index.js": "js/templates/dashboard/index-a3c4eab390.js",
-  "js/templates/environments/edit.js": "js/templates/environments/edit-cfa0d09cb6.js",
-  "js/templates/environments/index.js": "js/templates/environments/index-b2ea3843bb.js",
-  "js/templates/projects/activate.js": "js/templates/projects/activate-d48fea6068.js",
-  "js/templates/projects/index.js": "js/templates/projects/index-05e352b5a1.js",
-  "js/templates/servers/index.js": "js/templates/servers/index-f7384d1bfb.js",
+  "js/templates/dashboard/index.js": "js/templates/dashboard/index-a69a719664.js",
+  "js/templates/environments/edit.js": "js/templates/environments/edit-f9eaa0680f.js",
+  "js/templates/environments/index.js": "js/templates/environments/index-d927e6bc57.js",
+  "js/templates/projects/activate.js": "js/templates/projects/activate-ed3c008551.js",
+  "js/templates/projects/index.js": "js/templates/projects/index-67bd0cd3b8.js",
+  "js/templates/servers/index.js": "js/templates/servers/index-af82eb477e.js",
   "js/templates/session/create.js": "js/templates/session/create-09677b7812.js"
 }

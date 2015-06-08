@@ -18,9 +18,7 @@ class UserDropdownMenu extends React.Component {
     if (this.props.authenticated) {
       return (
         <ul className="nav navbar-right navbar-nav" id="secondary-menu">
-          <li className="divider">
-            &nbsp;
-          </li>
+          <li className="divider"></li>
           <li className={this.state.expanded ? 'dropdown open' : 'dropdown'}>
             <a aria-expanded={this.state.expanded ? 'true' : 'false'} className="dropdown-toggle" onClick={this.toggleMenu} role="button">
               {this.props.user}

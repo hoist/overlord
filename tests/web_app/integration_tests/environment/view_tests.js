@@ -64,13 +64,12 @@ describe('environment view routes', () => {
         });
       });
       it('serves up new environment page', () => {
-        return expect($('title').text()).to.eql('Environments => New Environment');
+        return expect($('title').text()).to.eql('New Environment');
       });
       it('populates form with defaults', () => {
         return expect($('#name').val()).to.not.exist &&
           expect($('#fleetUrl').val()).to.not.exist &&
-          expect($('#slug').val()).to.not.exist &&
-          expect($('#isNew').val()).to.eql('true');
+          expect($('#slug').val()).to.not.exist;
       });
     });
     describe('if not logged in', () => {
@@ -106,14 +105,13 @@ describe('environment view routes', () => {
           });
         });
         it('serves up edit page', () => {
-          return expect($('title').text()).to.eql('Environments => Edit');
+          return expect($('title').text()).to.eql('Edit Environment');
         });
         it('populates form', () => {
           return expect($('#name').val()).to.eql(existingEnvironment.name) &&
             expect($('#fleetUrl').val()).to.eql(existingEnvironment.fleetUrl) &&
             expect($('#_id').val()).to.eql(existingEnvironment._id.toString()) &&
-            expect($('#slug').val()).to.eql(existingEnvironment.slug) &&
-            expect($('#isNew').val()).to.eql('false');
+            expect($('#slug').val()).to.eql(existingEnvironment.slug);
         });
       });
     });
