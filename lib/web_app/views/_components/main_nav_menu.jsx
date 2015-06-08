@@ -3,26 +3,28 @@ import React from 'react';
 
 class MainNavMenu extends React.Component {
   render() {
-     var navigation;
-     if(this.props.authenticated){
-      navigation = (
-        [<li className={(this.props.controller === 'Projects') ? "active" : ""} key="projects"><a href="/projects">Projects</a></li>,
-        <li className={(this.props.controller === 'Servers') ? "active" : ""} key="servers"><a href="/servers">Servers</a></li>,
-        <li className={(this.props.controller === 'Queues') ? "active" : ""} key="queues"><a href="/queues">Queues</a></li>,
-        <li className={(this.props.controller === 'Users') ? "active" : ""} key="users"><a href="/users">Users</a></li>]
-              );
+    var navigation = [];
+    if (this.props.authenticated) {
+      navigation = [
+        'Projects', 'Servers', 'Queues', 'Users', 'Environments'
+      ];
     }
+
     return (
       <ul className="nav navbar-nav">
-        {navigation}
+        {navigation.map((controller, i) => {
+          return <li className={(this.props.controller === controller) ? "active" : ""} key={i}>
+              <a href={'/' + controller.toLowerCase()}>{controller}</a>
+            </li>;
+        })}
       </ul>
-      );
+    );
   }
 }
-
 MainNavMenu.displayName = 'Main Nav Menu';
 MainNavMenu.propTypes = {
   authenticated: React.PropTypes.bool.isRequired,
   controller: React.PropTypes.string.isRequired
 };
-export default MainNavMenu;
+export
+default MainNavMenu;

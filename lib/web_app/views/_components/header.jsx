@@ -7,10 +7,10 @@ class Header extends React.Component {
     return (
       <header className="navbar navbar-inverse navbar-static-top" role="banner">
         <div className="container">
-         <nav className="collapse navbar-collapse">
+          <nav className="collapse navbar-collapse">
             <div className='navbar-header'>
               <a className="navbar-brand" href="/">
-                <img alt="overlord" src="/img/herbert.png" />
+                <img alt="overlord" src="/img/herbert.png"/>
               </a>
             </div>
             <MainNavMenu authenticated={this.props.authenticated} controller={this.props.controller}/>
@@ -28,4 +28,5 @@ Header.propTypes = {
   user: React.PropTypes.string
 };
 
-module.exports = Header;
+export
+default Header;
