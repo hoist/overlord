@@ -27,7 +27,6 @@ gulp.task('mocha-server', ['eslint', 'clean-coverage'], function (cb) {
   require("babel/register")({
     optional: ['es7.objectRestSpread']
   });
-  console.log('globs:', globs.js.lib);
   gulp.src(globs.js.lib)
     .pipe(plugins.istanbul({
       instrumenter: isparta.Instrumenter
@@ -36,6 +35,7 @@ gulp.task('mocha-server', ['eslint', 'clean-coverage'], function (cb) {
     .on('finish', function () {
       runMocha()
         .pipe(plugins.istanbul.writeReports())
+        .pipe(plugins.istanbul.enforceThresholds({ thresholds: { global: 80 } }))
         .on('end', cb);
     });
 });

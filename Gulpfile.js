@@ -9,7 +9,7 @@ gulp.task('seq-test', function (callback) {
 });
 gulp.task('test', function () {
   return gulp.start('eslint-build',
-    'mocha-server-without-coverage'
+    'mocha-server'
   );
 });
 gulp.task('build', ['clean'], function (callback) {
