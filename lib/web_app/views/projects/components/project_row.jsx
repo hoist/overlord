@@ -5,7 +5,7 @@ class ProjectRow extends React.Component {
   constructor(props) {
     super(props);
     this.handleClick = () => {
-      var location = `/project/${this.props.project.name}`;
+      var location = `/project/${this.props.project._id}`;
       if (this.props.project.status.toLowerCase() === 'pending') {
         location = location + '/activate';
       }

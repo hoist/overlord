@@ -129,7 +129,7 @@ describe('project view routes', () => {
 					response = res;
 				});
 			});
-			it('redirects', () => {
+			it('responds with a [redirect|302] response', () => {
 				return expect(response.statusCode).to.eql(302);
 			});
 			it('redirects to activate page', () => {
@@ -165,11 +165,51 @@ describe('project view routes', () => {
 					response = res;
 				});
 			});
-			it('redirects', () => {
+			it('responds with a [redirect|302] response', () => {
 				return expect(response.statusCode).to.eql(302);
 			});
 			it('redirects to details page', () => {
 				return expect(response.headers.location).to.eql(`/project/${existingActiveProject._id}`);
+			});
+		});
+		describe('with pending project', () => {
+			let response;
+			let $;
+			before(() => {
+				return serverHelper.getAuthCookie().then((cookie) => {
+					return new Promise((resolve) => {
+						server.inject({
+							method: 'GET',
+							url: `/project/${existingPendingProject._id}/activate`,
+							headers: {
+								cookie: cookie
+							}
+						}, (res) => {
+							resolve(res);
+						});
+					});
+				}).then((res) => {
+					response = res;
+					$ = cheerio.load(response.payload);
+				});
+			});
+			it('responds with an [ok|200] response', () => {
+				return expect(response.statusCode).to.eql(200);
+			});
+			it('loads the activate page', () => {
+				return expect($('title').text()).to.eql('Activate ' + existingPendingProject.name);
+			});
+			it('has a name field', () => {
+				return expect($('input[id="name"]').val()).to.eql(existingPendingProject.name);
+			});
+			it('has a repository username field', () => {
+				return expect($('input[id="vcs.username"]').val()).to.eql(existingPendingProject.vcs.username);
+			});
+			it('has a repository name field', () => {
+				return expect($('input[id="vcs.repository"]').val()).to.eql(existingPendingProject.vcs.repository);
+			});
+			it('has an activate button', () => {
+				return expect($('button[type="submit"]').text()).to.eql('Activate');
 			});
 		});
 	});

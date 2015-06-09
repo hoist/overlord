@@ -5,21 +5,20 @@ import Page from '../_components/page.jsx';
 import ProjectForm from './components/project_form.jsx';
 
 class ProjectActivatePage extends React.Component {
-  render () {
-
+  render() {
     return (
       <Page {...this.props}>
-        <ProjectForm action="activate" project={this.props.project}/>
+        <ProjectForm action='Activate' initialProject={this.props.project} />
       </Page>
     );
   }
 }
 ProjectActivatePage.displayName = 'Project Activate Page';
 ProjectActivatePage.propTypes = {
-	project: React.PropTypes.object.isRequired,
-	setQueryParams: React.PropTypes.func.isRequired
+  project: React.PropTypes.object.isRequired,
+  setQueryParams: React.PropTypes.func.isRequired
 };
 export default Transmit.createContainer(ProjectActivatePage, {
-	queryParams: {},
-	queries: {}
+  queryParams: {},
+  queries: {}
 });

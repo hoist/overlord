@@ -23,7 +23,7 @@ function runMocha(options) {
     .pipe(plugins.mocha(options));
 }
 
-gulp.task('mocha-server', ['eslint'], function (cb) {
+gulp.task('mocha-server', ['eslint', 'clean-coverage'], function (cb) {
   require("babel/register")({
     optional: ['es7.objectRestSpread']
   });
@@ -45,7 +45,7 @@ gulp.task('mocha-server-without-coverage', ['eslint'], function () {
   });
   return runMocha();
 });
-gulp.task('mocha-server-continue', ['eslint'], function (cb) {
+gulp.task('mocha-server-continue', ['eslint', 'clean-coverage'], function (cb) {
   require("babel/register")({
     optional: ['es7.objectRestSpread']
   });
@@ -74,10 +74,6 @@ gulp.task('mocha-server-continue', ['eslint'], function (cb) {
             this.emit('end');
           }
         })
-        .pipe(plugins.plumber.stop())
-        .pipe(plugins.plumber({
-          errorHandler: helpers.errorHandler
-        }))
         .pipe(plugins.istanbul.writeReports())
         .on('end', function () {
           if (timeout) {
