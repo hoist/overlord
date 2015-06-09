@@ -4,7 +4,7 @@ import MachineProperty from './machine_property.jsx';
 
 class MachineView extends React.Component {
 
-  render () {
+  render() {
     var _this = this;
     var machineProperties = Object.getOwnPropertyNames(this.props.machine.metadata).map((property, i) => {
       return <MachineProperty key={i} propertyName={property} propertyValue={_this.props.machine.metadata[property]}/>;
@@ -26,5 +26,4 @@ MachineView.propTypes = {
   machine: React.PropTypes.object.isRequired
 };
 
-export
-default MachineView;
+export default MachineView;

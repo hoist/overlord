@@ -2,7 +2,7 @@
 import React from 'react';
 
 class Breadcrumbs extends React.Component {
-  render () {
+  render() {
     let breadcrumbs = null;
     if (this.props.breadcrumbs) {
       breadcrumbs = this.props.breadcrumbs.map((breadcrumb, i) => {
@@ -33,5 +33,4 @@ Breadcrumbs.propTypes = {
   title: React.PropTypes.string.isRequired
 };
 
-export
-default Breadcrumbs;
+export default Breadcrumbs;

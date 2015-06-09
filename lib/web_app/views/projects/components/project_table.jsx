@@ -1,77 +1,44 @@
 'use strict';
 import React from 'react';
 import ProjectRow from './project_row.jsx';
-import Transmit from 'react-transmit';
-
+import {
+  sortByAll
+}
+from 'lodash';
 class ProjectTable extends React.Component {
-  componentWillMount() {
-    if (process && process.browser) {
-      this.props.setQueryParams({
-        status: this.props.status
-      }).then(() => {
-        this.setState({
-          loading: false
-        });
-      });
-    }
-  }
-
-  constructor(props) {
-    super(props);
-    this.state = {
-      loading: true
-    };
-  }
-  render () {
-    var body;
-    if (this.state.loading || !this.props.projects) {
-      body = (
-          <h3>Loading...</h3>
-      );
-    } else if (this.props.projects.length === 0) {
-      body = (
-          <h3>No Projects</h3>
-      );
-    } else {
-      var rows = this.props.projects.map((project, key) => {
-        return <ProjectRow key={key} project={project}/>;
-      });
-      body = ({
-        rows
-      });
-    }
+  render() {
+    var sortedProjects = sortByAll(this.props.projects, (project) => {
+      if (project.status.toLowerCase() === 'pending') {
+        return 0;
+      } else {
+        return 1;
+      }
+    }, 'name');
     return (
-      <div className="panel panel-default">
-        <div className="panel-heading">
-          Projects: {this.props.status}
-        </div>
-        <div className="panel-body">
-          {body}
-        </div>
-      </div>
-
+      <table className="table table-hover table-striped">
+        <thead>
+          <tr>
+            <th className="col-xs-10">
+              Project Name
+            </th>
+            <th className="col-xs-2">
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          {
+            sortedProjects.map((project, i) => {
+              return <ProjectRow key={i} project={project} />;
+            })
+          }
+        </tbody>
+      </table>
     );
   }
 }
 ProjectTable.displayName = 'Project Table';
 ProjectTable.propTypes = {
-  projects: React.PropTypes.arrayOf(React.PropTypes.object),
-  setQueryParams: React.PropTypes.func,
-  status: React.PropTypes.string.isRequired
+  projects: React.PropTypes.arrayOf(React.PropTypes.object)
 };
 
-export
-default Transmit.createContainer(ProjectTable, {
-queryParams: {},
-queries: {
-  projects(queryParams) {
-    if (queryParams.status) {
-      return global.fetch(`/api/projects?status=${queryParams.status}`, {
-        credentials: 'include'
-      }).then((response) => response.json());
-    } else {
-      return Promise.resolve([]);
-    }
-  }
-}
-});
+export default ProjectTable;

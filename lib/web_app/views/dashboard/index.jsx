@@ -27,8 +27,8 @@ class Dashboard extends React.Component {
   }
 }
 Dashboard.displayName = "Dashboard";
-export
-default Transmit.createContainer(Dashboard, {
-queryParams: {},
-queries: {}
+export default Transmit.createContainer(Dashboard, {
+  queryParams: {},
+  queries: {}
 });
+

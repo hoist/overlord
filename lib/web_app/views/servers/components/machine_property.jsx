@@ -29,5 +29,4 @@ MachineProperty.propTypes = {
   propertyValue: React.PropTypes.string.isRequired
 };
 
-export
-default MachineProperty;
+export default MachineProperty;

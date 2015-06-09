@@ -26,5 +26,4 @@ MainNavMenu.propTypes = {
   authenticated: React.PropTypes.bool.isRequired,
   controller: React.PropTypes.string.isRequired
 };
-export
-default MainNavMenu;
+export default MainNavMenu;

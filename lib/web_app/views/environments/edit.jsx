@@ -14,11 +14,11 @@ class NewEnvironment extends React.Component {
 }
 NewEnvironment.displayName = 'Edit Environment Page';
 NewEnvironment.propTypes = {
-  environment: React.PropTypes.object.isRequired,
-  setQueryParams: React.PropTypes.func.isRequired
+	environment: React.PropTypes.object.isRequired,
+	setQueryParams: React.PropTypes.func.isRequired
 };
-export
-default Transmit.createContainer(NewEnvironment, {
-queryParams: {},
-queries: {}
+export default Transmit.createContainer(NewEnvironment, {
+	queryParams: {},
+	queries: {}
 });
+

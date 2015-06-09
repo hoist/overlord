@@ -54,8 +54,7 @@ EnvironmentTable.propTypes = {
   setQueryParams: React.PropTypes.func
 };
 
-export
-default Transmit.createContainer(EnvironmentTable, {
+export default Transmit.createContainer(EnvironmentTable, {
   queryParams: {},
   queries: {}
 });

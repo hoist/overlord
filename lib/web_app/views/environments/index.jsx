@@ -21,8 +21,8 @@ EnvironmentIndex.propTypes = {
   environments: React.PropTypes.arrayOf(React.PropTypes.object).isRequired,
   setQueryParams: React.PropTypes.func.isRequired
 };
-export
-default Transmit.createContainer(EnvironmentIndex, {
-queryParams: {},
-queries: {}
+export default Transmit.createContainer(EnvironmentIndex, {
+  queryParams: {},
+  queries: {}
 });
+

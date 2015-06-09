@@ -12,19 +12,36 @@ class ProjectIndex extends React.Component {
     return (
       <Page {...this.props}>
         <div className="container">
-          <ProjectTable status="pending"/>
-          <ProjectTable status="active"/>
+          <div className="panel">
+            <h3 className="panel-heading">Projects</h3>
+            <div className="panel-body">
+              <ProjectTable projects={this.props.projects} />
+            </div>
+          </div>
         </div>
       </Page>
     );
   }
 }
+
 ProjectIndex.displayName = 'Project Index Page';
 ProjectIndex.propTypes = {
+  projects: React.PropTypes.arrayOf(React.PropTypes.object),
   setQueryParams: React.PropTypes.func.isRequired
 };
-export
-default Transmit.createContainer(ProjectIndex, {
-queryParams: {},
-queries: {}
+export default Transmit.createContainer(ProjectIndex, {
+  queryParams: {},
+  queries: {
+    projects() {
+      if (process && process.browser) {
+        return global.fetch(`/api/projects`, {
+          credentials: 'include'
+        }).then((response) => response.json());
+      } else {
+        return Promise.resolve([]);
+      }
+    }
+  }
 });
+
+

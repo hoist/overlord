@@ -146,5 +146,4 @@ EnvironmentForm.propTypes = {
   initialEnvironment: React.PropTypes.object.isRequired
 };
 
-export
-default EnvironmentForm;
+export default EnvironmentForm;

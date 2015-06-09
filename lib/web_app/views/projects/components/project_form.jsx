@@ -36,5 +36,4 @@ ProjectForm.propTypes = {
   project: React.PropTypes.object.isRequired
 };
 
-export
-default ProjectForm;
+export default ProjectForm;

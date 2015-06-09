@@ -39,19 +39,18 @@ ServerIndex.propTypes = {
   setQueryParams: React.PropTypes.func.isRequired
 };
 
-export
-default Transmit.createContainer(ServerIndex, {
-queries: {
-  machines() {
-    if (process && process.browser) {
-      return global.fetch('/api/servers', {
-        credentials: 'include'
-      }).then((response) => response.json());
-    } else {
-      return new Promise((resolve) => {
-        resolve([]);
-      });
+export default Transmit.createContainer(ServerIndex, {
+  queries: {
+    machines() {
+      if (process && process.browser) {
+        return global.fetch('/api/servers', {
+          credentials: 'include'
+        }).then((response) => response.json());
+      } else {
+        return new Promise((resolve) => {
+          resolve([]);
+        });
+      }
     }
   }
-}
 });

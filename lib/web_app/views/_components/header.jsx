@@ -28,5 +28,4 @@ Header.propTypes = {
   user: React.PropTypes.string
 };
 
-export
-default Header;
+export default Header;

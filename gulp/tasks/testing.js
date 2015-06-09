@@ -62,6 +62,13 @@ gulp.task('mocha-server-continue', ['eslint'], function (cb) {
       require("babel/register")({
         optional: ['es7.objectRestSpread']
       });
+      //ensure the task finishes after 2 minutes at the most
+      var timeout = setTimeout(function () {
+        if (!ended) {
+          ended = true;
+          cb();
+        }
+      }, 120000);
       runMocha({
           errorHandler: function () {
             this.emit('end');
@@ -72,12 +79,11 @@ gulp.task('mocha-server-continue', ['eslint'], function (cb) {
           errorHandler: helpers.errorHandler
         }))
         .pipe(plugins.istanbul.writeReports())
-        .pipe(plugins.istanbul.enforceThresholds({
-          thresholds: {
-            global: 80
-          }
-        }))
         .on('end', function () {
+          if (timeout) {
+            clearTimeout(timeout);
+            timeout = undefined;
+          }
           if (!ended) {
             ended = true;
             cb();

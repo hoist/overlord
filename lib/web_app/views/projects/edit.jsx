@@ -16,11 +16,10 @@ class ProjectActivatePage extends React.Component {
 }
 ProjectActivatePage.displayName = 'Project Activate Page';
 ProjectActivatePage.propTypes = {
-  project: React.PropTypes.object.isRequired,
-  setQueryParams: React.PropTypes.func.isRequired
+	project: React.PropTypes.object.isRequired,
+	setQueryParams: React.PropTypes.func.isRequired
 };
-export
-default Transmit.createContainer(ProjectActivatePage, {
-queryParams: {},
-queries: {}
+export default Transmit.createContainer(ProjectActivatePage, {
+	queryParams: {},
+	queries: {}
 });

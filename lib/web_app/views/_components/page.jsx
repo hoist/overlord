@@ -6,10 +6,9 @@ import _ from 'lodash';
 
 class Page extends React.Component {
   render() {
-    let otherProps = _.omit(this.props, 'children');
     return (
       <div>
-        <Header {...otherProps}/>
+        <Header authenticated={this.props.authenticated} controller={this.props.controller} user={this.props.user} />
         <section className="container">
           <BreadCrumbs breadcrumbs={this.props.breadcrumbs} title={this.props.title}/>
         </section>
@@ -22,10 +21,12 @@ class Page extends React.Component {
 }
 Page.displayName = 'Page';
 Page.propTypes = {
+  authenticated: React.PropTypes.bool.isRequired,
   breadcrumbs: React.PropTypes.arrayOf(React.PropTypes.object),
   children: React.PropTypes.node.isRequired,
-  title: React.PropTypes.string.isRequired
+  controller: React.PropTypes.string,
+  title: React.PropTypes.string.isRequired,
+  user: React.PropTypes.string
 };
 
-export
-default Page;
+export default Page;

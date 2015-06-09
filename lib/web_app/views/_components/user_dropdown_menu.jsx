@@ -43,5 +43,4 @@ UserDropdownMenu.propTypes = {
   user: React.PropTypes.string
 };
 
-export
-default UserDropdownMenu;
+export default UserDropdownMenu;
