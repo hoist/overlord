@@ -1,2 +1,18 @@
 @import 'includes/variables';
 @import 'bootstrap';
+@import 'includes/sprite';
+
+.unauthenticated {
+  background-color: $unathenticated-background-color;
+}
+
+.login-panel {
+  margin-top: 50px;
+}
+
+.login-icon {
+  background-image: url('/img/herbert.png');
+  height: 27px;
+  margin: 0 auto;
+  width: 22px;
+}
