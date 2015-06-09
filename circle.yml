@@ -32,8 +32,8 @@ test:
     - docker cp overlord-test:/usr/src/app/coverage ~/
 general:
   artifacts:
-    - coverage/*
-    - coverage/**/*
+    - ~/coverage/*
+    - ~/coverage/**/*
     - log/*.log
     - npm-debug.log
 deployment:
