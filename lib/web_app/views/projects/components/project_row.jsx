@@ -18,7 +18,7 @@ class ProjectRow extends React.Component {
     if (this.props.project.status.toLowerCase() === 'pending') {
       action = 'Activate';
     } else {
-      action = 'Edit';
+      action = 'View';
     }
     return (
       <tr id={'project-row-' + this.props.project._id}>
