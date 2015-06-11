@@ -1,10 +1,4 @@
 'use strict';
-var Fleetctl = require("fleetctl");
-var fleetctl = new Fleetctl();
-fleetctl.submit(["something"],function(err, machines){
-    if(err){
-        throw err;
-      }
+import createExecutorConfig from './lib/tasks/create_executor_launch_config';
 
-    console.log(machines);
-});
+createExecutorConfig('ami-99754ea9', 512, '397dd9c07d356ae94edf28554ac91e72a3a064f0');
