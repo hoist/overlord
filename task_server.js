@@ -65,6 +65,7 @@ agenda.every('10 seconds', 'rebalance executors');
 agenda.every('5 minutes', 'prune new relic servers');
 agenda.every('30 minutes', 'prune rabbitmq queues');
 agenda.every('6 hours', 'reboot executor instances');
+
 logger.info('starting agenda');
 agenda.start();
 
