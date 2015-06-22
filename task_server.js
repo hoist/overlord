@@ -9,6 +9,8 @@ var checkEC2Job = require('./lib/tasks/ec2_check_status_task');
 var rebalanceJob = require('./lib/tasks/rebalance_executors_task');
 var pruneNewRelicJob = require('./lib/tasks/prune_new_relic_task');
 var cullQueuesTask = require('./lib/tasks/cull_queues_task');
+var rebootExecutorsTask = require('./lib/tasks/reboot_executors_task');
+
 agenda.database(config.get('Hoist.mongo.overlord'), 'operational-jobs');
 
 logger.info('starting server');
@@ -48,7 +50,12 @@ agenda.define('prune rabbitmq queues', {
   logger.info('starting rabbitmq prune job');
   cullQueuesTask().nodeify(done);
 });
-
+agenda.define('reboot executor instances', {
+  lockLifetime: 10000
+}, function (job, done) {
+  logger.info('starting executor reboot job');
+  rebootExecutorsTask().nodeify(done);
+});
 logger.info('registering schedule');
 
 agenda.every('2 minutes', 'maintain chef nodes');
@@ -57,7 +64,7 @@ agenda.every('5 minutes', 'check ec2 instances');
 agenda.every('10 seconds', 'rebalance executors');
 agenda.every('5 minutes', 'prune new relic servers');
 agenda.every('30 minutes', 'prune rabbitmq queues');
-
+agenda.every('6 hours', 'reboot executor instances');
 logger.info('starting agenda');
 agenda.start();
 
