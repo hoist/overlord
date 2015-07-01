@@ -49,7 +49,7 @@ RUN gulp build
 EXPOSE 8000
 
 #start with nodemon monitoring the config directory
-ENTRYPOINT ["nodemon", "--watch", "/config", "--exec"]
+ENTRYPOINT ["nodemon", "--exitcrash", "--watch", "/config", "--exec"]
 
 #start the web app
 CMD [ "./scripts/start_web.sh"]
