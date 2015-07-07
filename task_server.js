@@ -1,4 +1,6 @@
 'use strict';
+require('babel/register');
+
 var logger = require('@hoist/logger');
 var Agenda = require('agenda');
 var config = require('config');
@@ -7,11 +9,16 @@ var chefJob = require('./lib/tasks/chef_task');
 var countQueuesJob = require('./lib/tasks/count_queues_task');
 var checkEC2Job = require('./lib/tasks/ec2_check_status_task');
 var rebalanceJob = require('./lib/tasks/rebalance_executors_task');
+var Rebalancer = require('./lib/tasks/rebalancer');
 var pruneNewRelicJob = require('./lib/tasks/prune_new_relic_task');
 var cullQueuesTask = require('./lib/tasks/cull_queues_task');
 var rebootExecutorsTask = require('./lib/tasks/reboot_executors_task');
+var bluebird = require('bluebird');
 
 agenda.database(config.get('Hoist.mongo.overlord'), 'operational-jobs');
+
+
+var rebalancer = new Rebalancer();
 
 logger.info('starting server');
 logger.info('registering chef maintainance job');
@@ -23,7 +30,11 @@ agenda.define('rebalance executors', {
   lockLifetime: 10000
 }, function (job, done) {
   logger.info('starting rebalance job');
-  rebalanceJob().nodeify(done);
+  bluebird.allSettled([
+    rebalancer.execute(),
+    rebalanceJob()
+  ]).nodeify(done);
+
 });
 agenda.define('count queues', {
   lockLifetime: 10000

@@ -1,0 +1,112 @@
+{
+  "memory": 13992,
+  "message_stats": {
+    "ack": 153508,
+    "ack_details": {
+      "rate": 0.0
+    },
+    "deliver": 153584,
+    "deliver_details": {
+      "rate": 0.0
+    },
+    "deliver_get": 153584,
+    "deliver_get_details": {
+      "rate": 0.0
+    },
+    "publish": 153508,
+    "publish_details": {
+      "rate": 0.0
+    },
+    "redeliver": 76,
+    "redeliver_details": {
+      "rate": 0.0
+    }
+  },
+  "messages": 0,
+  "messages_details": {
+    "rate": 0.0
+  },
+  "messages_ready": 0,
+  "messages_ready_details": {
+    "rate": 0.0
+  },
+  "messages_unacknowledged": 0,
+  "messages_unacknowledged_details": {
+    "rate": 0.0
+  },
+  "idle_since": "2015-07-07 10:28:02",
+  "consumer_utilisation": "",
+  "policy": "",
+  "exclusive_consumer_tag": "",
+  "consumers": 2,
+  "down_slave_nodes": "",
+  "state": "running",
+  "messages_ram": 0,
+  "messages_ready_ram": 0,
+  "messages_unacknowledged_ram": 0,
+  "messages_persistent": 0,
+  "message_bytes": 0,
+  "message_bytes_ready": 0,
+  "message_bytes_unacknowledged": 0,
+  "message_bytes_ram": 0,
+  "message_bytes_persistent": 0,
+  "backing_queue_status": {
+    "q1": 0,
+    "q2": 0,
+    "delta": ["delta", "undefined", 0, "undefined"],
+    "q3": 0,
+    "q4": 0,
+    "len": 0,
+    "target_ram_count": "infinity",
+    "next_seq_id": 153508,
+    "avg_ingress_rate": 0.03308305233141349,
+    "avg_egress_rate": 0.03308305233141349,
+    "avg_ack_ingress_rate": 0.03308305233141349,
+    "avg_ack_egress_rate": 0.03308305233141349
+  },
+  "incoming": [],
+  "deliveries": [],
+  "consumer_details": [{
+    "channel_details": {
+      "name": "10.0.26.152:60323 -> 10.0.5.39:5672 (1)",
+      "number": 1,
+      "user": "executors",
+      "connection_name": "10.0.26.152:60323 -> 10.0.5.39:5672",
+      "peer_port": 60323,
+      "peer_host": "10.0.26.152"
+    },
+    "queue": {
+      "name": "run_module_1QnWK0nBeIqmIIbAkHDD",
+      "vhost": "/"
+    },
+    "consumer_tag": "amq.ctag-qsICo5KPFqIcV5zeEmGkBA",
+    "exclusive": false,
+    "ack_required": true,
+    "prefetch_count": 1,
+    "arguments": {}
+  }, {
+    "channel_details": {
+      "name": "10.0.18.74:41912 -> 10.0.5.39:5672 (1)",
+      "number": 1,
+      "user": "executors",
+      "connection_name": "10.0.18.74:41912 -> 10.0.5.39:5672",
+      "peer_port": 41912,
+      "peer_host": "10.0.18.74"
+    },
+    "queue": {
+      "name": "run_module_1QnWK0nBeIqmIIbAkHDD",
+      "vhost": "/"
+    },
+    "consumer_tag": "amq.ctag-SRj1T_brh-MufrgQ7hkYzw",
+    "exclusive": false,
+    "ack_required": true,
+    "prefetch_count": 1,
+    "arguments": {}
+  }],
+  "name": "run_module_1QnWK0nBeIqmIIbAkHDD",
+  "vhost": "/",
+  "durable": true,
+  "auto_delete": false,
+  "arguments": {},
+  "node": "rabbit@hoi-connect-rabbit-01"
+}

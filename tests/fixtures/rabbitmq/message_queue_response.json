@@ -1,0 +1,77 @@
+{
+  "memory": 23568,
+  "message_stats": {
+    "ack": 31978408,
+    "ack_details": {
+      "rate": 0.0
+    },
+    "deliver": 32012317,
+    "deliver_details": {
+      "rate": 0.0
+    },
+    "deliver_get": 32012319,
+    "deliver_get_details": {
+      "rate": 0.0
+    },
+    "get": 2,
+    "get_details": {
+      "rate": 0.0
+    },
+    "publish": 31999401,
+    "publish_details": {
+      "rate": 0.0
+    },
+    "redeliver": 33912,
+    "redeliver_details": {
+      "rate": 0.0
+    }
+  },
+  "messages": 0,
+  "messages_details": {
+    "rate": 0.0
+  },
+  "messages_ready": 0,
+  "messages_ready_details": {
+    "rate": 0.0
+  },
+  "messages_unacknowledged": 0,
+  "messages_unacknowledged_details": {
+    "rate": 0.0
+  },
+  "idle_since": "2015-07-07 9:55:21",
+  "consumer_utilisation": "",
+  "policy": "",
+  "exclusive_consumer_tag": "",
+  "consumers": 2,
+  "down_slave_nodes": "",
+  "state": "running",
+  "messages_ram": 0,
+  "messages_ready_ram": 0,
+  "messages_unacknowledged_ram": 0,
+  "messages_persistent": 0,
+  "message_bytes": 0,
+  "message_bytes_ready": 0,
+  "message_bytes_unacknowledged": 0,
+  "message_bytes_ram": 0,
+  "message_bytes_persistent": 0,
+  "backing_queue_status": {
+    "q1": 0,
+    "q2": 0,
+    "delta": ["delta", 0, 0, 0],
+    "q3": 0,
+    "q4": 0,
+    "len": 0,
+    "target_ram_count": "infinity",
+    "next_seq_id": 31999401,
+    "avg_ingress_rate": 7.183849833993283e-41,
+    "avg_egress_rate": 1.2707418543051668e-38,
+    "avg_ack_ingress_rate": 1.2707418543051668e-38,
+    "avg_ack_egress_rate": 1.335535868101634e-38
+  },
+  "name": "run_module_ywHuekNJpINXKjM-UrrS",
+  "vhost": "/",
+  "durable": true,
+  "auto_delete": false,
+  "arguments": {},
+  "node": "rabbit@hoi-connect-rabbit-01"
+}
