@@ -9,7 +9,7 @@ var chefJob = require('./lib/tasks/chef_task');
 var countQueuesJob = require('./lib/tasks/count_queues_task');
 var checkEC2Job = require('./lib/tasks/ec2_check_status_task');
 var rebalanceJob = require('./lib/tasks/rebalance_executors_task');
-//var Rebalancer = require('./lib/tasks/rebalancer');
+var Rebalancer = require('./lib/tasks/rebalancer');
 var pruneNewRelicJob = require('./lib/tasks/prune_new_relic_task');
 var cullQueuesTask = require('./lib/tasks/cull_queues_task');
 var rebootExecutorsTask = require('./lib/tasks/reboot_executors_task');
@@ -18,7 +18,7 @@ var bluebird = require('bluebird');
 agenda.database(config.get('Hoist.mongo.overlord'), 'operational-jobs');
 
 
-//var rebalancer = new Rebalancer();
+var rebalancer = new Rebalancer();
 
 logger.info('starting server');
 logger.info('registering chef maintainance job');
@@ -31,7 +31,7 @@ agenda.define('rebalance executors', {
 }, function (job, done) {
   logger.info('starting rebalance job');
   bluebird.allSettled([
-    //rebalancer.execute(),
+    rebalancer.execute(),
     rebalanceJob()
   ]).nodeify(done);
 
