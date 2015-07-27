@@ -8,12 +8,3 @@ web:
    - NODE_ENV=docker
   volumes_from:
    - hoist_storage_1
-
-# task doesn't really work without live services
-#task:
-#  build: .
-#  command: ./scripts/start_task.sh
-#  external_links:
-#    - hoist_db_1:db
-#  environment:
-#   - NODE_ENV=docker
