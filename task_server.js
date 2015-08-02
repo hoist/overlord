@@ -31,11 +31,23 @@ agenda.define('rebalance executors', {
 }, function (job, done) {
   logger.info('starting rebalance job');
   bluebird.allSettled([
-    rebalancer.execute(),
+    rebalancer.executeReblance(),
     rebalanceJob()
   ]).nodeify(done);
 
 });
+
+agenda.define('scale executors', {
+  lockLifetime: 10000
+}, function (job, done) {
+  logger.info('starting rebalance job');
+  bluebird.allSettled([
+    rebalancer.executeScale(),
+    rebalanceJob()
+  ]).nodeify(done);
+
+});
+
 agenda.define('count queues', {
   lockLifetime: 10000
 }, function (job, done) {
@@ -73,6 +85,7 @@ agenda.every('2 minutes', 'maintain chef nodes');
 agenda.every('1 minute', 'count queues');
 agenda.every('5 minutes', 'check ec2 instances');
 agenda.every('10 seconds', 'rebalance executors');
+agenda.every('5 minutes', 'scale executors');
 agenda.every('5 minutes', 'prune new relic servers');
 agenda.every('30 minutes', 'prune rabbitmq queues');
 agenda.every('6 hours', 'reboot executor instances');
