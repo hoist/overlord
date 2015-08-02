@@ -13,6 +13,7 @@ var bluebird = require('bluebird');
 
 var Rebalancer = require('./lib/tasks/rebalancer');
 var ExecutorScaler = require('./lib/tasks/executor_scaler');
+var HealthChecker = require('./lib/tasks/health_checker');
 var mongoConnection = require('./lib/mongoose_connection');
 
 mongoConnection.connect();
@@ -22,6 +23,7 @@ agenda.database(config.get('Hoist.mongo.overlord'), 'operational-jobs');
 
 var rebalancer = new Rebalancer();
 var scaler = new ExecutorScaler();
+var healthChecker = new HealthChecker();
 
 logger.info('starting server');
 logger.info('registering chef maintainance job');
@@ -46,6 +48,13 @@ agenda.define('scale executors', {
   bluebird.allSettled([
     scaler.scale()
   ]).nodeify(done);
+
+});
+agenda.define('check executor health', {
+  lockLifetime: 10000
+}, function (job, done) {
+  logger.info('starting check health job');
+  bluebird.resolve(healthChecker.check()).nodeify(done);
 
 });
 
@@ -77,6 +86,8 @@ agenda.every('10 seconds', 'rebalance executors');
 agenda.every('5 minutes', 'scale executors');
 agenda.every('5 minutes', 'prune new relic servers');
 agenda.every('30 minutes', 'prune rabbitmq queues');
+agenda.every('5 minutes', 'check executor health');
+
 
 logger.info('starting agenda');
 agenda.start();
