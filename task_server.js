@@ -42,8 +42,8 @@ agenda.define('scale executors', {
 }, function (job, done) {
   logger.info('starting scale job');
   bluebird.allSettled([
-    rebalancer.executeScale(),
-    rebalanceJob()
+    //rebalancer.executeScale(),
+    //rebalanceJob()
   ]).nodeify(done);
 
 });
