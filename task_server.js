@@ -83,7 +83,7 @@ logger.info('registering schedule');
 agenda.every('2 minutes', 'maintain chef nodes');
 agenda.every('1 minute', 'count queues');
 agenda.every('10 seconds', 'rebalance executors');
-agenda.every('1 minute', 'scale executors');
+agenda.every('5 minute', 'scale executors');
 agenda.every('5 minutes', 'prune new relic servers');
 agenda.every('30 minutes', 'prune rabbitmq queues');
 agenda.every('5 minutes', 'check executor health');
