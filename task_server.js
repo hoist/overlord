@@ -31,7 +31,7 @@ agenda.define('rebalance executors', {
 }, function (job, done) {
   logger.info('starting rebalance job');
   bluebird.allSettled([
-    rebalancer.executeReblance(),
+    rebalancer.executeRebalance(),
     rebalanceJob()
   ]).nodeify(done);
 
@@ -40,7 +40,7 @@ agenda.define('rebalance executors', {
 agenda.define('scale executors', {
   lockLifetime: 10000
 }, function (job, done) {
-  logger.info('starting rebalance job');
+  logger.info('starting scale job');
   bluebird.allSettled([
     rebalancer.executeScale(),
     rebalanceJob()
