@@ -8,7 +8,7 @@ Restart=always
 ExecStartPre=-/usr/bin/docker kill overlord-task-%i
 ExecStartPre=-/usr/bin/docker rm overlord-task-%i
 ExecStartPre=-/usr/bin/docker pull quay.io/hoist/overlord:master
-ExecStart=/usr/bin/docker run --name overlord-task-%i -e "NODE_ENV=production" -e "FLEETCTL_STRICT_HOST_KEY_CHECKING=false" -e "FLEETCTL_TUNNEL=fleet.hoist.internal:2222" -v /usr/bin/fleetctl:/usr/bin/fleetctl --volumes-from config quay.io/hoist/overlord:master ./scripts/start_task.sh
+ExecStart=/usr/bin/docker run -m 700M  --name overlord-task-%i -e "NODE_ENV=production" -e "FLEETCTL_STRICT_HOST_KEY_CHECKING=false" -e "FLEETCTL_TUNNEL=fleet.hoist.internal:2222" -v /usr/bin/fleetctl:/usr/bin/fleetctl --volumes-from config quay.io/hoist/overlord:master ./scripts/start_task.sh
 ExecStop=/usr/bin/docker stop overlord-task-%i
 TimeoutStartSec=30m
 
