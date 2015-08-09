@@ -12,21 +12,14 @@ Type=oneshot
 ExecStartPre=-/usr/bin/docker kill rebalancer
 ExecStartPre=-/usr/bin/docker rm rebalancer
 ExecStartPre=-/usr/bin/docker pull quay.io/hoist/overlord:master
-ExecStart=/usr/bin/docker run -m 700M  --name rebalancer -e "NODE_ENV=production" --volumes-from config quay.io/hoist/overlord:master ./scripts/start_rebalancer.sh
-ExecStop=/usr/bin/docker stop overlord-task-%i
+ExecStart=/usr/bin/docker run -m 700M  --name rebalancer --entrypoint="/bin/bash" -e "NODE_ENV=production" --volumes-from config quay.io/hoist/overlord:master ./scripts/start_rebalancer.sh
+ExecStop=/usr/bin/docker stop rebalancer
 TimeoutStartSec=30m
+
+[Install]
+WantedBy=rebalancer.target
 
 [X-Fleet]
 Conflicts=rebalancer.service
 MachineMetadata=container_type=web
 
-
-[Unit]
-Description=Prints the date every minute
-
-
-[Service]
-ExecStart=/bin/date
-
-[Install]
-WantedBy=minute-timer.target

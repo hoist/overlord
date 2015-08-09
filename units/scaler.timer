@@ -1,5 +1,5 @@
 [Unit]
-Description=Rebalancer Timer (every minute)
+Description=Scaler Timer (every minute)
 
 [Timer]
 OnBootSec=5min
@@ -10,4 +10,4 @@ Persistent=true
 WantedBy=local.target
 
 [X-Fleet]
-MachineOf=rebalancer.service
+MachineOf=scaler.service

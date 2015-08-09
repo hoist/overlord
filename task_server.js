@@ -9,7 +9,6 @@ var pruneNewRelicJob = require('./lib/tasks/prune_new_relic_task');
 var cullQueuesTask = require('./lib/tasks/cull_queues_task');
 var bluebird = require('bluebird');
 
-var ExecutorScaler = require('./lib/tasks/executor_scaler');
 var HealthChecker = require('./lib/tasks/health_checker');
 var mongoConnection = require('./lib/mongoose_connection');
 
@@ -17,22 +16,11 @@ mongoConnection.connect();
 
 agenda.database(config.get('Hoist.mongo.overlord'), 'operational-jobs');
 
-
-var scaler = new ExecutorScaler();
 var healthChecker = new HealthChecker();
 
 logger.info('starting server');
 logger.info('registering chef maintainance job');
 
-agenda.define('scale executors', {
-  lockLifetime: 10000
-}, function (job, done) {
-  logger.info('starting scale job');
-  bluebird.allSettled([
-    scaler.scale()
-  ]).nodeify(done);
-
-});
 agenda.define('check executor health', {
   lockLifetime: 10000
 }, function (job, done) {
@@ -56,7 +44,6 @@ agenda.define('prune rabbitmq queues', {
 
 logger.info('registering schedule');
 
-agenda.every('1 minute', 'scale executors');
 agenda.every('5 minutes', 'prune new relic servers');
 agenda.every('30 minutes', 'prune rabbitmq queues');
 agenda.every('5 minutes', 'check executor health');
