@@ -5,8 +5,6 @@ var logger = require('@hoist/logger');
 var Agenda = require('agenda');
 var config = require('config');
 var agenda = new Agenda();
-var chefJob = require('./lib/tasks/chef_task');
-var countQueuesJob = require('./lib/tasks/count_queues_task');
 var pruneNewRelicJob = require('./lib/tasks/prune_new_relic_task');
 var cullQueuesTask = require('./lib/tasks/cull_queues_task');
 var bluebird = require('bluebird');
@@ -25,10 +23,6 @@ var healthChecker = new HealthChecker();
 
 logger.info('starting server');
 logger.info('registering chef maintainance job');
-agenda.define('maintain chef nodes', function (job, done) {
-  logger.info('starting chef job');
-  chefJob().nodeify(done);
-});
 
 agenda.define('scale executors', {
   lockLifetime: 10000
@@ -47,13 +41,6 @@ agenda.define('check executor health', {
 
 });
 
-agenda.define('count queues', {
-  lockLifetime: 10000
-}, function (job, done) {
-  logger.info('starting count queues job');
-  countQueuesJob().nodeify(done);
-});
-
 agenda.define('prune new relic servers', {
   lockLifetime: 10000
 }, function (job, done) {
@@ -69,8 +56,6 @@ agenda.define('prune rabbitmq queues', {
 
 logger.info('registering schedule');
 
-agenda.every('2 minutes', 'maintain chef nodes');
-agenda.every('1 minute', 'count queues');
 agenda.every('1 minute', 'scale executors');
 agenda.every('5 minutes', 'prune new relic servers');
 agenda.every('30 minutes', 'prune rabbitmq queues');
