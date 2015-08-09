@@ -1,0 +1,32 @@
+[Unit]
+Description=Rebalancer task
+Requires=docker.service
+After=docker.service
+Requires=config.service
+After=config.service
+Wants=rebalancer.timer
+
+[Service]
+User=core
+Type=oneshot
+ExecStartPre=-/usr/bin/docker kill rebalancer
+ExecStartPre=-/usr/bin/docker rm rebalancer
+ExecStartPre=-/usr/bin/docker pull quay.io/hoist/overlord:master
+ExecStart=/usr/bin/docker run -m 700M  --name rebalancer -e "NODE_ENV=production" --volumes-from config quay.io/hoist/overlord:master ./scripts/start_rebalancer.sh
+ExecStop=/usr/bin/docker stop overlord-task-%i
+TimeoutStartSec=30m
+
+[X-Fleet]
+Conflicts=rebalancer.service
+MachineMetadata=container_type=web
+
+
+[Unit]
+Description=Prints the date every minute
+
+
+[Service]
+ExecStart=/bin/date
+
+[Install]
+WantedBy=minute-timer.target
