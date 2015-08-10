@@ -1,5 +1,5 @@
 [Unit]
-Description=Rebalancer task
+Description=Healthcheck task
 Requires=docker.service
 After=docker.service
 Requires=config.service
