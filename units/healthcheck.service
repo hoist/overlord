@@ -1,0 +1,25 @@
+[Unit]
+Description=Rebalancer task
+Requires=docker.service
+After=docker.service
+Requires=config.service
+After=config.service
+Wants=healthcheck.timer
+
+[Service]
+User=core
+Type=oneshot
+ExecStartPre=-/usr/bin/docker kill healthcheck
+ExecStartPre=-/usr/bin/docker rm healthcheck
+ExecStartPre=-/usr/bin/docker pull quay.io/hoist/overlord:master
+ExecStart=/usr/bin/docker run -m 700M  --name healthcheck --entrypoint="/bin/bash" -e "NODE_ENV=production" --volumes-from config quay.io/hoist/overlord:master ./scripts/start_healthcheck.sh
+ExecStop=/usr/bin/docker stop healthcheck
+TimeoutStartSec=30m
+
+[Install]
+WantedBy=healthcheck.target
+
+[X-Fleet]
+Conflicts=healthcheck.service
+MachineMetadata=container_type=web
+

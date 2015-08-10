@@ -1,0 +1,13 @@
+[Unit]
+Description=Healthcheck Timer (every 5 minutes)
+
+[Timer]
+OnBootSec=5min
+OnCalendar=*:0/5
+Persistent=true
+
+[Install]
+WantedBy=local.target
+
+[X-Fleet]
+MachineOf=healthcheck.service
