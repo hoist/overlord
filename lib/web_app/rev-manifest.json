@@ -1,14 +1,17 @@
 {
-  "css/default.css": "css/default-9624242664.css",
+  "css/default.css": "css/default-cfe48c9221.css",
   "img/herbert.png": "img/herbert-a5ea59a311.png",
   "img/herbert@2x.png": "img/herbert@2x-27f4279a7e.png",
   "img/sprite.png": "img/sprite-5e43ecda73.png",
   "img/sprites/menu_expand.png": "img/sprites/menu_expand-d48dca653a.png",
-  "js/templates/dashboard/index.js": "js/templates/dashboard/index-a69a719664.js",
-  "js/templates/environments/edit.js": "js/templates/environments/edit-f9eaa0680f.js",
-  "js/templates/environments/index.js": "js/templates/environments/index-d927e6bc57.js",
-  "js/templates/projects/activate.js": "js/templates/projects/activate-ed3c008551.js",
-  "js/templates/projects/index.js": "js/templates/projects/index-67bd0cd3b8.js",
-  "js/templates/servers/index.js": "js/templates/servers/index-af82eb477e.js",
-  "js/templates/session/create.js": "js/templates/session/create-09677b7812.js"
+  "js/templates/dashboard/index.js": "js/templates/dashboard/index-4b4e18a4dc.js",
+  "js/templates/projects/activate.js": "js/templates/projects/activate-15f153d9e6.js",
+  "js/templates/projects/details.js": "js/templates/projects/details-1aa442ecc3.js",
+  "js/templates/projects/index.js": "js/templates/projects/index-252ff7e679.js",
+  "js/templates/environments/edit.js": "js/templates/environments/edit-5936cca08c.js",
+  "js/templates/environments/index.js": "js/templates/environments/index-30028241b6.js",
+  "js/templates/servers/index.js": "js/templates/servers/index-2945a4db08.js",
+  "js/templates/users/details.js": "js/templates/users/details-d88dbbbe01.js",
+  "js/templates/users/index.js": "js/templates/users/index-6d87764253.js",
+  "js/templates/session/create.js": "js/templates/session/create-db6534ad36.js"
 }
