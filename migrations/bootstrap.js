@@ -1,5 +1,5 @@
 'use strict';
-var mongoose = require('mongoose');
+var connectionManager = require('../models/connection_manager');
 var config = require('config');
 
-mongoose.connect(config.get('Hoist.mongo.overlord'));
+connectionManager.connect(config.get('Hoist.mongo.overlord'));
