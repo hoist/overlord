@@ -1,6 +1,6 @@
 'use strict';
 import configureServer from '../../../../lib/web_app/server';
-import mongoose from 'mongoose';
+import connectionManager from '../../../../lib/models/connection_manager';
 import Bluebird from 'bluebird';
 import config from 'config';
 import Project from '../../../../lib/models/project';
@@ -14,7 +14,7 @@ import {
 }
 from 'chai';
 
-Bluebird.promisifyAll(mongoose);
+
 
 describe('project view routes', () => {
   let server;
@@ -23,7 +23,7 @@ describe('project view routes', () => {
   let existingPendingProject;
   before(() => {
     return Promise.all([
-      mongoose.connectAsync(config.get('Hoist.mongo.overlord')),
+      connectionManager.connect(config.get('Hoist.mongo.overlord')),
       new Project({
         name: 'pending project',
         status: 'PENDING',
@@ -53,9 +53,9 @@ describe('project view routes', () => {
     ]);
   });
   after(() => {
-    return Bluebird.promisify(mongoose.connection.db.dropDatabase, mongoose.connection.db)()
+    return Bluebird.promisify(connectionManager.connection.db.dropDatabase, connectionManager.connection.db)()
       .then(() => {
-        return mongoose.disconnectAsync();
+        return connectionManager.disconnect();
       });
   });
 
