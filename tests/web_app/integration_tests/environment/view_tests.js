@@ -1,6 +1,6 @@
 'use strict';
 import configureServer from '../../../../lib/web_app/server';
-import mongoose from 'mongoose';
+import connectionManager from '../../../../lib/models/connection_manager';
 import Bluebird from 'bluebird';
 import config from 'config';
 import Environment from '../../../../lib/models/environment';
@@ -13,14 +13,14 @@ import {
   expect
 }
 from 'chai';
-Bluebird.promisifyAll(mongoose);
+
 describe('environment view routes', () => {
   let server;
   let serverHelper;
   let existingEnvironment;
   before(() => {
     return Promise.all([
-      mongoose.connectAsync(config.get('Hoist.mongo.overlord')),
+      connectionManager.connect(config.get('Hoist.mongo.overlord')),
       new Environment({
         name: 'test existing environment',
         fleetUrl: 'http://fleet.hoist.test'
@@ -36,9 +36,9 @@ describe('environment view routes', () => {
     ]);
   });
   after(() => {
-    return Bluebird.promisify(mongoose.connection.db.dropDatabase, mongoose.connection.db)()
+    return Bluebird.promisify(connectionManager.connection.db.dropDatabase, connectionManager.connection.db)()
       .then(() => {
-        return mongoose.disconnectAsync();
+        return connectionManager.disconnect();
       });
   });
   describe('GET /environment', () => {

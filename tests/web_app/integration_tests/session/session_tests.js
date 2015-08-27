@@ -1,6 +1,6 @@
 'use strict';
 import configureServer from '../../../../lib/web_app/server';
-import mongoose from 'mongoose';
+import connectionManager from '../../../../lib/models/connection_manager';
 import Bluebird from 'bluebird';
 import config from 'config';
 import {
@@ -13,14 +13,13 @@ import {
 }
 from 'chai';
 
-Bluebird.promisifyAll(mongoose);
 
 describe('session', () => {
 	let server;
 	let serverHelper;
 	before(() => {
 		return Promise.all([
-			mongoose.connectAsync(config.get('Hoist.mongo.overlord')),
+			connectionManager.connect(config.get('Hoist.mongo.overlord')),
 			configureServer().then((s) => {
 				server = Bluebird.promisifyAll(s);
 				serverHelper = new ServerHelper(server);
@@ -30,9 +29,9 @@ describe('session', () => {
 		]);
 	});
 	after(() => {
-		return Bluebird.promisify(mongoose.connection.db.dropDatabase, mongoose.connection.db)()
+		return Bluebird.promisify(connectionManager.connection.db.dropDatabase, connectionManager.connection.db)()
 			.then(() => {
-				return mongoose.disconnectAsync();
+				return connectionManager.disconnect();
 			});
 	});
 	describe('GET /session/create', () => {

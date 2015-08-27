@@ -1,6 +1,6 @@
 'use strict';
 import Environment from '../../lib/models/environment';
-import mongoose from 'mongoose';
+import connectionManager from '../../lib/models/connection_manager';
 import Bluebird from 'bluebird';
 import config from 'config';
 import {
@@ -9,13 +9,13 @@ import {
 from 'chai';
 
 
-Bluebird.promisifyAll(mongoose);
+
 
 describe('Environment', () => {
 	let environment;
 	before(() => {
 		return Promise.all([
-			mongoose.connectAsync(config.get('Hoist.mongo.overlord')),
+			connectionManager.connect(config.get('Hoist.mongo.overlord')),
 			new Environment({
 				name: 'name',
 				fleetUrl: 'http://fleet.test.hoist'
@@ -25,9 +25,9 @@ describe('Environment', () => {
 		]);
 	});
 	after(() => {
-		return Bluebird.promisify(mongoose.connection.db.dropDatabase, mongoose.connection.db)()
+		return Bluebird.promisify(connectionManager.connection.db.dropDatabase, connectionManager.connection.db)()
 			.then(() => {
-				return mongoose.disconnectAsync();
+				return connectionManager.disconnect();
 			});
 	});
 	describe('#toJSON response', () => {
