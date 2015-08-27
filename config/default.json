@@ -4,8 +4,10 @@
       "name": "overlord"
     },
     "mongo": {
-      "overlord": "mongodb://localhost/hoist-overlord",
-      "portal" : "mongodb://db/hoist-portal"
+      "overlord": "mongodb://db/hoist-overlord",
+      "core": {
+        "connectionString": "mongodb://db/hoist-default"
+      }
     },
     "cookies": {
       "overlord": {

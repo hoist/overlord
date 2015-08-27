@@ -3,8 +3,8 @@ web:
   external_links:
     - hoist_db_1:db
   ports:
-   - "8000"
+   - "3004:8000"
   environment:
    - NODE_ENV=docker
   volumes_from:
-   - hoist_storage_1
+   - hoist_config_1
