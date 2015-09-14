@@ -1,0 +1,25 @@
+[Unit]
+Description=Inactive New Relic Server Pruner Task
+Requires=docker.service
+After=docker.service
+Requires=config.service
+After=config.service
+Wants=scaler.timer
+
+[Service]
+User=core
+Type=oneshot
+ExecStartPre=-/usr/bin/docker kill newrelic-pruner
+ExecStartPre=-/usr/bin/docker rm newrelic-pruner
+ExecStartPre=-/usr/bin/docker pull quay.io/hoist/overlord:master
+ExecStart=/usr/bin/docker run -m 700M  --name newrelic-pruner --entrypoint="/bin/bash" -e "NODE_ENV=production" --volumes-from config quay.io/hoist/overlord:master ./scripts/start_newrelic_pruner.sh
+ExecStop=/usr/bin/docker stop newrelic-pruner
+TimeoutStartSec=30m
+
+[Install]
+WantedBy=newrelic-pruner.target
+
+[X-Fleet]
+Conflicts=newrelic-pruner.service
+MachineMetadata=container_type=web
+

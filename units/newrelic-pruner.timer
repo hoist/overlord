@@ -1,0 +1,12 @@
+[Unit]
+Description=Inactive Queue Timer (every 6 hours)
+
+[Timer]
+OnCalendar=*/2:0
+Persistent=true
+
+[Install]
+WantedBy=local.target
+
+[X-Fleet]
+MachineOf=queue-pruner.service
