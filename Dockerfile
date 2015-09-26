@@ -1,4 +1,4 @@
-FROM quay.io/hoist/core-box:master
+FROM hoist/core-box:latest
 
 USER root
 #copy npmrc to enable login to private npm

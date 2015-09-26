@@ -11,8 +11,8 @@ User=core
 Type=oneshot
 ExecStartPre=-/usr/bin/docker kill scaler
 ExecStartPre=-/usr/bin/docker rm scaler
-ExecStartPre=-/usr/bin/docker pull quay.io/hoist/overlord:master
-ExecStart=/usr/bin/docker run -m 700M  --name scaler --entrypoint="/bin/bash" -e "NODE_ENV=production" --volumes-from config quay.io/hoist/overlord:master ./scripts/start_scaler.sh
+ExecStartPre=-/usr/bin/docker pull hoist/overlord:master
+ExecStart=/usr/bin/docker run -m 700M  --name scaler --entrypoint="/bin/bash" -e "NODE_ENV=production" --volumes-from config hoist/overlord:master ./scripts/start_scaler.sh
 ExecStop=/usr/bin/docker stop scaler
 TimeoutStartSec=30m
 

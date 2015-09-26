@@ -11,8 +11,8 @@ User=core
 Type=oneshot
 ExecStartPre=-/usr/bin/docker kill rebalancer
 ExecStartPre=-/usr/bin/docker rm rebalancer
-ExecStartPre=-/usr/bin/docker pull quay.io/hoist/overlord:master
-ExecStart=/usr/bin/docker run -m 700M  --name rebalancer --entrypoint="/bin/bash" -e "NODE_ENV=production" --volumes-from config quay.io/hoist/overlord:master ./scripts/start_rebalancer.sh
+ExecStartPre=-/usr/bin/docker pull hoist/overlord:master
+ExecStart=/usr/bin/docker run -m 700M  --name rebalancer --entrypoint="/bin/bash" -e "NODE_ENV=production" --volumes-from config hoist/overlord:master ./scripts/start_rebalancer.sh
 ExecStop=/usr/bin/docker stop rebalancer
 TimeoutStartSec=30m
 

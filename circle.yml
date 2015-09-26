@@ -21,8 +21,8 @@ dependencies:
   override:
     - mkdir -p ~/docker
     - if [[ -e ~/docker/overlord.tar ]]; then docker load -i ~/docker/overlord.tar; fi
-    - docker build -t quay.io/hoist/overlord:${CIRCLE_BRANCH//feature\//} .
-    - docker save "quay.io/hoist/overlord" > ~/docker/overlord.tar
+    - docker build -t hoist/overlord:${CIRCLE_BRANCH//feature\//} .
+    - docker save "hoist/overlord" > ~/docker/overlord.tar
 test:
   override:
     - docker kill mongodb; true;
@@ -30,7 +30,7 @@ test:
     - docker kill overlord-test; true;
     - docker rm overlord-test; true;
     - docker run -d --name mongodb mongo
-    - docker run --link mongodb:db --name overlord-test --entrypoint gulp quay.io/hoist/overlord:${CIRCLE_BRANCH//feature\//} test
+    - docker run --link mongodb:db --name overlord-test --entrypoint gulp hoist/overlord:${CIRCLE_BRANCH//feature\//} test
     - docker cp overlord-test:/usr/src/app/coverage ~/
 general:
   artifacts:
@@ -43,8 +43,8 @@ deployment:
     branch: [master,/feature\/.*/]
     owner: hoist
     commands:
-      - docker login -e $DOCKER_EMAIL -u $DOCKER_USER -p $DOCKER_PASS quay.io
-      - docker push quay.io/hoist/overlord:${CIRCLE_BRANCH//feature\//}
+      - docker login -e $DOCKER_EMAIL -u $DOCKER_USER -p $DOCKER_PASS
+      - docker push hoist/overlord:${CIRCLE_BRANCH//feature\//}
 notify:
   webhooks:
     - url: https://overlord.hoist.io/api/webhook/circleci?api_token=xc1zrzacmxp9samlj9nya4gzay
