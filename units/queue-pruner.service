@@ -4,7 +4,7 @@ Requires=docker.service
 After=docker.service
 Requires=config.service
 After=config.service
-Wants=scaler.timer
+Wants=queue-pruner.timer
 
 [Service]
 User=core
