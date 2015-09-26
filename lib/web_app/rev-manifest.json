@@ -1,9 +1,10 @@
 {
-  "css/default.css": "css/default-cfe48c9221.css",
+  "css/default.css": "css/default-2a7f60c329.css",
   "img/herbert.png": "img/herbert-a5ea59a311.png",
   "img/herbert@2x.png": "img/herbert@2x-27f4279a7e.png",
   "img/sprite.png": "img/sprite-5e43ecda73.png",
   "img/sprites/menu_expand.png": "img/sprites/menu_expand-d48dca653a.png",
+  "js/templates/account/create.js": "js/templates/account/create-5670c91123.js",
   "js/templates/dashboard/index.js": "js/templates/dashboard/index-ce666492ee.js",
   "js/templates/environments/edit.js": "js/templates/environments/edit-80f2e158cc.js",
   "js/templates/environments/index.js": "js/templates/environments/index-77339d37e6.js",
@@ -12,6 +13,6 @@
   "js/templates/projects/index.js": "js/templates/projects/index-c4f6b45159.js",
   "js/templates/servers/index.js": "js/templates/servers/index-4bf4d5d563.js",
   "js/templates/session/create.js": "js/templates/session/create-a0e35b4970.js",
-  "js/templates/users/details.js": "js/templates/users/details-711341fd88.js",
-  "js/templates/users/index.js": "js/templates/users/index-dbb9f60e72.js"
+  "js/templates/users/details.js": "js/templates/users/details-a49e3ae578.js",
+  "js/templates/users/index.js": "js/templates/users/index-af37c324f4.js"
 }
