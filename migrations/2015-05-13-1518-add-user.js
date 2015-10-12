@@ -1,4 +1,5 @@
 'use strict';
+require('../bootstrap');
 var User = require('../lib/models/user');
 exports.up = function (next) {
   console.log('    --> This is migration 2015-05-13-1518-add.js being applied');

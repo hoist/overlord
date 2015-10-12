@@ -1,7 +1,10 @@
 {
   "Hoist": {
     "mongo": {
-      "overlord": "mongodb://db/hoist-overlord"
+      "overlord": "mongodb://db/hoist-overlord",
+      "core": {
+        "connectionString": "mongodb://db/hoist-docker"
+      }
     },
     "chef": {
       "user": "buildmaster",
