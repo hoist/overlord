@@ -50,3 +50,4 @@ config/production_test.json
 lib/web_app/assets/compiled
 *.heapsnapshot
 spike.js
+.npmrc
