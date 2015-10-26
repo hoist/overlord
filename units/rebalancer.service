@@ -9,12 +9,12 @@ Wants=rebalancer.timer
 [Service]
 User=core
 Type=simple
-Restart=always
 ExecStartPre=-/usr/bin/docker kill rebalancer
 ExecStartPre=-/usr/bin/docker rm rebalancer
 ExecStart=/usr/bin/docker run -m 700M  --name rebalancer --entrypoint="/bin/bash" -e "NODE_ENV=production" --volumes-from config hoist/overlord:master ./scripts/start_rebalancer.sh
 ExecStop=/usr/bin/docker stop rebalancer
 TimeoutStartSec=30m
+StartLimitInterval=0
 
 [Install]
 WantedBy=rebalancer.target

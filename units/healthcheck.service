@@ -15,6 +15,8 @@ ExecStartPre=-/usr/bin/docker pull hoist/overlord:master
 ExecStart=/usr/bin/docker run -m 700M  --name healthcheck --entrypoint="/bin/bash" -e "NODE_ENV=production" --volumes-from config hoist/overlord:master ./scripts/start_healthcheck.sh
 ExecStop=/usr/bin/docker stop healthcheck
 TimeoutStartSec=30m
+RestartSec=5s
+StartLimitInterval=0
 
 [Install]
 WantedBy=healthcheck.target

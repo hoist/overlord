@@ -3,6 +3,7 @@ Description=Rebalancer Timer (every minute)
 
 [Timer]
 OnBootSec=5min
+OnUnitInactiveSec=5
 Persistent=true
 
 [Install]

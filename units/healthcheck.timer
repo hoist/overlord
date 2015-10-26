@@ -3,7 +3,7 @@ Description=Healthcheck Timer (every 5 minutes)
 
 [Timer]
 OnBootSec=5min
-OnCalendar=*:0/5
+OnUnitInactiveSec=5min
 Persistent=true
 
 [Install]
