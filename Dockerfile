@@ -1,4 +1,4 @@
-FROM hoist/core-box:latest
+FROM hoist/core-box:1.8
 
 USER root
 #copy npmrc to enable login to private npm
