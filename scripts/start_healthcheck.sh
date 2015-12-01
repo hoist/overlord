@@ -7,4 +7,4 @@ cp /config/production.json ./config/production.json
 
 #start app
 echo "starting app"
-babel-node ./lib/tasks/health_checker.js
+./node_modules/.bin/babel-node ./lib/tasks/health_checker.js

@@ -7,4 +7,4 @@ cp /config/production.json ./config/production.json
 
 #start app
 echo "starting app"
-babel-node ./lib/tasks/queue_pruner.js
+./node_modules/.bin/babel-node ./lib/tasks/queue_pruner.js
