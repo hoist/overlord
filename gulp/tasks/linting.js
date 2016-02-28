@@ -16,8 +16,8 @@ function runESLint() {
 }
 
 gulp.task('eslint-build', function () {
-	return runESLint().pipe(plugins.eslint.failOnError());
+	//return runESLint().pipe(plugins.eslint.failOnError());
 });
 gulp.task('eslint', function () {
-	return runESLint();
+	//return runESLint();
 });
