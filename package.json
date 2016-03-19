@@ -1,26 +1,26 @@
 {
-  "name": "portal.hoist.io",
-  "version": "2.0.0-pre.16",
-  "description": "Hoist's Portal",
+  "name": "overlord.hoist.io",
+  "version": "2.0.0-pre.1",
+  "description": "Hoist's Administration Portal",
   "scripts": {
     "start": "gulp start",
     "test": "gulp test"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/hoist/portal.hoist.io.git"
+    "url": "https://github.com/hoist/overlord.git"
   },
   "keywords": [
     "Hoist",
-    "Portal"
+    "Overlord"
   ],
   "private": true,
   "author": "Hoist Apps Ltd",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/hoist/portal.hoist.io/issues"
+    "url": "https://github.com/hoist/overlord/issues"
   },
-  "homepage": "https://github.com/hoist/portal.hoist.io#readme",
+  "homepage": "https://github.com/hoist/overlord#readme",
   "dependencies": {
     "@hoist/errors": "^2.0.0-pre.1",
     "@hoist/logger": "^1.1.0",

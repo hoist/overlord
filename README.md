@@ -1,4 +1,4 @@
-# Hoist's Developer Portal #
+# Hoist's Administration Portal #
 
 ## Getting started
 Ensure you have gulp installed globally: `npm install -g gulp`

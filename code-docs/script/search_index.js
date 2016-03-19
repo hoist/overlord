@@ -12,303 +12,303 @@ window.esdocSearchIndex = [
     "test"
   ],
   [
-    "portal.hoist.io/server/areas/application/application_controller.js~applicationcontroller",
+    "overlord.hoist.io/server/areas/application/application_controller.js~applicationcontroller",
     "class/server/areas/application/application_controller.js~ApplicationController.html",
-    "<span>ApplicationController</span> <span class=\"search-result-import-path\">portal.hoist.io/server/areas/application/application_controller.js</span>",
+    "<span>ApplicationController</span> <span class=\"search-result-import-path\">overlord.hoist.io/server/areas/application/application_controller.js</span>",
     "class"
   ],
   [
-    "portal.hoist.io/server/configuration/authentication.js~authenticationconfigurator",
+    "overlord.hoist.io/server/configuration/authentication.js~authenticationconfigurator",
     "class/server/configuration/authentication.js~AuthenticationConfigurator.html",
-    "<span>AuthenticationConfigurator</span> <span class=\"search-result-import-path\">portal.hoist.io/server/configuration/authentication.js</span>",
+    "<span>AuthenticationConfigurator</span> <span class=\"search-result-import-path\">overlord.hoist.io/server/configuration/authentication.js</span>",
     "class"
   ],
   [
-    "portal.hoist.io/server/configuration/base_configurator.js~baseconfigurator",
+    "overlord.hoist.io/server/configuration/base_configurator.js~baseconfigurator",
     "class/server/configuration/base_configurator.js~BaseConfigurator.html",
-    "<span>BaseConfigurator</span> <span class=\"search-result-import-path\">portal.hoist.io/server/configuration/base_configurator.js</span>",
+    "<span>BaseConfigurator</span> <span class=\"search-result-import-path\">overlord.hoist.io/server/configuration/base_configurator.js</span>",
     "class"
   ],
   [
-    "portal.hoist.io/server/areas/base_controller.js~basecontroller",
+    "overlord.hoist.io/server/areas/base_controller.js~basecontroller",
     "class/server/areas/base_controller.js~BaseController.html",
-    "<span>BaseController</span> <span class=\"search-result-import-path\">portal.hoist.io/server/areas/base_controller.js</span>",
+    "<span>BaseController</span> <span class=\"search-result-import-path\">overlord.hoist.io/server/areas/base_controller.js</span>",
     "class"
   ],
   [
-    "portal.hoist.io/server/areas/connector/connector_controller.js~connectorcontroller",
+    "overlord.hoist.io/server/areas/connector/connector_controller.js~connectorcontroller",
     "class/server/areas/connector/connector_controller.js~ConnectorController.html",
-    "<span>ConnectorController</span> <span class=\"search-result-import-path\">portal.hoist.io/server/areas/connector/connector_controller.js</span>",
+    "<span>ConnectorController</span> <span class=\"search-result-import-path\">overlord.hoist.io/server/areas/connector/connector_controller.js</span>",
     "class"
   ],
   [
-    "portal.hoist.io/server/models/connector_view_model.js~connectorviewmodel",
+    "overlord.hoist.io/server/models/connector_view_model.js~connectorviewmodel",
     "class/server/models/connector_view_model.js~ConnectorViewModel.html",
-    "<span>ConnectorViewModel</span> <span class=\"search-result-import-path\">portal.hoist.io/server/models/connector_view_model.js</span>",
+    "<span>ConnectorViewModel</span> <span class=\"search-result-import-path\">overlord.hoist.io/server/models/connector_view_model.js</span>",
     "class"
   ],
   [
-    "portal.hoist.io/server/areas/console/console_controller.js~consolecontroller",
+    "overlord.hoist.io/server/areas/console/console_controller.js~consolecontroller",
     "class/server/areas/console/console_controller.js~ConsoleController.html",
-    "<span>ConsoleController</span> <span class=\"search-result-import-path\">portal.hoist.io/server/areas/console/console_controller.js</span>",
+    "<span>ConsoleController</span> <span class=\"search-result-import-path\">overlord.hoist.io/server/areas/console/console_controller.js</span>",
     "class"
   ],
   [
-    "portal.hoist.io/server/areas/editor/editor_controller.js~editorcontroller",
+    "overlord.hoist.io/server/areas/editor/editor_controller.js~editorcontroller",
     "class/server/areas/editor/editor_controller.js~EditorController.html",
-    "<span>EditorController</span> <span class=\"search-result-import-path\">portal.hoist.io/server/areas/editor/editor_controller.js</span>",
+    "<span>EditorController</span> <span class=\"search-result-import-path\">overlord.hoist.io/server/areas/editor/editor_controller.js</span>",
     "class"
   ],
   [
-    "portal.hoist.io/server/areas/event/event_controller.js~eventcontroller",
+    "overlord.hoist.io/server/areas/event/event_controller.js~eventcontroller",
     "class/server/areas/event/event_controller.js~EventController.html",
-    "<span>EventController</span> <span class=\"search-result-import-path\">portal.hoist.io/server/areas/event/event_controller.js</span>",
+    "<span>EventController</span> <span class=\"search-result-import-path\">overlord.hoist.io/server/areas/event/event_controller.js</span>",
     "class"
   ],
   [
-    "portal.hoist.io/server/areas/healthcheck/healthcheck_controller.js~healthcheckcontroller",
+    "overlord.hoist.io/server/areas/healthcheck/healthcheck_controller.js~healthcheckcontroller",
     "class/server/areas/healthcheck/healthcheck_controller.js~HealthcheckController.html",
-    "<span>HealthcheckController</span> <span class=\"search-result-import-path\">portal.hoist.io/server/areas/healthcheck/healthcheck_controller.js</span>",
+    "<span>HealthcheckController</span> <span class=\"search-result-import-path\">overlord.hoist.io/server/areas/healthcheck/healthcheck_controller.js</span>",
     "class"
   ],
   [
-    "portal.hoist.io/server/configuration/logging.js~loggingconfigurator",
+    "overlord.hoist.io/server/configuration/logging.js~loggingconfigurator",
     "class/server/configuration/logging.js~LoggingConfigurator.html",
-    "<span>LoggingConfigurator</span> <span class=\"search-result-import-path\">portal.hoist.io/server/configuration/logging.js</span>",
+    "<span>LoggingConfigurator</span> <span class=\"search-result-import-path\">overlord.hoist.io/server/configuration/logging.js</span>",
     "class"
   ],
   [
-    "portal.hoist.io/server/areas/organisation/organisation_controller.js~organisationcontroller",
+    "overlord.hoist.io/server/areas/organisation/organisation_controller.js~organisationcontroller",
     "class/server/areas/organisation/organisation_controller.js~OrganisationController.html",
-    "<span>OrganisationController</span> <span class=\"search-result-import-path\">portal.hoist.io/server/areas/organisation/organisation_controller.js</span>",
+    "<span>OrganisationController</span> <span class=\"search-result-import-path\">overlord.hoist.io/server/areas/organisation/organisation_controller.js</span>",
     "class"
   ],
   [
-    "portal.hoist.io/server/index.js~portalserver",
+    "overlord.hoist.io/server/index.js~portalserver",
     "class/server/index.js~PortalServer.html",
-    "<span>PortalServer</span> <span class=\"search-result-import-path\">portal.hoist.io/server/index.js</span>",
+    "<span>PortalServer</span> <span class=\"search-result-import-path\">overlord.hoist.io/server/index.js</span>",
     "class"
   ],
   [
-    "portal.hoist.io/server/configuration/routes.js~routeconfigurator",
+    "overlord.hoist.io/server/configuration/routes.js~routeconfigurator",
     "class/server/configuration/routes.js~RouteConfigurator.html",
-    "<span>RouteConfigurator</span> <span class=\"search-result-import-path\">portal.hoist.io/server/configuration/routes.js</span>",
+    "<span>RouteConfigurator</span> <span class=\"search-result-import-path\">overlord.hoist.io/server/configuration/routes.js</span>",
     "class"
   ],
   [
-    "portal.hoist.io/server/configuration/server.js~serverconfigurator",
+    "overlord.hoist.io/server/configuration/server.js~serverconfigurator",
     "class/server/configuration/server.js~ServerConfigurator.html",
-    "<span>ServerConfigurator</span> <span class=\"search-result-import-path\">portal.hoist.io/server/configuration/server.js</span>",
+    "<span>ServerConfigurator</span> <span class=\"search-result-import-path\">overlord.hoist.io/server/configuration/server.js</span>",
     "class"
   ],
   [
-    "portal.hoist.io/server/areas/session/session_controller.js~sessioncontroller",
+    "overlord.hoist.io/server/areas/session/session_controller.js~sessioncontroller",
     "class/server/areas/session/session_controller.js~SessionController.html",
-    "<span>SessionController</span> <span class=\"search-result-import-path\">portal.hoist.io/server/areas/session/session_controller.js</span>",
+    "<span>SessionController</span> <span class=\"search-result-import-path\">overlord.hoist.io/server/areas/session/session_controller.js</span>",
     "class"
   ],
   [
-    "portal.hoist.io/server/areas/user/user_controller.js~usercontroller",
+    "overlord.hoist.io/server/areas/user/user_controller.js~usercontroller",
     "class/server/areas/user/user_controller.js~UserController.html",
-    "<span>UserController</span> <span class=\"search-result-import-path\">portal.hoist.io/server/areas/user/user_controller.js</span>",
+    "<span>UserController</span> <span class=\"search-result-import-path\">overlord.hoist.io/server/areas/user/user_controller.js</span>",
     "class"
   ],
   [
-    "portal.hoist.io/server/logic/user.js~activateforgottenpassword",
+    "overlord.hoist.io/server/logic/user.js~activateforgottenpassword",
     "function/index.html#static-function-activateForgottenPassword",
-    "<span>activateForgottenPassword</span> <span class=\"search-result-import-path\">portal.hoist.io/server/logic/user.js</span>",
+    "<span>activateForgottenPassword</span> <span class=\"search-result-import-path\">overlord.hoist.io/server/logic/user.js</span>",
     "function"
   ],
   [
-    "portal.hoist.io/server/utils/rabbit.js~closeconnection",
+    "overlord.hoist.io/server/utils/rabbit.js~closeconnection",
     "function/index.html#static-function-closeConnection",
-    "<span>closeConnection</span> <span class=\"search-result-import-path\">portal.hoist.io/server/utils/rabbit.js</span>",
+    "<span>closeConnection</span> <span class=\"search-result-import-path\">overlord.hoist.io/server/utils/rabbit.js</span>",
     "function"
   ],
   [
-    "portal.hoist.io/server/logic/application.js~create",
+    "overlord.hoist.io/server/logic/application.js~create",
     "function/index.html#static-function-create",
-    "<span>create</span> <span class=\"search-result-import-path\">portal.hoist.io/server/logic/application.js</span>",
+    "<span>create</span> <span class=\"search-result-import-path\">overlord.hoist.io/server/logic/application.js</span>",
     "function"
   ],
   [
-    "portal.hoist.io/server/logic/organisation.js~create",
+    "overlord.hoist.io/server/logic/organisation.js~create",
     "function/index.html#static-function-create",
-    "<span>create</span> <span class=\"search-result-import-path\">portal.hoist.io/server/logic/organisation.js</span>",
+    "<span>create</span> <span class=\"search-result-import-path\">overlord.hoist.io/server/logic/organisation.js</span>",
     "function"
   ],
   [
-    "portal.hoist.io/server/logic/user.js~create",
+    "overlord.hoist.io/server/logic/user.js~create",
     "function/index.html#static-function-create",
-    "<span>create</span> <span class=\"search-result-import-path\">portal.hoist.io/server/logic/user.js</span>",
+    "<span>create</span> <span class=\"search-result-import-path\">overlord.hoist.io/server/logic/user.js</span>",
     "function"
   ],
   [
-    "portal.hoist.io/server/logic/event.js~createevent",
+    "overlord.hoist.io/server/logic/event.js~createevent",
     "function/index.html#static-function-createEvent",
-    "<span>createEvent</span> <span class=\"search-result-import-path\">portal.hoist.io/server/logic/event.js</span>",
+    "<span>createEvent</span> <span class=\"search-result-import-path\">overlord.hoist.io/server/logic/event.js</span>",
     "function"
   ],
   [
-    "portal.hoist.io/server/logic/user.js~createforgottenpassword",
+    "overlord.hoist.io/server/logic/user.js~createforgottenpassword",
     "function/index.html#static-function-createForgottenPassword",
-    "<span>createForgottenPassword</span> <span class=\"search-result-import-path\">portal.hoist.io/server/logic/user.js</span>",
+    "<span>createForgottenPassword</span> <span class=\"search-result-import-path\">overlord.hoist.io/server/logic/user.js</span>",
     "function"
   ],
   [
-    "portal.hoist.io/server/logic/event.js~createmoduleforevent",
+    "overlord.hoist.io/server/logic/event.js~createmoduleforevent",
     "function/index.html#static-function-createModuleForEvent",
-    "<span>createModuleForEvent</span> <span class=\"search-result-import-path\">portal.hoist.io/server/logic/event.js</span>",
+    "<span>createModuleForEvent</span> <span class=\"search-result-import-path\">overlord.hoist.io/server/logic/event.js</span>",
     "function"
   ],
   [
-    "portal.hoist.io/server/logic/session.js~createsessionforuser",
+    "overlord.hoist.io/server/logic/session.js~createsessionforuser",
     "function/index.html#static-function-createSessionForUser",
-    "<span>createSessionForUser</span> <span class=\"search-result-import-path\">portal.hoist.io/server/logic/session.js</span>",
+    "<span>createSessionForUser</span> <span class=\"search-result-import-path\">overlord.hoist.io/server/logic/session.js</span>",
     "function"
   ],
   [
-    "portal.hoist.io/server/logic/session.js~ensurelogin",
+    "overlord.hoist.io/server/logic/session.js~ensurelogin",
     "function/index.html#static-function-ensureLogin",
-    "<span>ensureLogin</span> <span class=\"search-result-import-path\">portal.hoist.io/server/logic/session.js</span>",
+    "<span>ensureLogin</span> <span class=\"search-result-import-path\">overlord.hoist.io/server/logic/session.js</span>",
     "function"
   ],
   [
-    "portal.hoist.io/server/logic/settings.js~getallsettings",
+    "overlord.hoist.io/server/logic/settings.js~getallsettings",
     "function/index.html#static-function-getAllSettings",
-    "<span>getAllSettings</span> <span class=\"search-result-import-path\">portal.hoist.io/server/logic/settings.js</span>",
+    "<span>getAllSettings</span> <span class=\"search-result-import-path\">overlord.hoist.io/server/logic/settings.js</span>",
     "function"
   ],
   [
-    "portal.hoist.io/server/logic/application.js~getapplicationpath",
+    "overlord.hoist.io/server/logic/application.js~getapplicationpath",
     "function/index.html#static-function-getApplicationPath",
-    "<span>getApplicationPath</span> <span class=\"search-result-import-path\">portal.hoist.io/server/logic/application.js</span>",
+    "<span>getApplicationPath</span> <span class=\"search-result-import-path\">overlord.hoist.io/server/logic/application.js</span>",
     "function"
   ],
   [
-    "portal.hoist.io/server/logic/connector.js~getauthurl",
+    "overlord.hoist.io/server/logic/connector.js~getauthurl",
     "function/index.html#static-function-getAuthUrl",
-    "<span>getAuthUrl</span> <span class=\"search-result-import-path\">portal.hoist.io/server/logic/connector.js</span>",
+    "<span>getAuthUrl</span> <span class=\"search-result-import-path\">overlord.hoist.io/server/logic/connector.js</span>",
     "function"
   ],
   [
-    "portal.hoist.io/server/logic/connector.js~getavailableconnectors",
+    "overlord.hoist.io/server/logic/connector.js~getavailableconnectors",
     "function/index.html#static-function-getAvailableConnectors",
-    "<span>getAvailableConnectors</span> <span class=\"search-result-import-path\">portal.hoist.io/server/logic/connector.js</span>",
+    "<span>getAvailableConnectors</span> <span class=\"search-result-import-path\">overlord.hoist.io/server/logic/connector.js</span>",
     "function"
   ],
   [
-    "portal.hoist.io/server/logic/editor.js~getcodeforevent",
+    "overlord.hoist.io/server/logic/editor.js~getcodeforevent",
     "function/index.html#static-function-getCodeForEvent",
-    "<span>getCodeForEvent</span> <span class=\"search-result-import-path\">portal.hoist.io/server/logic/editor.js</span>",
+    "<span>getCodeForEvent</span> <span class=\"search-result-import-path\">overlord.hoist.io/server/logic/editor.js</span>",
     "function"
   ],
   [
-    "portal.hoist.io/server/logic/connector.js~getconnectorsforapplication",
+    "overlord.hoist.io/server/logic/connector.js~getconnectorsforapplication",
     "function/index.html#static-function-getConnectorsForApplication",
-    "<span>getConnectorsForApplication</span> <span class=\"search-result-import-path\">portal.hoist.io/server/logic/connector.js</span>",
+    "<span>getConnectorsForApplication</span> <span class=\"search-result-import-path\">overlord.hoist.io/server/logic/connector.js</span>",
     "function"
   ],
   [
-    "portal.hoist.io/server/logic/event.js~getevents",
+    "overlord.hoist.io/server/logic/event.js~getevents",
     "function/index.html#static-function-getEvents",
-    "<span>getEvents</span> <span class=\"search-result-import-path\">portal.hoist.io/server/logic/event.js</span>",
+    "<span>getEvents</span> <span class=\"search-result-import-path\">overlord.hoist.io/server/logic/event.js</span>",
     "function"
   ],
   [
-    "portal.hoist.io/server/logic/console.js~getmessages",
+    "overlord.hoist.io/server/logic/console.js~getmessages",
     "function/index.html#static-function-getMessages",
-    "<span>getMessages</span> <span class=\"search-result-import-path\">portal.hoist.io/server/logic/console.js</span>",
+    "<span>getMessages</span> <span class=\"search-result-import-path\">overlord.hoist.io/server/logic/console.js</span>",
     "function"
   ],
   [
-    "portal.hoist.io/server/utils/rabbit.js~getmessages",
+    "overlord.hoist.io/server/utils/rabbit.js~getmessages",
     "function/index.html#static-function-getMessages",
-    "<span>getMessages</span> <span class=\"search-result-import-path\">portal.hoist.io/server/utils/rabbit.js</span>",
+    "<span>getMessages</span> <span class=\"search-result-import-path\">overlord.hoist.io/server/utils/rabbit.js</span>",
     "function"
   ],
   [
-    "portal.hoist.io/server/logic/session.js~getsessiondetails",
+    "overlord.hoist.io/server/logic/session.js~getsessiondetails",
     "function/index.html#static-function-getSessionDetails",
-    "<span>getSessionDetails</span> <span class=\"search-result-import-path\">portal.hoist.io/server/logic/session.js</span>",
+    "<span>getSessionDetails</span> <span class=\"search-result-import-path\">overlord.hoist.io/server/logic/session.js</span>",
     "function"
   ],
   [
-    "portal.hoist.io/server/logic/connector.js~getuniqueconnectorkey",
+    "overlord.hoist.io/server/logic/connector.js~getuniqueconnectorkey",
     "function/index.html#static-function-getUniqueConnectorKey",
-    "<span>getUniqueConnectorKey</span> <span class=\"search-result-import-path\">portal.hoist.io/server/logic/connector.js</span>",
+    "<span>getUniqueConnectorKey</span> <span class=\"search-result-import-path\">overlord.hoist.io/server/logic/connector.js</span>",
     "function"
   ],
   [
-    "portal.hoist.io/server/logic/connector.js~loadconnector",
+    "overlord.hoist.io/server/logic/connector.js~loadconnector",
     "function/index.html#static-function-loadConnector",
-    "<span>loadConnector</span> <span class=\"search-result-import-path\">portal.hoist.io/server/logic/connector.js</span>",
+    "<span>loadConnector</span> <span class=\"search-result-import-path\">overlord.hoist.io/server/logic/connector.js</span>",
     "function"
   ],
   [
-    "portal.hoist.io/server/logic/session.js~loglogin",
+    "overlord.hoist.io/server/logic/session.js~loglogin",
     "function/index.html#static-function-logLogin",
-    "<span>logLogin</span> <span class=\"search-result-import-path\">portal.hoist.io/server/logic/session.js</span>",
+    "<span>logLogin</span> <span class=\"search-result-import-path\">overlord.hoist.io/server/logic/session.js</span>",
     "function"
   ],
   [
-    "portal.hoist.io/server/logic/event.js~mapeventtomodule",
+    "overlord.hoist.io/server/logic/event.js~mapeventtomodule",
     "function/index.html#static-function-mapEventToModule",
-    "<span>mapEventToModule</span> <span class=\"search-result-import-path\">portal.hoist.io/server/logic/event.js</span>",
+    "<span>mapEventToModule</span> <span class=\"search-result-import-path\">overlord.hoist.io/server/logic/event.js</span>",
     "function"
   ],
   [
-    "portal.hoist.io/server/logic/connector.js~populateconnector",
+    "overlord.hoist.io/server/logic/connector.js~populateconnector",
     "function/index.html#static-function-populateConnector",
-    "<span>populateConnector</span> <span class=\"search-result-import-path\">portal.hoist.io/server/logic/connector.js</span>",
+    "<span>populateConnector</span> <span class=\"search-result-import-path\">overlord.hoist.io/server/logic/connector.js</span>",
     "function"
   ],
   [
-    "portal.hoist.io/server/utils/string_utils.js~sanitisename",
+    "overlord.hoist.io/server/utils/string_utils.js~sanitisename",
     "function/index.html#static-function-sanitiseName",
-    "<span>sanitiseName</span> <span class=\"search-result-import-path\">portal.hoist.io/server/utils/string_utils.js</span>",
+    "<span>sanitiseName</span> <span class=\"search-result-import-path\">overlord.hoist.io/server/utils/string_utils.js</span>",
     "function"
   ],
   [
-    "portal.hoist.io/server/logic/editor.js~savescript",
+    "overlord.hoist.io/server/logic/editor.js~savescript",
     "function/index.html#static-function-saveScript",
-    "<span>saveScript</span> <span class=\"search-result-import-path\">portal.hoist.io/server/logic/editor.js</span>",
+    "<span>saveScript</span> <span class=\"search-result-import-path\">overlord.hoist.io/server/logic/editor.js</span>",
     "function"
   ],
   [
-    "portal.hoist.io/server/logic/emails.js~sendforgottenpasswordemail",
+    "overlord.hoist.io/server/logic/emails.js~sendforgottenpasswordemail",
     "function/index.html#static-function-sendForgottenPasswordEmail",
-    "<span>sendForgottenPasswordEmail</span> <span class=\"search-result-import-path\">portal.hoist.io/server/logic/emails.js</span>",
+    "<span>sendForgottenPasswordEmail</span> <span class=\"search-result-import-path\">overlord.hoist.io/server/logic/emails.js</span>",
     "function"
   ],
   [
-    "portal.hoist.io/server/logic/emails.js~sendnouseracountemail",
+    "overlord.hoist.io/server/logic/emails.js~sendnouseracountemail",
     "function/index.html#static-function-sendNoUserAcountEmail",
-    "<span>sendNoUserAcountEmail</span> <span class=\"search-result-import-path\">portal.hoist.io/server/logic/emails.js</span>",
+    "<span>sendNoUserAcountEmail</span> <span class=\"search-result-import-path\">overlord.hoist.io/server/logic/emails.js</span>",
     "function"
   ],
   [
-    "portal.hoist.io/server/logic/connector.js~setupdefaultconnector",
+    "overlord.hoist.io/server/logic/connector.js~setupdefaultconnector",
     "function/index.html#static-function-setupDefaultConnector",
-    "<span>setupDefaultConnector</span> <span class=\"search-result-import-path\">portal.hoist.io/server/logic/connector.js</span>",
+    "<span>setupDefaultConnector</span> <span class=\"search-result-import-path\">overlord.hoist.io/server/logic/connector.js</span>",
     "function"
   ],
   [
-    "portal.hoist.io/server/utils/rabbit.js~setupqueue",
+    "overlord.hoist.io/server/utils/rabbit.js~setupqueue",
     "function/index.html#static-function-setupQueue",
-    "<span>setupQueue</span> <span class=\"search-result-import-path\">portal.hoist.io/server/utils/rabbit.js</span>",
+    "<span>setupQueue</span> <span class=\"search-result-import-path\">overlord.hoist.io/server/utils/rabbit.js</span>",
     "function"
   ],
   [
-    "portal.hoist.io/server/logic/session.js~updateapplication",
+    "overlord.hoist.io/server/logic/session.js~updateapplication",
     "function/index.html#static-function-updateApplication",
-    "<span>updateApplication</span> <span class=\"search-result-import-path\">portal.hoist.io/server/logic/session.js</span>",
+    "<span>updateApplication</span> <span class=\"search-result-import-path\">overlord.hoist.io/server/logic/session.js</span>",
     "function"
   ],
   [
-    "portal.hoist.io/server/logic/session.js~updateorganisation",
+    "overlord.hoist.io/server/logic/session.js~updateorganisation",
     "function/index.html#static-function-updateOrganisation",
-    "<span>updateOrganisation</span> <span class=\"search-result-import-path\">portal.hoist.io/server/logic/session.js</span>",
+    "<span>updateOrganisation</span> <span class=\"search-result-import-path\">overlord.hoist.io/server/logic/session.js</span>",
     "function"
   ],
   [

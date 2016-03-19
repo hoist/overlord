@@ -22,7 +22,7 @@
     "longname": "server/areas/application/application_controller.js~ApplicationController",
     "access": null,
     "export": true,
-    "importPath": "portal.hoist.io/server/areas/application/application_controller.js",
+    "importPath": "overlord.hoist.io/server/areas/application/application_controller.js",
     "importStyle": "{ApplicationController}",
     "description": "Controller for user actions related their Applications",
     "lineNumber": 9,
@@ -133,7 +133,7 @@
     "memberof": "server/areas/application/application_controller.js~ApplicationController",
     "longname": "server/areas/application/application_controller.js~ApplicationController#routes",
     "access": null,
-    "description": null,
+    "description": "",
     "lineNumber": 77,
     "unknown": [
       {
@@ -176,7 +176,7 @@
     "longname": "server/areas/base_controller.js~BaseController",
     "access": null,
     "export": true,
-    "importPath": "portal.hoist.io/server/areas/base_controller.js",
+    "importPath": "overlord.hoist.io/server/areas/base_controller.js",
     "importStyle": "{BaseController}",
     "description": "a base interface for controller classes",
     "lineNumber": 10,
@@ -192,7 +192,7 @@
     "memberof": "server/areas/base_controller.js",
     "longname": "server/areas/base_controller.js~HapiReply",
     "access": null,
-    "description": null
+    "description": ""
   },
   {
     "__docId__": 9,
@@ -368,7 +368,7 @@
     "longname": "server/areas/connector/connector_controller.js~ConnectorController",
     "access": null,
     "export": true,
-    "importPath": "portal.hoist.io/server/areas/connector/connector_controller.js",
+    "importPath": "overlord.hoist.io/server/areas/connector/connector_controller.js",
     "importStyle": "{ConnectorController}",
     "description": "Controller for user actions related their Organisations",
     "lineNumber": 20,
@@ -509,7 +509,7 @@
     "memberof": "server/areas/connector/connector_controller.js~ConnectorController",
     "longname": "server/areas/connector/connector_controller.js~ConnectorController#routes",
     "access": null,
-    "description": null,
+    "description": "",
     "lineNumber": 85,
     "unknown": [
       {
@@ -552,7 +552,7 @@
     "longname": "server/areas/console/console_controller.js~ConsoleController",
     "access": null,
     "export": true,
-    "importPath": "portal.hoist.io/server/areas/console/console_controller.js",
+    "importPath": "overlord.hoist.io/server/areas/console/console_controller.js",
     "importStyle": "{ConsoleController}",
     "description": "Controller for actions related to the developer console",
     "lineNumber": 13,
@@ -627,7 +627,7 @@
     "memberof": "server/areas/console/console_controller.js~ConsoleController",
     "longname": "server/areas/console/console_controller.js~ConsoleController#routes",
     "access": null,
-    "description": null,
+    "description": "",
     "lineNumber": 103,
     "unknown": [
       {
@@ -670,7 +670,7 @@
     "longname": "server/areas/editor/editor_controller.js~EditorController",
     "access": null,
     "export": true,
-    "importPath": "portal.hoist.io/server/areas/editor/editor_controller.js",
+    "importPath": "overlord.hoist.io/server/areas/editor/editor_controller.js",
     "importStyle": "{EditorController}",
     "description": "Controller for user actions related their Organisations",
     "lineNumber": 18,
@@ -811,7 +811,7 @@
     "memberof": "server/areas/editor/editor_controller.js~EditorController",
     "longname": "server/areas/editor/editor_controller.js~EditorController#routes",
     "access": null,
-    "description": null,
+    "description": "",
     "lineNumber": 149,
     "unknown": [
       {
@@ -854,14 +854,14 @@
     "longname": "server/areas/event/event_controller.js~EventController",
     "access": null,
     "export": true,
-    "importPath": "portal.hoist.io/server/areas/event/event_controller.js",
+    "importPath": "overlord.hoist.io/server/areas/event/event_controller.js",
     "importStyle": "{EventController}",
     "description": null,
     "lineNumber": 7,
     "undocument": true,
     "interface": false,
     "extends": [
-      "server/areas/base_controller~BaseController"
+      "server/areas/base_controller.js~BaseController"
     ]
   },
   {
@@ -919,7 +919,7 @@
     "memberof": "server/areas/event/event_controller.js~EventController",
     "longname": "server/areas/event/event_controller.js~EventController#routes",
     "access": null,
-    "description": null,
+    "description": "",
     "lineNumber": 34,
     "unknown": [
       {
@@ -962,7 +962,7 @@
     "longname": "server/areas/healthcheck/healthcheck_controller.js~HealthcheckController",
     "access": null,
     "export": true,
-    "importPath": "portal.hoist.io/server/areas/healthcheck/healthcheck_controller.js",
+    "importPath": "overlord.hoist.io/server/areas/healthcheck/healthcheck_controller.js",
     "importStyle": "{HealthcheckController}",
     "description": "Controller for actions related to healthchecks",
     "lineNumber": 7,
@@ -1037,7 +1037,7 @@
     "memberof": "server/areas/healthcheck/healthcheck_controller.js~HealthcheckController",
     "longname": "server/areas/healthcheck/healthcheck_controller.js~HealthcheckController#routes",
     "access": null,
-    "description": null,
+    "description": "",
     "lineNumber": 45,
     "unknown": [
       {
@@ -1080,7 +1080,7 @@
     "longname": "server/areas/organisation/organisation_controller.js~OrganisationController",
     "access": null,
     "export": true,
-    "importPath": "portal.hoist.io/server/areas/organisation/organisation_controller.js",
+    "importPath": "overlord.hoist.io/server/areas/organisation/organisation_controller.js",
     "importStyle": "{OrganisationController}",
     "description": "Controller for user actions related their Organisations",
     "lineNumber": 9,
@@ -1234,7 +1234,7 @@
     "memberof": "server/areas/organisation/organisation_controller.js~OrganisationController",
     "longname": "server/areas/organisation/organisation_controller.js~OrganisationController#routes",
     "access": null,
-    "description": null,
+    "description": "",
     "lineNumber": 111,
     "unknown": [
       {
@@ -1277,7 +1277,7 @@
     "longname": "server/areas/session/session_controller.js~SessionController",
     "access": null,
     "export": true,
-    "importPath": "portal.hoist.io/server/areas/session/session_controller.js",
+    "importPath": "overlord.hoist.io/server/areas/session/session_controller.js",
     "importStyle": "{SessionController}",
     "description": "Controller for user actions related their current session",
     "lineNumber": 9,
@@ -1524,7 +1524,7 @@
     "memberof": "server/areas/session/session_controller.js~SessionController",
     "longname": "server/areas/session/session_controller.js~SessionController#routes",
     "access": null,
-    "description": null,
+    "description": "",
     "lineNumber": 155,
     "unknown": [
       {
@@ -1567,7 +1567,7 @@
     "longname": "server/areas/user/user_controller.js~UserController",
     "access": null,
     "export": true,
-    "importPath": "portal.hoist.io/server/areas/user/user_controller.js",
+    "importPath": "overlord.hoist.io/server/areas/user/user_controller.js",
     "importStyle": "{UserController}",
     "description": "Controller for actions related to users",
     "lineNumber": 14,
@@ -1728,7 +1728,7 @@
     "memberof": "server/areas/user/user_controller.js~UserController",
     "longname": "server/areas/user/user_controller.js~UserController#routes",
     "access": null,
-    "description": null,
+    "description": "",
     "lineNumber": 121,
     "unknown": [
       {
@@ -1771,14 +1771,14 @@
     "longname": "server/configuration/authentication.js~AuthenticationConfigurator",
     "access": null,
     "export": true,
-    "importPath": "portal.hoist.io/server/configuration/authentication.js",
+    "importPath": "overlord.hoist.io/server/configuration/authentication.js",
     "importStyle": "{AuthenticationConfigurator}",
     "description": null,
     "lineNumber": 6,
     "undocument": true,
     "interface": false,
     "extends": [
-      "server/configuration/base_configurator~BaseConfigurator"
+      "server/configuration/base_configurator.js~BaseConfigurator"
     ]
   },
   {
@@ -1831,7 +1831,7 @@
     "longname": "server/configuration/base_configurator.js~BaseConfigurator",
     "access": null,
     "export": true,
-    "importPath": "portal.hoist.io/server/configuration/base_configurator.js",
+    "importPath": "overlord.hoist.io/server/configuration/base_configurator.js",
     "importStyle": "{BaseConfigurator}",
     "description": null,
     "lineNumber": 3,
@@ -1927,14 +1927,14 @@
     "longname": "server/configuration/logging.js~LoggingConfigurator",
     "access": null,
     "export": true,
-    "importPath": "portal.hoist.io/server/configuration/logging.js",
+    "importPath": "overlord.hoist.io/server/configuration/logging.js",
     "importStyle": "{LoggingConfigurator}",
     "description": null,
     "lineNumber": 9,
     "undocument": true,
     "interface": false,
     "extends": [
-      "server/configuration/base_configurator~BaseConfigurator"
+      "server/configuration/base_configurator.js~BaseConfigurator"
     ]
   },
   {
@@ -1987,7 +1987,7 @@
     "longname": "server/configuration/routes.js~globAsync",
     "access": null,
     "export": false,
-    "importPath": "portal.hoist.io/server/configuration/routes.js",
+    "importPath": "overlord.hoist.io/server/configuration/routes.js",
     "importStyle": null,
     "description": null,
     "lineNumber": 11,
@@ -2008,14 +2008,14 @@
     "longname": "server/configuration/routes.js~RouteConfigurator",
     "access": null,
     "export": true,
-    "importPath": "portal.hoist.io/server/configuration/routes.js",
+    "importPath": "overlord.hoist.io/server/configuration/routes.js",
     "importStyle": "{RouteConfigurator}",
     "description": null,
     "lineNumber": 13,
     "undocument": true,
     "interface": false,
     "extends": [
-      "server/configuration/base_configurator~BaseConfigurator"
+      "server/configuration/base_configurator.js~BaseConfigurator"
     ]
   },
   {
@@ -2164,14 +2164,14 @@
     "longname": "server/configuration/server.js~ServerConfigurator",
     "access": null,
     "export": true,
-    "importPath": "portal.hoist.io/server/configuration/server.js",
+    "importPath": "overlord.hoist.io/server/configuration/server.js",
     "importStyle": "{ServerConfigurator}",
     "description": null,
     "lineNumber": 11,
     "undocument": true,
     "interface": false,
     "extends": [
-      "server/configuration/base_configurator~BaseConfigurator"
+      "server/configuration/base_configurator.js~BaseConfigurator"
     ]
   },
   {
@@ -2320,7 +2320,7 @@
     "longname": "server/index.js~PortalServer",
     "access": null,
     "export": true,
-    "importPath": "portal.hoist.io/server/index.js",
+    "importPath": "overlord.hoist.io/server/index.js",
     "importStyle": "PortalServer",
     "description": "The main portal server itself",
     "lineNumber": 14,
@@ -2447,7 +2447,7 @@
     "longname": "server/logic/application.js~getApplicationPath",
     "access": null,
     "export": true,
-    "importPath": "portal.hoist.io/server/logic/application.js",
+    "importPath": "overlord.hoist.io/server/logic/application.js",
     "importStyle": "{getApplicationPath}",
     "description": null,
     "lineNumber": 10,
@@ -2477,7 +2477,7 @@
     "longname": "server/logic/application.js~create",
     "access": null,
     "export": true,
-    "importPath": "portal.hoist.io/server/logic/application.js",
+    "importPath": "overlord.hoist.io/server/logic/application.js",
     "importStyle": "{create}",
     "description": null,
     "lineNumber": 31,
@@ -2526,7 +2526,7 @@
     "longname": "server/logic/connector.js~_logger",
     "access": null,
     "export": false,
-    "importPath": "portal.hoist.io/server/logic/connector.js",
+    "importPath": "overlord.hoist.io/server/logic/connector.js",
     "importStyle": null,
     "description": null,
     "lineNumber": 13,
@@ -2547,7 +2547,7 @@
     "longname": "server/logic/connector.js~getConnectorsForApplication",
     "access": null,
     "export": true,
-    "importPath": "portal.hoist.io/server/logic/connector.js",
+    "importPath": "overlord.hoist.io/server/logic/connector.js",
     "importStyle": "{getConnectorsForApplication}",
     "description": "returns all connnectors for this application",
     "lineNumber": 21,
@@ -2589,7 +2589,7 @@
     "longname": "server/logic/connector.js~populateConnector",
     "access": null,
     "export": true,
-    "importPath": "portal.hoist.io/server/logic/connector.js",
+    "importPath": "overlord.hoist.io/server/logic/connector.js",
     "importStyle": "{populateConnector}",
     "description": "given a connector setting, returns an object loading up the settings and the events that come from the connector",
     "lineNumber": 33,
@@ -2631,7 +2631,7 @@
     "longname": "server/logic/connector.js~loadConnector",
     "access": null,
     "export": true,
-    "importPath": "portal.hoist.io/server/logic/connector.js",
+    "importPath": "overlord.hoist.io/server/logic/connector.js",
     "importStyle": "{loadConnector}",
     "description": null,
     "lineNumber": 45,
@@ -2667,7 +2667,7 @@
     "longname": "server/logic/connector.js~getAvailableConnectors",
     "access": null,
     "export": true,
-    "importPath": "portal.hoist.io/server/logic/connector.js",
+    "importPath": "overlord.hoist.io/server/logic/connector.js",
     "importStyle": "{getAvailableConnectors}",
     "description": null,
     "lineNumber": 57,
@@ -2690,7 +2690,7 @@
     "longname": "server/logic/connector.js~setupDefaultConnector",
     "access": null,
     "export": true,
-    "importPath": "portal.hoist.io/server/logic/connector.js",
+    "importPath": "overlord.hoist.io/server/logic/connector.js",
     "importStyle": "{setupDefaultConnector}",
     "description": null,
     "lineNumber": 109,
@@ -2726,7 +2726,7 @@
     "longname": "server/logic/connector.js~getUniqueConnectorKey",
     "access": null,
     "export": true,
-    "importPath": "portal.hoist.io/server/logic/connector.js",
+    "importPath": "overlord.hoist.io/server/logic/connector.js",
     "importStyle": "{getUniqueConnectorKey}",
     "description": null,
     "lineNumber": 144,
@@ -2768,7 +2768,7 @@
     "longname": "server/logic/connector.js~getAuthUrl",
     "access": null,
     "export": true,
-    "importPath": "portal.hoist.io/server/logic/connector.js",
+    "importPath": "overlord.hoist.io/server/logic/connector.js",
     "importStyle": "{getAuthUrl}",
     "description": null,
     "lineNumber": 161,
@@ -2832,7 +2832,7 @@
     "longname": "server/logic/console.js~getMessages",
     "access": null,
     "export": true,
-    "importPath": "portal.hoist.io/server/logic/console.js",
+    "importPath": "overlord.hoist.io/server/logic/console.js",
     "importStyle": "{getMessages}",
     "description": null,
     "lineNumber": 2,
@@ -2881,7 +2881,7 @@
     "longname": "server/logic/editor.js~_logger",
     "access": null,
     "export": false,
-    "importPath": "portal.hoist.io/server/logic/editor.js",
+    "importPath": "overlord.hoist.io/server/logic/editor.js",
     "importStyle": null,
     "description": null,
     "lineNumber": 18,
@@ -2902,7 +2902,7 @@
     "longname": "server/logic/editor.js~getCodeForEvent",
     "access": null,
     "export": true,
-    "importPath": "portal.hoist.io/server/logic/editor.js",
+    "importPath": "overlord.hoist.io/server/logic/editor.js",
     "importStyle": "{getCodeForEvent}",
     "description": null,
     "lineNumber": 22,
@@ -2938,7 +2938,7 @@
     "longname": "server/logic/editor.js~getEventFilePath",
     "access": null,
     "export": false,
-    "importPath": "portal.hoist.io/server/logic/editor.js",
+    "importPath": "overlord.hoist.io/server/logic/editor.js",
     "importStyle": null,
     "description": null,
     "lineNumber": 53,
@@ -2974,7 +2974,7 @@
     "longname": "server/logic/editor.js~getModulePath",
     "access": null,
     "export": false,
-    "importPath": "portal.hoist.io/server/logic/editor.js",
+    "importPath": "overlord.hoist.io/server/logic/editor.js",
     "importStyle": null,
     "description": null,
     "lineNumber": 60,
@@ -3010,7 +3010,7 @@
     "longname": "server/logic/editor.js~saveScript",
     "access": null,
     "export": true,
-    "importPath": "portal.hoist.io/server/logic/editor.js",
+    "importPath": "overlord.hoist.io/server/logic/editor.js",
     "importStyle": "{saveScript}",
     "description": null,
     "lineNumber": 78,
@@ -3060,7 +3060,7 @@
     "longname": "server/logic/emails.js~postmark",
     "access": null,
     "export": false,
-    "importPath": "portal.hoist.io/server/logic/emails.js",
+    "importPath": "overlord.hoist.io/server/logic/emails.js",
     "importStyle": null,
     "description": null,
     "lineNumber": 10,
@@ -3081,7 +3081,7 @@
     "longname": "server/logic/emails.js~templatesDir",
     "access": null,
     "export": false,
-    "importPath": "portal.hoist.io/server/logic/emails.js",
+    "importPath": "overlord.hoist.io/server/logic/emails.js",
     "importStyle": null,
     "description": null,
     "lineNumber": 15,
@@ -3102,7 +3102,7 @@
     "longname": "server/logic/emails.js~loadTemplates",
     "access": null,
     "export": false,
-    "importPath": "portal.hoist.io/server/logic/emails.js",
+    "importPath": "overlord.hoist.io/server/logic/emails.js",
     "importStyle": null,
     "description": null,
     "lineNumber": 17,
@@ -3125,7 +3125,7 @@
     "longname": "server/logic/emails.js~sendForgottenPasswordEmail",
     "access": null,
     "export": true,
-    "importPath": "portal.hoist.io/server/logic/emails.js",
+    "importPath": "overlord.hoist.io/server/logic/emails.js",
     "importStyle": "{sendForgottenPasswordEmail}",
     "description": null,
     "lineNumber": 38,
@@ -3161,7 +3161,7 @@
     "longname": "server/logic/emails.js~sendNoUserAcountEmail",
     "access": null,
     "export": true,
-    "importPath": "portal.hoist.io/server/logic/emails.js",
+    "importPath": "overlord.hoist.io/server/logic/emails.js",
     "importStyle": "{sendNoUserAcountEmail}",
     "description": null,
     "lineNumber": 54,
@@ -3191,7 +3191,7 @@
     "longname": "server/logic/emails.js~sendEmail",
     "access": null,
     "export": false,
-    "importPath": "portal.hoist.io/server/logic/emails.js",
+    "importPath": "overlord.hoist.io/server/logic/emails.js",
     "importStyle": null,
     "description": null,
     "lineNumber": 71,
@@ -3221,7 +3221,7 @@
     "longname": "server/logic/emails.js~generateEmailBody",
     "access": null,
     "export": false,
-    "importPath": "portal.hoist.io/server/logic/emails.js",
+    "importPath": "overlord.hoist.io/server/logic/emails.js",
     "importStyle": null,
     "description": null,
     "lineNumber": 87,
@@ -3264,7 +3264,7 @@
     "longname": "server/logic/event.js~_logger",
     "access": null,
     "export": false,
-    "importPath": "portal.hoist.io/server/logic/event.js",
+    "importPath": "overlord.hoist.io/server/logic/event.js",
     "importStyle": null,
     "description": null,
     "lineNumber": 3,
@@ -3285,7 +3285,7 @@
     "longname": "server/logic/event.js~mapEventToModule",
     "access": null,
     "export": true,
-    "importPath": "portal.hoist.io/server/logic/event.js",
+    "importPath": "overlord.hoist.io/server/logic/event.js",
     "importStyle": "{mapEventToModule}",
     "description": null,
     "lineNumber": 6,
@@ -3321,7 +3321,7 @@
     "longname": "server/logic/event.js~getEvents",
     "access": null,
     "export": true,
-    "importPath": "portal.hoist.io/server/logic/event.js",
+    "importPath": "overlord.hoist.io/server/logic/event.js",
     "importStyle": "{getEvents}",
     "description": null,
     "lineNumber": 50,
@@ -3351,7 +3351,7 @@
     "longname": "server/logic/event.js~createEvent",
     "access": null,
     "export": true,
-    "importPath": "portal.hoist.io/server/logic/event.js",
+    "importPath": "overlord.hoist.io/server/logic/event.js",
     "importStyle": "{createEvent}",
     "description": null,
     "lineNumber": 70,
@@ -3387,7 +3387,7 @@
     "longname": "server/logic/event.js~createModuleForEvent",
     "access": null,
     "export": true,
-    "importPath": "portal.hoist.io/server/logic/event.js",
+    "importPath": "overlord.hoist.io/server/logic/event.js",
     "importStyle": "{createModuleForEvent}",
     "description": null,
     "lineNumber": 88,
@@ -3449,7 +3449,7 @@
     "longname": "server/logic/organisation.js~create",
     "access": null,
     "export": true,
-    "importPath": "portal.hoist.io/server/logic/organisation.js",
+    "importPath": "overlord.hoist.io/server/logic/organisation.js",
     "importStyle": "{create}",
     "description": null,
     "lineNumber": 4,
@@ -3498,7 +3498,7 @@
     "longname": "server/logic/session.js~_logger",
     "access": null,
     "export": false,
-    "importPath": "portal.hoist.io/server/logic/session.js",
+    "importPath": "overlord.hoist.io/server/logic/session.js",
     "importStyle": null,
     "description": null,
     "lineNumber": 13,
@@ -3519,7 +3519,7 @@
     "longname": "server/logic/session.js~ensureLogin",
     "access": null,
     "export": true,
-    "importPath": "portal.hoist.io/server/logic/session.js",
+    "importPath": "overlord.hoist.io/server/logic/session.js",
     "importStyle": "{ensureLogin}",
     "description": "get a user based on login details, verifies password and ip address",
     "lineNumber": 27,
@@ -3617,7 +3617,7 @@
     "longname": "server/logic/session.js~createSessionForUser",
     "access": null,
     "export": true,
-    "importPath": "portal.hoist.io/server/logic/session.js",
+    "importPath": "overlord.hoist.io/server/logic/session.js",
     "importStyle": "{createSessionForUser}",
     "description": "creates a session for the user based on their last logged in session",
     "lineNumber": 94,
@@ -3659,7 +3659,7 @@
     "longname": "server/logic/session.js~logLogin",
     "access": null,
     "export": true,
-    "importPath": "portal.hoist.io/server/logic/session.js",
+    "importPath": "overlord.hoist.io/server/logic/session.js",
     "importStyle": "{logLogin}",
     "description": "saves login attempts to the database against username and ip addresses",
     "lineNumber": 144,
@@ -3731,7 +3731,7 @@
     "longname": "server/logic/session.js~getSessionDetails",
     "access": null,
     "export": true,
-    "importPath": "portal.hoist.io/server/logic/session.js",
+    "importPath": "overlord.hoist.io/server/logic/session.js",
     "importStyle": "{getSessionDetails}",
     "description": "load up details of the users session from a session object",
     "lineNumber": 162,
@@ -3773,7 +3773,7 @@
     "longname": "server/logic/session.js~updateOrganisation",
     "access": null,
     "export": true,
-    "importPath": "portal.hoist.io/server/logic/session.js",
+    "importPath": "overlord.hoist.io/server/logic/session.js",
     "importStyle": "{updateOrganisation}",
     "description": "updates the session organisation, (sets the session application appropriately too) then returns the new session",
     "lineNumber": 225,
@@ -3833,7 +3833,7 @@
     "longname": "server/logic/session.js~updateApplication",
     "access": null,
     "export": true,
-    "importPath": "portal.hoist.io/server/logic/session.js",
+    "importPath": "overlord.hoist.io/server/logic/session.js",
     "importStyle": "{updateApplication}",
     "description": "updates the session application then returns the new session",
     "lineNumber": 254,
@@ -3906,7 +3906,7 @@
     "longname": "server/logic/settings.js~getAllSettings",
     "access": null,
     "export": true,
-    "importPath": "portal.hoist.io/server/logic/settings.js",
+    "importPath": "overlord.hoist.io/server/logic/settings.js",
     "importStyle": "{getAllSettings}",
     "description": null,
     "lineNumber": 9,
@@ -3942,7 +3942,7 @@
     "longname": "server/logic/user.js~_logger",
     "access": null,
     "export": false,
-    "importPath": "portal.hoist.io/server/logic/user.js",
+    "importPath": "overlord.hoist.io/server/logic/user.js",
     "importStyle": null,
     "description": null,
     "lineNumber": 17,
@@ -3963,7 +3963,7 @@
     "longname": "server/logic/user.js~create",
     "access": null,
     "export": true,
-    "importPath": "portal.hoist.io/server/logic/user.js",
+    "importPath": "overlord.hoist.io/server/logic/user.js",
     "importStyle": "{create}",
     "description": "create a new user. Also creates an organisation and an application for the user",
     "lineNumber": 32,
@@ -4059,7 +4059,7 @@
     "longname": "server/logic/user.js~createForgottenPassword",
     "access": null,
     "export": true,
-    "importPath": "portal.hoist.io/server/logic/user.js",
+    "importPath": "overlord.hoist.io/server/logic/user.js",
     "importStyle": "{createForgottenPassword}",
     "description": "creates a forgotten password for a user, or notifies them if they don't have an account.",
     "lineNumber": 153,
@@ -4119,7 +4119,7 @@
     "longname": "server/logic/user.js~activateForgottenPassword",
     "access": null,
     "export": true,
-    "importPath": "portal.hoist.io/server/logic/user.js",
+    "importPath": "overlord.hoist.io/server/logic/user.js",
     "importStyle": "{activateForgottenPassword}",
     "description": null,
     "lineNumber": 176,
@@ -4168,7 +4168,7 @@
     "longname": "server/models/connector_view_model.js~ConnectorViewModel",
     "access": null,
     "export": true,
-    "importPath": "portal.hoist.io/server/models/connector_view_model.js",
+    "importPath": "overlord.hoist.io/server/models/connector_view_model.js",
     "importStyle": "{ConnectorViewModel}",
     "description": "this is a cut down class for views to look at connector settings",
     "lineNumber": 12,
@@ -4246,7 +4246,7 @@
     "memberof": "server/models/connector_view_model.js~ConnectorViewModel",
     "longname": "server/models/connector_view_model.js~ConnectorViewModel#key",
     "access": null,
-    "description": null,
+    "description": "",
     "lineNumber": 27,
     "unknown": [
       {
@@ -4278,7 +4278,7 @@
     "memberof": "server/models/connector_view_model.js~ConnectorViewModel",
     "longname": "server/models/connector_view_model.js~ConnectorViewModel#name",
     "access": null,
-    "description": null,
+    "description": "",
     "lineNumber": 34,
     "unknown": [
       {
@@ -4310,7 +4310,7 @@
     "memberof": "server/models/connector_view_model.js~ConnectorViewModel",
     "longname": "server/models/connector_view_model.js~ConnectorViewModel#type",
     "access": null,
-    "description": null,
+    "description": "",
     "lineNumber": 41,
     "unknown": [
       {
@@ -4342,7 +4342,7 @@
     "memberof": "server/models/connector_view_model.js~ConnectorViewModel",
     "longname": "server/models/connector_view_model.js~ConnectorViewModel#settings",
     "access": null,
-    "description": null,
+    "description": "",
     "lineNumber": 48,
     "unknown": [
       {
@@ -4374,7 +4374,7 @@
     "memberof": "server/models/connector_view_model.js~ConnectorViewModel",
     "longname": "server/models/connector_view_model.js~ConnectorViewModel#events",
     "access": null,
-    "description": null,
+    "description": "",
     "lineNumber": 55,
     "unknown": [
       {
@@ -4544,7 +4544,7 @@
     "longname": "server/utils/rabbit.js~_logger",
     "access": null,
     "export": false,
-    "importPath": "portal.hoist.io/server/utils/rabbit.js",
+    "importPath": "overlord.hoist.io/server/utils/rabbit.js",
     "importStyle": null,
     "description": null,
     "lineNumber": 5,
@@ -4565,7 +4565,7 @@
     "longname": "server/utils/rabbit.js~_connection",
     "access": null,
     "export": false,
-    "importPath": "portal.hoist.io/server/utils/rabbit.js",
+    "importPath": "overlord.hoist.io/server/utils/rabbit.js",
     "importStyle": null,
     "description": null,
     "lineNumber": 7,
@@ -4586,7 +4586,7 @@
     "longname": "server/utils/rabbit.js~connect",
     "access": null,
     "export": false,
-    "importPath": "portal.hoist.io/server/utils/rabbit.js",
+    "importPath": "overlord.hoist.io/server/utils/rabbit.js",
     "importStyle": null,
     "description": null,
     "lineNumber": 20,
@@ -4609,7 +4609,7 @@
     "longname": "server/utils/rabbit.js~setupQueue",
     "access": null,
     "export": true,
-    "importPath": "portal.hoist.io/server/utils/rabbit.js",
+    "importPath": "overlord.hoist.io/server/utils/rabbit.js",
     "importStyle": "{setupQueue}",
     "description": null,
     "lineNumber": 38,
@@ -4644,7 +4644,7 @@
     "longname": "server/utils/rabbit.js~_getMany",
     "access": null,
     "export": false,
-    "importPath": "portal.hoist.io/server/utils/rabbit.js",
+    "importPath": "overlord.hoist.io/server/utils/rabbit.js",
     "importStyle": null,
     "description": null,
     "lineNumber": 75,
@@ -4698,7 +4698,7 @@
     "longname": "server/utils/rabbit.js~formatLogEntry",
     "access": null,
     "export": false,
-    "importPath": "portal.hoist.io/server/utils/rabbit.js",
+    "importPath": "overlord.hoist.io/server/utils/rabbit.js",
     "importStyle": null,
     "description": null,
     "lineNumber": 98,
@@ -4728,7 +4728,7 @@
     "longname": "server/utils/rabbit.js~getMessages",
     "access": null,
     "export": true,
-    "importPath": "portal.hoist.io/server/utils/rabbit.js",
+    "importPath": "overlord.hoist.io/server/utils/rabbit.js",
     "importStyle": "{getMessages}",
     "description": null,
     "lineNumber": 107,
@@ -4764,7 +4764,7 @@
     "longname": "server/utils/rabbit.js~closeConnection",
     "access": null,
     "export": true,
-    "importPath": "portal.hoist.io/server/utils/rabbit.js",
+    "importPath": "overlord.hoist.io/server/utils/rabbit.js",
     "importStyle": "{closeConnection}",
     "description": null,
     "lineNumber": 136,
@@ -4800,7 +4800,7 @@
     "longname": "server/utils/string_utils.js~sanitiseName",
     "access": null,
     "export": true,
-    "importPath": "portal.hoist.io/server/utils/string_utils.js",
+    "importPath": "overlord.hoist.io/server/utils/string_utils.js",
     "importStyle": "{sanitiseName}",
     "description": null,
     "lineNumber": 1,
@@ -4830,7 +4830,7 @@
     "memberof": "BuiltinExternal/ECMAScriptExternal.js",
     "longname": "BuiltinExternal/ECMAScriptExternal.js~Infinity",
     "access": null,
-    "description": null,
+    "description": "",
     "builtinExternal": true
   },
   {
@@ -4843,7 +4843,7 @@
     "memberof": "BuiltinExternal/ECMAScriptExternal.js",
     "longname": "BuiltinExternal/ECMAScriptExternal.js~NaN",
     "access": null,
-    "description": null,
+    "description": "",
     "builtinExternal": true
   },
   {
@@ -4856,7 +4856,7 @@
     "memberof": "BuiltinExternal/ECMAScriptExternal.js",
     "longname": "BuiltinExternal/ECMAScriptExternal.js~undefined",
     "access": null,
-    "description": null,
+    "description": "",
     "builtinExternal": true
   },
   {
@@ -4869,7 +4869,7 @@
     "memberof": "BuiltinExternal/ECMAScriptExternal.js",
     "longname": "BuiltinExternal/ECMAScriptExternal.js~null",
     "access": null,
-    "description": null,
+    "description": "",
     "builtinExternal": true
   },
   {
@@ -4882,7 +4882,7 @@
     "memberof": "BuiltinExternal/ECMAScriptExternal.js",
     "longname": "BuiltinExternal/ECMAScriptExternal.js~Object",
     "access": null,
-    "description": null,
+    "description": "",
     "builtinExternal": true
   },
   {
@@ -4895,7 +4895,7 @@
     "memberof": "BuiltinExternal/ECMAScriptExternal.js",
     "longname": "BuiltinExternal/ECMAScriptExternal.js~object",
     "access": null,
-    "description": null,
+    "description": "",
     "builtinExternal": true
   },
   {
@@ -4908,7 +4908,7 @@
     "memberof": "BuiltinExternal/ECMAScriptExternal.js",
     "longname": "BuiltinExternal/ECMAScriptExternal.js~Function",
     "access": null,
-    "description": null,
+    "description": "",
     "builtinExternal": true
   },
   {
@@ -4921,7 +4921,7 @@
     "memberof": "BuiltinExternal/ECMAScriptExternal.js",
     "longname": "BuiltinExternal/ECMAScriptExternal.js~function",
     "access": null,
-    "description": null,
+    "description": "",
     "builtinExternal": true
   },
   {
@@ -4934,7 +4934,7 @@
     "memberof": "BuiltinExternal/ECMAScriptExternal.js",
     "longname": "BuiltinExternal/ECMAScriptExternal.js~Boolean",
     "access": null,
-    "description": null,
+    "description": "",
     "builtinExternal": true
   },
   {
@@ -4947,7 +4947,7 @@
     "memberof": "BuiltinExternal/ECMAScriptExternal.js",
     "longname": "BuiltinExternal/ECMAScriptExternal.js~boolean",
     "access": null,
-    "description": null,
+    "description": "",
     "builtinExternal": true
   },
   {
@@ -4960,7 +4960,7 @@
     "memberof": "BuiltinExternal/ECMAScriptExternal.js",
     "longname": "BuiltinExternal/ECMAScriptExternal.js~Symbol",
     "access": null,
-    "description": null,
+    "description": "",
     "builtinExternal": true
   },
   {
@@ -4973,7 +4973,7 @@
     "memberof": "BuiltinExternal/ECMAScriptExternal.js",
     "longname": "BuiltinExternal/ECMAScriptExternal.js~Error",
     "access": null,
-    "description": null,
+    "description": "",
     "builtinExternal": true
   },
   {
@@ -4986,7 +4986,7 @@
     "memberof": "BuiltinExternal/ECMAScriptExternal.js",
     "longname": "BuiltinExternal/ECMAScriptExternal.js~EvalError",
     "access": null,
-    "description": null,
+    "description": "",
     "builtinExternal": true
   },
   {
@@ -4999,7 +4999,7 @@
     "memberof": "BuiltinExternal/ECMAScriptExternal.js",
     "longname": "BuiltinExternal/ECMAScriptExternal.js~InternalError",
     "access": null,
-    "description": null,
+    "description": "",
     "builtinExternal": true
   },
   {
@@ -5012,7 +5012,7 @@
     "memberof": "BuiltinExternal/ECMAScriptExternal.js",
     "longname": "BuiltinExternal/ECMAScriptExternal.js~RangeError",
     "access": null,
-    "description": null,
+    "description": "",
     "builtinExternal": true
   },
   {
@@ -5025,7 +5025,7 @@
     "memberof": "BuiltinExternal/ECMAScriptExternal.js",
     "longname": "BuiltinExternal/ECMAScriptExternal.js~ReferenceError",
     "access": null,
-    "description": null,
+    "description": "",
     "builtinExternal": true
   },
   {
@@ -5038,7 +5038,7 @@
     "memberof": "BuiltinExternal/ECMAScriptExternal.js",
     "longname": "BuiltinExternal/ECMAScriptExternal.js~SyntaxError",
     "access": null,
-    "description": null,
+    "description": "",
     "builtinExternal": true
   },
   {
@@ -5051,7 +5051,7 @@
     "memberof": "BuiltinExternal/ECMAScriptExternal.js",
     "longname": "BuiltinExternal/ECMAScriptExternal.js~TypeError",
     "access": null,
-    "description": null,
+    "description": "",
     "builtinExternal": true
   },
   {
@@ -5064,7 +5064,7 @@
     "memberof": "BuiltinExternal/ECMAScriptExternal.js",
     "longname": "BuiltinExternal/ECMAScriptExternal.js~URIError",
     "access": null,
-    "description": null,
+    "description": "",
     "builtinExternal": true
   },
   {
@@ -5077,7 +5077,7 @@
     "memberof": "BuiltinExternal/ECMAScriptExternal.js",
     "longname": "BuiltinExternal/ECMAScriptExternal.js~Number",
     "access": null,
-    "description": null,
+    "description": "",
     "builtinExternal": true
   },
   {
@@ -5090,7 +5090,7 @@
     "memberof": "BuiltinExternal/ECMAScriptExternal.js",
     "longname": "BuiltinExternal/ECMAScriptExternal.js~number",
     "access": null,
-    "description": null,
+    "description": "",
     "builtinExternal": true
   },
   {
@@ -5103,7 +5103,7 @@
     "memberof": "BuiltinExternal/ECMAScriptExternal.js",
     "longname": "BuiltinExternal/ECMAScriptExternal.js~Date",
     "access": null,
-    "description": null,
+    "description": "",
     "builtinExternal": true
   },
   {
@@ -5116,7 +5116,7 @@
     "memberof": "BuiltinExternal/ECMAScriptExternal.js",
     "longname": "BuiltinExternal/ECMAScriptExternal.js~String",
     "access": null,
-    "description": null,
+    "description": "",
     "builtinExternal": true
   },
   {
@@ -5129,7 +5129,7 @@
     "memberof": "BuiltinExternal/ECMAScriptExternal.js",
     "longname": "BuiltinExternal/ECMAScriptExternal.js~string",
     "access": null,
-    "description": null,
+    "description": "",
     "builtinExternal": true
   },
   {
@@ -5142,7 +5142,7 @@
     "memberof": "BuiltinExternal/ECMAScriptExternal.js",
     "longname": "BuiltinExternal/ECMAScriptExternal.js~RegExp",
     "access": null,
-    "description": null,
+    "description": "",
     "builtinExternal": true
   },
   {
@@ -5155,7 +5155,7 @@
     "memberof": "BuiltinExternal/ECMAScriptExternal.js",
     "longname": "BuiltinExternal/ECMAScriptExternal.js~Array",
     "access": null,
-    "description": null,
+    "description": "",
     "builtinExternal": true
   },
   {
@@ -5168,7 +5168,7 @@
     "memberof": "BuiltinExternal/ECMAScriptExternal.js",
     "longname": "BuiltinExternal/ECMAScriptExternal.js~Int8Array",
     "access": null,
-    "description": null,
+    "description": "",
     "builtinExternal": true
   },
   {
@@ -5181,7 +5181,7 @@
     "memberof": "BuiltinExternal/ECMAScriptExternal.js",
     "longname": "BuiltinExternal/ECMAScriptExternal.js~Uint8Array",
     "access": null,
-    "description": null,
+    "description": "",
     "builtinExternal": true
   },
   {
@@ -5194,7 +5194,7 @@
     "memberof": "BuiltinExternal/ECMAScriptExternal.js",
     "longname": "BuiltinExternal/ECMAScriptExternal.js~Uint8ClampedArray",
     "access": null,
-    "description": null,
+    "description": "",
     "builtinExternal": true
   },
   {
@@ -5207,7 +5207,7 @@
     "memberof": "BuiltinExternal/ECMAScriptExternal.js",
     "longname": "BuiltinExternal/ECMAScriptExternal.js~Int16Array",
     "access": null,
-    "description": null,
+    "description": "",
     "builtinExternal": true
   },
   {
@@ -5220,7 +5220,7 @@
     "memberof": "BuiltinExternal/ECMAScriptExternal.js",
     "longname": "BuiltinExternal/ECMAScriptExternal.js~Uint16Array",
     "access": null,
-    "description": null,
+    "description": "",
     "builtinExternal": true
   },
   {
@@ -5233,7 +5233,7 @@
     "memberof": "BuiltinExternal/ECMAScriptExternal.js",
     "longname": "BuiltinExternal/ECMAScriptExternal.js~Int32Array",
     "access": null,
-    "description": null,
+    "description": "",
     "builtinExternal": true
   },
   {
@@ -5246,7 +5246,7 @@
     "memberof": "BuiltinExternal/ECMAScriptExternal.js",
     "longname": "BuiltinExternal/ECMAScriptExternal.js~Uint32Array",
     "access": null,
-    "description": null,
+    "description": "",
     "builtinExternal": true
   },
   {
@@ -5259,7 +5259,7 @@
     "memberof": "BuiltinExternal/ECMAScriptExternal.js",
     "longname": "BuiltinExternal/ECMAScriptExternal.js~Float32Array",
     "access": null,
-    "description": null,
+    "description": "",
     "builtinExternal": true
   },
   {
@@ -5272,7 +5272,7 @@
     "memberof": "BuiltinExternal/ECMAScriptExternal.js",
     "longname": "BuiltinExternal/ECMAScriptExternal.js~Float64Array",
     "access": null,
-    "description": null,
+    "description": "",
     "builtinExternal": true
   },
   {
@@ -5285,7 +5285,7 @@
     "memberof": "BuiltinExternal/ECMAScriptExternal.js",
     "longname": "BuiltinExternal/ECMAScriptExternal.js~Map",
     "access": null,
-    "description": null,
+    "description": "",
     "builtinExternal": true
   },
   {
@@ -5298,7 +5298,7 @@
     "memberof": "BuiltinExternal/ECMAScriptExternal.js",
     "longname": "BuiltinExternal/ECMAScriptExternal.js~Set",
     "access": null,
-    "description": null,
+    "description": "",
     "builtinExternal": true
   },
   {
@@ -5311,7 +5311,7 @@
     "memberof": "BuiltinExternal/ECMAScriptExternal.js",
     "longname": "BuiltinExternal/ECMAScriptExternal.js~WeakMap",
     "access": null,
-    "description": null,
+    "description": "",
     "builtinExternal": true
   },
   {
@@ -5324,7 +5324,7 @@
     "memberof": "BuiltinExternal/ECMAScriptExternal.js",
     "longname": "BuiltinExternal/ECMAScriptExternal.js~WeakSet",
     "access": null,
-    "description": null,
+    "description": "",
     "builtinExternal": true
   },
   {
@@ -5337,7 +5337,7 @@
     "memberof": "BuiltinExternal/ECMAScriptExternal.js",
     "longname": "BuiltinExternal/ECMAScriptExternal.js~ArrayBuffer",
     "access": null,
-    "description": null,
+    "description": "",
     "builtinExternal": true
   },
   {
@@ -5350,7 +5350,7 @@
     "memberof": "BuiltinExternal/ECMAScriptExternal.js",
     "longname": "BuiltinExternal/ECMAScriptExternal.js~DataView",
     "access": null,
-    "description": null,
+    "description": "",
     "builtinExternal": true
   },
   {
@@ -5363,7 +5363,7 @@
     "memberof": "BuiltinExternal/ECMAScriptExternal.js",
     "longname": "BuiltinExternal/ECMAScriptExternal.js~JSON",
     "access": null,
-    "description": null,
+    "description": "",
     "builtinExternal": true
   },
   {
@@ -5376,7 +5376,7 @@
     "memberof": "BuiltinExternal/ECMAScriptExternal.js",
     "longname": "BuiltinExternal/ECMAScriptExternal.js~Promise",
     "access": null,
-    "description": null,
+    "description": "",
     "builtinExternal": true
   },
   {
@@ -5389,7 +5389,7 @@
     "memberof": "BuiltinExternal/ECMAScriptExternal.js",
     "longname": "BuiltinExternal/ECMAScriptExternal.js~Generator",
     "access": null,
-    "description": null,
+    "description": "",
     "builtinExternal": true
   },
   {
@@ -5402,7 +5402,7 @@
     "memberof": "BuiltinExternal/ECMAScriptExternal.js",
     "longname": "BuiltinExternal/ECMAScriptExternal.js~GeneratorFunction",
     "access": null,
-    "description": null,
+    "description": "",
     "builtinExternal": true
   },
   {
@@ -5415,7 +5415,7 @@
     "memberof": "BuiltinExternal/ECMAScriptExternal.js",
     "longname": "BuiltinExternal/ECMAScriptExternal.js~Reflect",
     "access": null,
-    "description": null,
+    "description": "",
     "builtinExternal": true
   },
   {
@@ -5428,7 +5428,7 @@
     "memberof": "BuiltinExternal/ECMAScriptExternal.js",
     "longname": "BuiltinExternal/ECMAScriptExternal.js~Proxy",
     "access": null,
-    "description": null,
+    "description": "",
     "builtinExternal": true
   },
   {
@@ -5441,7 +5441,7 @@
     "memberof": "BuiltinExternal/WebAPIExternal.js",
     "longname": "BuiltinExternal/WebAPIExternal.js~CanvasRenderingContext2D",
     "access": null,
-    "description": null,
+    "description": "",
     "builtinExternal": true
   },
   {
@@ -5454,7 +5454,7 @@
     "memberof": "BuiltinExternal/WebAPIExternal.js",
     "longname": "BuiltinExternal/WebAPIExternal.js~DocumentFragment",
     "access": null,
-    "description": null,
+    "description": "",
     "builtinExternal": true
   },
   {
@@ -5467,7 +5467,7 @@
     "memberof": "BuiltinExternal/WebAPIExternal.js",
     "longname": "BuiltinExternal/WebAPIExternal.js~Element",
     "access": null,
-    "description": null,
+    "description": "",
     "builtinExternal": true
   },
   {
@@ -5480,7 +5480,7 @@
     "memberof": "BuiltinExternal/WebAPIExternal.js",
     "longname": "BuiltinExternal/WebAPIExternal.js~Event",
     "access": null,
-    "description": null,
+    "description": "",
     "builtinExternal": true
   },
   {
@@ -5493,7 +5493,7 @@
     "memberof": "BuiltinExternal/WebAPIExternal.js",
     "longname": "BuiltinExternal/WebAPIExternal.js~Node",
     "access": null,
-    "description": null,
+    "description": "",
     "builtinExternal": true
   },
   {
@@ -5506,7 +5506,7 @@
     "memberof": "BuiltinExternal/WebAPIExternal.js",
     "longname": "BuiltinExternal/WebAPIExternal.js~NodeList",
     "access": null,
-    "description": null,
+    "description": "",
     "builtinExternal": true
   },
   {
@@ -5519,7 +5519,7 @@
     "memberof": "BuiltinExternal/WebAPIExternal.js",
     "longname": "BuiltinExternal/WebAPIExternal.js~XMLHttpRequest",
     "access": null,
-    "description": null,
+    "description": "",
     "builtinExternal": true
   },
   {
@@ -5532,7 +5532,7 @@
     "memberof": "BuiltinExternal/WebAPIExternal.js",
     "longname": "BuiltinExternal/WebAPIExternal.js~AudioContext",
     "access": null,
-    "description": null,
+    "description": "",
     "builtinExternal": true
   },
   {
