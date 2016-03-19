@@ -11,18 +11,10 @@ import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 export class LoginPage extends Component {
   constructor(props) {
     super(props);
-    this.handleLogin = this
-      .handleLogin
-      .bind(this);
-    this.handleSignup = this
-      .handleSignup
-      .bind(this);
-    this.handleForgotPassword = this
-      .handleForgotPassword
-      .bind(this);
-    this.handleChange = this
-      .handleChange
-      .bind(this);
+    this.handleLogin = this.handleLogin.bind(this);
+    this.handleSignup = this.handleSignup.bind(this);
+    this.handleForgotPassword = this.handleForgotPassword.bind(this);
+    this.handleChange = this.handleChange.bind(this);
     this.state = {
       loading: false,
       mode: props.page || 'login'
@@ -39,14 +31,12 @@ export class LoginPage extends Component {
     if (location.state && location.state.nextPathname) {
       nextPath = location.state.nextPathname;
     }
-    this
-      .props
-      .login(state, (result) => {
-        // redirect to a secure page
-        history.pushState({}, nextPath)
-      }, () => {
-        this.setState({loading: false});
-      });
+    this.props.login(state, (result) => {
+      // redirect to a secure page
+      history.pushState({}, nextPath)
+    }, () => {
+      this.setState({loading: false});
+    });
 
   }
   handleSignup(evt, state) {
@@ -58,14 +48,12 @@ export class LoginPage extends Component {
     if (location.state && location.state.nextPathname) {
       nextPath = location.state.nextPathname;
     }
-    this
-      .props
-      .signup(state, (result) => {
-        // redirect to a secure page
-        history.pushState({}, nextPath)
-      }, () => {
-        this.setState({loading: false});
-      });
+    this.props.signup(state, (result) => {
+      // redirect to a secure page
+      history.pushState({}, nextPath)
+    }, () => {
+      this.setState({loading: false});
+    });
   }
   handleForgotPassword(evt, state) {
     this.setState({loading: true});
@@ -77,14 +65,12 @@ export class LoginPage extends Component {
     if (location.state && location.state.nextPathname) {
       nextPath = location.state.nextPathname;
     }
-    this
-      .props
-      .forgotPassword(form, (result) => {
-        this.setState({mode: 'login', loading: false});
-        history.pushState({}, nextPath)
-      }, () => {
-        this.setState({loading: false});
-      });
+    this.props.forgotPassword(form, (result) => {
+      this.setState({mode: 'login', loading: false});
+      history.pushState({}, nextPath)
+    }, () => {
+      this.setState({loading: false});
+    });
   }
   handleChange(mode) {
     this.setState({mode: mode});
@@ -95,12 +81,6 @@ export class LoginPage extends Component {
         <Helmet title="Hoist: Login"/>
         <div className="login-container ads style-1">
           <Views.Login activationKey={this.props.activationKey} loading={this.state.loading} mode={this.state.mode} status={this.props.status} onModeChange={this.handleChange} onLogin={this.handleLogin} onSignup={this.handleSignup} onForgotPassword={this.handleForgotPassword}/>
-          <div className="login-link">
-            Don’t have an account?&nbsp;&nbsp;
-            <a onClick={() => {
-              this.setState({mode: 'signup'})
-            }} href="javascript:">Sign Up now!</a>
-          </div>
         </div>
       </Page>
     )
