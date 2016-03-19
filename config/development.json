@@ -1,0 +1,7 @@
+{
+  "Hoist": {
+    "webpack": {
+      "optimize": false
+    }
+  }
+}

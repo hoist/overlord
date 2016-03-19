@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <base data-ice="baseUrl" href="../../../">
+  <title data-ice="title">server/logic/user.js | API Document</title>
+  <link type="text/css" rel="stylesheet" href="css/style.css">
+  <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
+  <script src="script/prettify/prettify.js"></script>
+  
+  
+  <script src="script/manual.js"></script>
+</head>
+<body class="layout-container" data-ice="rootContainer">
+
+<header>
+  <a href="./">Home</a>
+  
+  <a href="identifiers.html">Reference</a>
+  <a href="source.html">Source</a>
+  <a href="test.html" data-ice="testLink">Test</a>
+  <a data-ice="repoURL" href="https://github.com/hoist/portal.hoist.io.git" class="repo-url-github">Repository</a>
+  <div class="search-box">
+  <span>
+    <img src="./image/search.png">
+    <span class="search-input-edge"></span><input class="search-input"><span class="search-input-edge"></span>
+  </span>
+    <ul class="search-result"></ul>
+  </div>
+</header>
+
+<nav class="navigation" data-ice="nav"><div>
+  <ul>
+    
+  <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/server/index.js~PortalServer.html">PortalServer</a></span></span></li>
+<li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">areas</div><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/server/areas/base_controller.js~BaseController.html">BaseController</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-external">E</span><span data-ice="name"><span><a href="http://hapijs.com/api#reply-interface">HapiReply</a></span></span></li>
+<li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">areas/application</div><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/server/areas/application/application_controller.js~ApplicationController.html">ApplicationController</a></span></span></li>
+<li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">areas/connector</div><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/server/areas/connector/connector_controller.js~ConnectorController.html">ConnectorController</a></span></span></li>
+<li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">areas/console</div><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/server/areas/console/console_controller.js~ConsoleController.html">ConsoleController</a></span></span></li>
+<li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">areas/editor</div><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/server/areas/editor/editor_controller.js~EditorController.html">EditorController</a></span></span></li>
+<li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">areas/event</div><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/server/areas/event/event_controller.js~EventController.html">EventController</a></span></span></li>
+<li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">areas/healthcheck</div><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/server/areas/healthcheck/healthcheck_controller.js~HealthcheckController.html">HealthcheckController</a></span></span></li>
+<li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">areas/organisation</div><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/server/areas/organisation/organisation_controller.js~OrganisationController.html">OrganisationController</a></span></span></li>
+<li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">areas/session</div><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/server/areas/session/session_controller.js~SessionController.html">SessionController</a></span></span></li>
+<li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">areas/user</div><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/server/areas/user/user_controller.js~UserController.html">UserController</a></span></span></li>
+<li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">configuration</div><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/server/configuration/authentication.js~AuthenticationConfigurator.html">AuthenticationConfigurator</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/server/configuration/base_configurator.js~BaseConfigurator.html">BaseConfigurator</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/server/configuration/logging.js~LoggingConfigurator.html">LoggingConfigurator</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/server/configuration/routes.js~RouteConfigurator.html">RouteConfigurator</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/server/configuration/server.js~ServerConfigurator.html">ServerConfigurator</a></span></span></li>
+<li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">logic</div><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-create">create</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-getApplicationPath">getApplicationPath</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-getAuthUrl">getAuthUrl</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-getAvailableConnectors">getAvailableConnectors</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-getConnectorsForApplication">getConnectorsForApplication</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-getUniqueConnectorKey">getUniqueConnectorKey</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-loadConnector">loadConnector</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-populateConnector">populateConnector</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-setupDefaultConnector">setupDefaultConnector</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-getMessages">getMessages</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-getCodeForEvent">getCodeForEvent</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-saveScript">saveScript</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-sendForgottenPasswordEmail">sendForgottenPasswordEmail</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-sendNoUserAcountEmail">sendNoUserAcountEmail</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-createEvent">createEvent</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-createModuleForEvent">createModuleForEvent</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-getEvents">getEvents</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-mapEventToModule">mapEventToModule</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-create">create</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-createSessionForUser">createSessionForUser</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-ensureLogin">ensureLogin</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-getSessionDetails">getSessionDetails</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-logLogin">logLogin</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-updateApplication">updateApplication</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-updateOrganisation">updateOrganisation</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-getAllSettings">getAllSettings</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-activateForgottenPassword">activateForgottenPassword</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-create">create</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-createForgottenPassword">createForgottenPassword</a></span></span></li>
+<li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">models</div><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/server/models/connector_view_model.js~ConnectorViewModel.html">ConnectorViewModel</a></span></span></li>
+<li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">utils</div><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-closeConnection">closeConnection</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-getMessages">getMessages</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-setupQueue">setupQueue</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-sanitiseName">sanitiseName</a></span></span></li>
+</ul>
+</div>
+</nav>
+
+<div class="content" data-ice="content"><h1 data-ice="title">server/logic/user.js</h1>
+<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">import {
+  HoistUser,
+  Organisation,
+  HoistForgottenPassword
+} from &apos;@hoist/model&apos;;
+import * as ApplicationLogic from &apos;./application&apos;;
+import * as OrganisationLogic from &apos;./organisation&apos;;
+import * as EmailLogic from &apos;./emails&apos;;
+import slugify from &apos;slug&apos;;
+import errors from &apos;@hoist/errors&apos;;
+
+import logger from &apos;@hoist/logger&apos;;
+import validator from &apos;validator&apos;;
+import config from &apos;config&apos;;
+import moment from &apos;moment&apos;;
+
+let _logger = logger.child({
+  cls: &apos;SessionLogic&apos;
+});
+
+/**
+ * create a new user. Also creates an organisation and an application for the user
+ * @param {object} credentials - the user credentials
+ * @param {string} credentials.username - the users username
+ * @param {string} credentials.email - the user email
+ * @param {string} credentials.password - this user password
+ * @param {string} credentials.passwordCheck - this user password repeated
+ * @returns {Promise&lt;HoistUser&gt;} - the hoist user that was created
+ * @throws {errors.user.request.InvalidError} when the email is not valid
+ * @throws {errors.user.credentials.IncorrectError} if the username already matches an existing username
+ */
+export function create({
+  username,
+  email,
+  password,
+  passwordCheck
+}) {
+  return Promise
+    .resolve()
+    .then(() =&gt; {
+      /* ensure request parameters are ok */
+      _logger.info(&apos;checking required fields&apos;);
+      if (!username || username.length &lt; 1) {
+        throw new errors
+          .user
+          .request
+          .InvalidError(&quot;invalid name supplied&quot;);
+      }
+      if (!email || email.length &lt; 1 || !validator.isEmail(email)) {
+        throw new errors
+          .user
+          .request
+          .InvalidError(&quot;invalid email supplied&quot;);
+      }
+      if (password !== passwordCheck) {
+        throw new errors
+          .user
+          .request
+          .InvalidError(&quot;supplied passwords don&apos;t match&quot;);
+      }
+      if (!password || password.length &lt; 6) {
+        throw new errors
+          .user
+          .request
+          .InvalidError(&quot;invalid password supplied, passwords must be longer than 6 characters&quot;);
+      }
+    })
+    .then(() =&gt; {
+      /* load up the user */
+      _logger.info(&apos;finding user&apos;);
+      return HoistUser.countAsync({
+        &quot;$or&quot;: [
+          {
+            &apos;emailAddresses.address&apos;: email.toLowerCase()
+          }, {
+            name: username.toLowerCase()
+          }
+        ]
+      });
+    })
+    .then((userCount) =&gt; {
+      if (userCount &gt; 0) {
+        _logger.info(&apos;an account for that email address or username already exists&apos;);
+        throw new errors
+          .user
+          .credentials
+          .IncorrectError(&apos;an account for that email address already exists&apos;);
+      }
+      return Organisation.countAsync({
+        slug: slugify(username)
+      });
+    })
+    .then(organisationCount =&gt; {
+      if (organisationCount &gt; 0) {
+        _logger.info(&apos;an organisation for that username already exists&apos;);
+        throw new errors
+          .user
+          .credentials
+          .IncorrectError(&apos;an organisation for that username already exists&apos;);
+      }
+
+      let user = new HoistUser({
+        name: username.toLowerCase(),
+        emailAddresses: [
+          {
+            address: email.toLowerCase()
+          }
+        ]
+      });
+      return user.setPassword(password);
+    })
+    .then((user) =&gt; {
+      return OrganisationLogic
+        .create({
+          personal: true,
+          name: username
+        })
+        .then((organisation) =&gt; ApplicationLogic.create({
+            organisation: organisation,
+            name: username
+          })
+          .then((application) =&gt; {
+            user
+              .organisations
+              .push(organisation);
+            return user
+              .saveAsync()
+              .catch((err) =&gt; {
+                return Promise
+                  .all([application.remove()])
+                  .then(() =&gt; {
+                    throw err;
+                  })
+              });
+          })
+          .catch((err) =&gt; {
+            return Promise
+              .all([organisation.remove()])
+              .then(() =&gt; {
+                throw err;
+              })
+          }));
+    });
+}
+
+/**
+ * creates a forgotten password for a user, or notifies them if they don&apos;t have an account.
+ * @param {object} credentials - the user credentials
+ * @param {string} credentials.email - the user email
+ * @returns {Promise} - a promise to have created and emailed the forgotten password request
+ * @throws {errors.user.request.InvalidError} when the email is not valid
+ */
+export function createForgottenPassword({
+  email
+}) {
+  return Promise
+    .resolve()
+    .then(() =&gt; {
+      return HoistUser.findOneAsync({
+        &apos;emailAddresses.address&apos;: email.toLowerCase()
+      });
+    })
+    .then((user) =&gt; {
+      if (!user) {
+        return EmailLogic.sendNoUserAcountEmail(email);
+      }
+      return new HoistForgottenPassword({
+          user: user
+        })
+        .saveAsync()
+        .then((forgottenPasswordRequest) =&gt; EmailLogic.sendForgottenPasswordEmail(email, forgottenPasswordRequest.activationCode))
+    });
+
+}
+
+export function activateForgottenPassword({
+  password,
+  passwordCheck,
+  activationCode
+}) {
+  return Promise.resolve()
+    .then(() =&gt; {
+      return HoistForgottenPassword.findOne({
+          activationCode,
+          activated: false,
+          $or: [{
+            activatedDate: null
+          }, {
+            activatedDate: {
+              $exists: false
+            }
+          }],
+          createdAt: {
+            $gt: moment()
+              .add(&apos;hour&apos;, -2)
+              .utc()
+              .toDate()
+          }
+        })
+        .populate(&apos;user&apos;)
+        .exec();
+    })
+    .then(forgottenPassword =&gt; {
+      if (!forgottenPassword) {
+        throw new errors.HoistError(&quot;ForgottenPassword token not found&quot;);
+      }
+      if (password !== passwordCheck) {
+        throw new errors
+          .user
+          .request
+          .InvalidError(&quot;supplied passwords don&apos;t match&quot;);
+      }
+      if (!password || password.length &lt; 6) {
+        throw new errors
+          .user
+          .request
+          .InvalidError(&quot;invalid password supplied, passwords must be longer than 6 characters&quot;);
+      }
+
+      return forgottenPassword.user.setPassword(password)
+        .then((u) =&gt; {
+          return u.saveAsync();
+        });
+    });
+}
+</code></pre>
+
+</div>
+
+<footer class="footer">
+  Generated by <a href="https://esdoc.org">ESDoc<span data-ice="esdocVersion">(0.4.3)</span></a>
+</footer>
+
+<script src="script/search_index.js"></script>
+<script src="script/search.js"></script>
+<script src="script/pretty-print.js"></script>
+<script src="script/inherited-summary.js"></script>
+<script src="script/test-summary.js"></script>
+<script src="script/inner-link.js"></script>
+<script src="script/patch-for-local.js"></script>
+</body>
+</html>

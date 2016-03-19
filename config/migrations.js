@@ -10,7 +10,7 @@ module.exports = {
 
     // mongodb connection string in mongoose format: 'mongodb://username:password@host:port/database?options...'
     // See: http://mongoosejs.com/docs/connections.html
-    db: config.get('Hoist.mongo.overlord'),
+    db: config.get('Hoist.mongo.core.connectionString'),
 
     // Name for the migrations collection (defaults to 'migrations')
     collection: 'migrations'

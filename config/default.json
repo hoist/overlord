@@ -1,33 +1,51 @@
 {
   "Hoist": {
     "application": {
-      "name": "overlord"
+      "name": "portal.hoist.io"
+    },
+    "admin": {
+      "applicationId": "docker-admin-app"
+    },
+    "rabbit": {
+      "url": "amqp://rabbitmq",
+      "managementUrl": "http://guest:guest@rabbitmq:15672/"
+    },
+    "cookies": {
+      "portal": {
+        "secure": false,
+        "name": "portal-sid",
+        "password": "portal-cookie-password"
+      },
+      "beta": {
+        "secure": false,
+        "name": "beta-sid",
+        "password": "beta-cookie-password"
+      }
+    },
+    "webpack": {
+      "optimize": true
     },
     "mongo": {
-      "overlord": "mongodb://db/hoist-overlord",
       "core": {
         "connectionString": "mongodb://db/hoist-default"
       }
     },
-    "cookies": {
-      "overlord": {
-        "secure": false,
-        "password": "overlord-secret",
-        "name": "overlord-sid"
-      }
+    "filePaths": {
+      "connectors": "./connectors",
+      "deploys": "./deploys"
+    },
+    "domains": {
+      "api": "api.hoi.test",
+      "portal": "portal.hoist.test",
+      "bouncer": "bouncer.hoist.test",
+      "git": "git.hoi.test",
+      "endpoint": "endpoint.hoi.test"
     },
     "security": {
-      "passwordStrength": 5
+      "passwordStrength": 8
     },
-    "server": {
-      "host": "0.0.0.0",
-      "port": 8000
-    },
-    "chef": {
-      "user": "buildmaster",
-      "key": "/var/secrets/chef.pem",
-      "server": "https://api.opscode.com/organizations/hoist-apps-ltd"
-    },
-    "debug": true
+    "postmark": {
+      "key": "POSTMARK_API_TEST"
+    }
   }
 }

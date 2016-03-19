@@ -1,0 +1,8 @@
+{
+  "events": [
+    {
+      "description": "a new thing is created",
+      "name": "new:thing"
+    }
+  ]
+}

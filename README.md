@@ -1,68 +1,49 @@
-# overlord
-Hoist's Infrastructure Management Portal
+# Hoist's Developer Portal #
+
+## Getting started
+Ensure you have gulp installed globally: `npm install -g gulp`
+
+Then install dependencies with `npm install`
+Then run the application in the following modes:
+
+`gulp build [default]`
+  - build static file for the application
+
+`gulp dev`
+  - runs the application over the src folder and will pickup changes made to that folder
 
 
-#Running via Docker
+## File Structure
 
-You're most likely running on OSX so there are a couple of requirements:
+* ### `lib`
+  readonly store of transpiled code. Contains code generated from src so don't modify these files directly
 
-* install (https://docs.docker.com/installation/mac/)[boot2docker]
-* install (https://docs.docker.com/compose/install/)[docker compose]
-
-```
-curl -L https://github.com/docker/compose/releases/download/1.2.0/docker-compose-`uname -s`-`uname -m` > /usr/local/bin/docker-compose
-chmod +x /usr/local/bin/docker-compose
-```
-
-boot 2 docker has some odd filesystem issues so you'll need fusefs installed if you want to link the test databases
-
-* install sshfs
-```
-brew install Caskroom/cask/osxfuse
-brew install sshfs
-
-```
-* create a mapped directory on the boot2docker vm
-from (https://gist.github.com/sevastos/2fa4c86f01541351efe8)
-```
-boot2docker up (or init then up)
-boot2docker ssh
-sudo mkdir -p /mnt/sda1/dev
-exit
-mkdir -p ~/.hoist
-mkdir -p ~/.hoist/test-data
-sshfs docker@localhost:/mnt/sda1/dev ~/.hoist/test-data/ -p 2022
-tcuser (is the password)
-```
-
-ok that should be all.
-*you'll need to be logged into the Hoist quay.io account for these commands to work*
-
-*recreate docker images and run them*
-```
-./run-docker.sh
-```
-*just create the docker images*
-```
-./build-docker.sh
-or
-./build-web.sh
-./build-task.sh
-```
-*just run the current images*
-```
-docker-compose up
-```
-
-of course you can still run the app without docker (it will look for a local mongo server)
-node web_server.js
-or
-node task_server.js
-
-
-
-
-
-
-
-
+* ### `src`
+  Source code
+  * #### `client`
+    client side react application code
+    * ##### `components`
+      Raw React components
+    * ##### `configuration`
+      Configuration code for the React App
+    * ##### `modules`
+      Logic modules
+    * ##### `pages`
+      Entry points for the application, usually mapping to routes in the application
+    * ##### `reducers`
+      Redux reducer Logic
+  * #### `server`
+    * ##### `areas/{area}`
+      controller code for mapping logic to requests
+    * ##### `configuration`
+      Hapi configuration classess
+    * ##### `views`
+      Handlebars views to send to client (usually just the one)
+* ### `tests`
+  Unit and integration tests
+* ### `config`
+  Application level configuration
+* ### `tasks`
+  Gulp tasks available
+* ### `code-docs`
+  esdoc generated code level documentation

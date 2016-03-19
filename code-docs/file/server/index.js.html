@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <base data-ice="baseUrl" href="../../">
+  <title data-ice="title">server/index.js | API Document</title>
+  <link type="text/css" rel="stylesheet" href="css/style.css">
+  <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
+  <script src="script/prettify/prettify.js"></script>
+  
+  
+  <script src="script/manual.js"></script>
+</head>
+<body class="layout-container" data-ice="rootContainer">
+
+<header>
+  <a href="./">Home</a>
+  
+  <a href="identifiers.html">Reference</a>
+  <a href="source.html">Source</a>
+  <a href="test.html" data-ice="testLink">Test</a>
+  <a data-ice="repoURL" href="https://github.com/hoist/portal.hoist.io.git" class="repo-url-github">Repository</a>
+  <div class="search-box">
+  <span>
+    <img src="./image/search.png">
+    <span class="search-input-edge"></span><input class="search-input"><span class="search-input-edge"></span>
+  </span>
+    <ul class="search-result"></ul>
+  </div>
+</header>
+
+<nav class="navigation" data-ice="nav"><div>
+  <ul>
+    
+  <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/server/index.js~PortalServer.html">PortalServer</a></span></span></li>
+<li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">areas</div><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/server/areas/base_controller.js~BaseController.html">BaseController</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-external">E</span><span data-ice="name"><span><a href="http://hapijs.com/api#reply-interface">HapiReply</a></span></span></li>
+<li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">areas/application</div><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/server/areas/application/application_controller.js~ApplicationController.html">ApplicationController</a></span></span></li>
+<li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">areas/connector</div><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/server/areas/connector/connector_controller.js~ConnectorController.html">ConnectorController</a></span></span></li>
+<li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">areas/console</div><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/server/areas/console/console_controller.js~ConsoleController.html">ConsoleController</a></span></span></li>
+<li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">areas/editor</div><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/server/areas/editor/editor_controller.js~EditorController.html">EditorController</a></span></span></li>
+<li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">areas/event</div><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/server/areas/event/event_controller.js~EventController.html">EventController</a></span></span></li>
+<li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">areas/healthcheck</div><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/server/areas/healthcheck/healthcheck_controller.js~HealthcheckController.html">HealthcheckController</a></span></span></li>
+<li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">areas/organisation</div><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/server/areas/organisation/organisation_controller.js~OrganisationController.html">OrganisationController</a></span></span></li>
+<li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">areas/session</div><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/server/areas/session/session_controller.js~SessionController.html">SessionController</a></span></span></li>
+<li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">areas/user</div><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/server/areas/user/user_controller.js~UserController.html">UserController</a></span></span></li>
+<li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">configuration</div><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/server/configuration/authentication.js~AuthenticationConfigurator.html">AuthenticationConfigurator</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/server/configuration/base_configurator.js~BaseConfigurator.html">BaseConfigurator</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/server/configuration/logging.js~LoggingConfigurator.html">LoggingConfigurator</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/server/configuration/routes.js~RouteConfigurator.html">RouteConfigurator</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/server/configuration/server.js~ServerConfigurator.html">ServerConfigurator</a></span></span></li>
+<li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">logic</div><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-create">create</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-getApplicationPath">getApplicationPath</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-getAuthUrl">getAuthUrl</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-getAvailableConnectors">getAvailableConnectors</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-getConnectorsForApplication">getConnectorsForApplication</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-getUniqueConnectorKey">getUniqueConnectorKey</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-loadConnector">loadConnector</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-populateConnector">populateConnector</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-setupDefaultConnector">setupDefaultConnector</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-getMessages">getMessages</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-getCodeForEvent">getCodeForEvent</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-saveScript">saveScript</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-sendForgottenPasswordEmail">sendForgottenPasswordEmail</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-sendNoUserAcountEmail">sendNoUserAcountEmail</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-createEvent">createEvent</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-createModuleForEvent">createModuleForEvent</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-getEvents">getEvents</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-mapEventToModule">mapEventToModule</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-create">create</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-createSessionForUser">createSessionForUser</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-ensureLogin">ensureLogin</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-getSessionDetails">getSessionDetails</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-logLogin">logLogin</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-updateApplication">updateApplication</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-updateOrganisation">updateOrganisation</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-getAllSettings">getAllSettings</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-activateForgottenPassword">activateForgottenPassword</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-create">create</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-createForgottenPassword">createForgottenPassword</a></span></span></li>
+<li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">models</div><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/server/models/connector_view_model.js~ConnectorViewModel.html">ConnectorViewModel</a></span></span></li>
+<li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">utils</div><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-closeConnection">closeConnection</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-getMessages">getMessages</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-setupQueue">setupQueue</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-sanitiseName">sanitiseName</a></span></span></li>
+</ul>
+</div>
+</nav>
+
+<div class="content" data-ice="content"><h1 data-ice="title">server/index.js</h1>
+<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">&apos;use strict&apos;;
+import {Server as HapiServer} from &apos;hapi&apos;;
+import Bluebird from &apos;bluebird&apos;;
+import configurators from &apos;./configuration&apos;;
+import logger from &apos;@hoist/logger&apos;;
+import hapi from &apos;hapi&apos;;
+import config from &apos;config&apos;;
+import {_mongoose} from &apos;@hoist/model&apos;;
+_mongoose.set(&apos;debug&apos;, true);
+/**
+ * The main portal server itself
+ */
+
+export default class PortalServer {
+  /**
+   * create a new portal server
+   */
+  constructor () {
+    this._logger = logger.child({cls: this.constructor.name});
+  }
+  _createServer () {
+    return Promise
+      .resolve()
+      .then(() =&gt; {
+        this._hapiServer = new HapiServer();
+        Bluebird.promisifyAll(this._hapiServer);
+      })
+      .then(() =&gt; configurators.server.configure(this._hapiServer))
+      .then(() =&gt; configurators.logging.configure(this._hapiServer))
+      .then(() =&gt; configurators.auth.configure(this._hapiServer))
+      .then(() =&gt; configurators.routes.configure(this._hapiServer))
+      .then(() =&gt; this._hapiServer);
+  }
+
+  /**
+   * start the server and connect to mongo
+   * @returns {Promise} - for the server to have started
+   */
+  start () {
+    return _mongoose
+      .connectAsync(config.get(&apos;Hoist.mongo.core.connectionString&apos;))
+      .then(() =&gt; this._createServer())
+      .then(() =&gt; this._hapiServer.startAsync())
+      .then(() =&gt; {
+        this
+          ._logger
+          .info({
+            info: this._hapiServer.info
+          }, &apos;server listening&apos;)
+      })
+      .catch((err) =&gt; {
+        this
+          ._logger
+          .error(err);
+        this
+          ._logger
+          .alert(err);
+      });
+  }
+}
+</code></pre>
+
+</div>
+
+<footer class="footer">
+  Generated by <a href="https://esdoc.org">ESDoc<span data-ice="esdocVersion">(0.4.3)</span></a>
+</footer>
+
+<script src="script/search_index.js"></script>
+<script src="script/search.js"></script>
+<script src="script/pretty-print.js"></script>
+<script src="script/inherited-summary.js"></script>
+<script src="script/test-summary.js"></script>
+<script src="script/inner-link.js"></script>
+<script src="script/patch-for-local.js"></script>
+</body>
+</html>

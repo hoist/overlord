@@ -1,0 +1,30 @@
+.login-link {
+    font-weight:100;
+    display:block;
+    text-align:center;
+    width:390px;
+    padding-top:20px;
+    color:#B3B3B3;
+    font-size:13px;
+    a {
+      color:#B3B3B3;
+    }
+  }
+
+  .forgot-password-link {
+    a {
+      color:#999999;
+      font-size:12px;
+    }
+  }
+.login-container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 390px;
+  -webkit-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+
+}
+ 

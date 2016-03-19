@@ -1,8 +1,16 @@
 {
   "Hoist": {
-    "mongo": {
-      "overlord": "mongodb://db/hoist-test"
+    "filePaths": {
+      "connectors": "./tests/fixtures/connectors",
+      "deploys": "./tests/fixtures/deploys"
     },
-    "debug": true
+    "mongo": {
+      "core": {
+        "connectionString": "mongodb://db/hoist-test"
+      }
+    },
+    "postmark": {
+      "key": "POSTMARK_API_TEST"
+    }
   }
 }

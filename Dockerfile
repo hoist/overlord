@@ -1,4 +1,4 @@
-FROM hoist/core-box:1.8
+FROM hoist/core-box:4
 
 USER root
 #copy npmrc to enable login to private npm
@@ -12,6 +12,8 @@ USER hoist
 ADD package.json /usr/src/app/package.json
 RUN npm install
 
+RUN rm /home/hoist/.npmrc
+
 #ensure migrations run from correct directory
 ENV NODE_MONGOOSE_MIGRATIONS_CONFIG=./config/migrations.js
 
@@ -23,10 +25,8 @@ USER root
 ADD . /usr/src/app
 RUN chown -R hoist:hoist /usr/src/app
 USER hoist
-
-#build any static content
-RUN gulp build
-
+ENV NODE_ENV=build
+RUN gulp clean && gulp build
 #expose the web port
 EXPOSE 8000
 
@@ -34,4 +34,4 @@ EXPOSE 8000
 ENTRYPOINT ["nodemon", "--exitcrash", "--watch", "/config", "--exec"]
 
 #start the web app
-CMD [ "./scripts/start_web.sh"]
+CMD [ "./scripts/start.sh"]

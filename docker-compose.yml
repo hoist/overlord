@@ -2,9 +2,11 @@ web:
   build: .
   external_links:
     - hoist_db_1:db
-  ports:
-   - "3004:8000"
+    - hoist_rabbitmq_1:rabbitmq
   environment:
    - NODE_ENV=docker
+   - NODE_TLS_REJECT_UNAUTHORIZED=0
+  ports:
+    - "3000:8000"
   volumes_from:
-   - hoist_config_1
+    - hoist_config_1

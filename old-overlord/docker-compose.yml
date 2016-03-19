@@ -1,0 +1,10 @@
+web:
+  build: .
+  external_links:
+    - hoist_db_1:db
+  ports:
+   - "3004:8000"
+  environment:
+   - NODE_ENV=docker
+  volumes_from:
+   - hoist_config_1

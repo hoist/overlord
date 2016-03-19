@@ -1,0 +1,33 @@
+{
+  "Hoist": {
+    "application": {
+      "name": "overlord"
+    },
+    "mongo": {
+      "overlord": "mongodb://db/hoist-overlord",
+      "core": {
+        "connectionString": "mongodb://db/hoist-default"
+      }
+    },
+    "cookies": {
+      "overlord": {
+        "secure": false,
+        "password": "overlord-secret",
+        "name": "overlord-sid"
+      }
+    },
+    "security": {
+      "passwordStrength": 5
+    },
+    "server": {
+      "host": "0.0.0.0",
+      "port": 8000
+    },
+    "chef": {
+      "user": "buildmaster",
+      "key": "/var/secrets/chef.pem",
+      "server": "https://api.opscode.com/organizations/hoist-apps-ltd"
+    },
+    "debug": true
+  }
+}

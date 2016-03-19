@@ -1,0 +1,26 @@
+{
+  "modules": [
+    {
+      "name": "test_module",
+      "src": "./modules/test.js"
+    }
+  ],
+
+  "on": {
+    "test-event": {
+      "modules": ["test_module"]
+    }
+  },
+  "endpoints": {
+    "/test": {
+      "methods": ["get"],
+      "event": "test-event"
+    }
+  },
+
+  "schedules": {
+    "0 0 * * *": {
+      "events": ["test-event"]
+    }
+  }
+}

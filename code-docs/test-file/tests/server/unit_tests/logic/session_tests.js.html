@@ -1,0 +1,730 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <base data-ice="baseUrl" href="../../../../../">
+  <title data-ice="title">tests/server/unit_tests/logic/session_tests.js | API Document</title>
+  <link type="text/css" rel="stylesheet" href="css/style.css">
+  <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
+  <script src="script/prettify/prettify.js"></script>
+  
+  
+  <script src="script/manual.js"></script>
+</head>
+<body class="layout-container" data-ice="rootContainer">
+
+<header>
+  <a href="./">Home</a>
+  
+  <a href="identifiers.html">Reference</a>
+  <a href="source.html">Source</a>
+  <a href="test.html" data-ice="testLink">Test</a>
+  <a data-ice="repoURL" href="https://github.com/hoist/portal.hoist.io.git" class="repo-url-github">Repository</a>
+  <div class="search-box">
+  <span>
+    <img src="./image/search.png">
+    <span class="search-input-edge"></span><input class="search-input"><span class="search-input-edge"></span>
+  </span>
+    <ul class="search-result"></ul>
+  </div>
+</header>
+
+<nav class="navigation" data-ice="nav"><div>
+  <ul>
+    
+  <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/server/index.js~PortalServer.html">PortalServer</a></span></span></li>
+<li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">areas</div><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/server/areas/base_controller.js~BaseController.html">BaseController</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-external">E</span><span data-ice="name"><span><a href="http://hapijs.com/api#reply-interface">HapiReply</a></span></span></li>
+<li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">areas/application</div><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/server/areas/application/application_controller.js~ApplicationController.html">ApplicationController</a></span></span></li>
+<li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">areas/connector</div><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/server/areas/connector/connector_controller.js~ConnectorController.html">ConnectorController</a></span></span></li>
+<li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">areas/console</div><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/server/areas/console/console_controller.js~ConsoleController.html">ConsoleController</a></span></span></li>
+<li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">areas/editor</div><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/server/areas/editor/editor_controller.js~EditorController.html">EditorController</a></span></span></li>
+<li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">areas/event</div><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/server/areas/event/event_controller.js~EventController.html">EventController</a></span></span></li>
+<li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">areas/healthcheck</div><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/server/areas/healthcheck/healthcheck_controller.js~HealthcheckController.html">HealthcheckController</a></span></span></li>
+<li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">areas/organisation</div><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/server/areas/organisation/organisation_controller.js~OrganisationController.html">OrganisationController</a></span></span></li>
+<li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">areas/session</div><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/server/areas/session/session_controller.js~SessionController.html">SessionController</a></span></span></li>
+<li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">areas/user</div><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/server/areas/user/user_controller.js~UserController.html">UserController</a></span></span></li>
+<li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">configuration</div><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/server/configuration/authentication.js~AuthenticationConfigurator.html">AuthenticationConfigurator</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/server/configuration/base_configurator.js~BaseConfigurator.html">BaseConfigurator</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/server/configuration/logging.js~LoggingConfigurator.html">LoggingConfigurator</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/server/configuration/routes.js~RouteConfigurator.html">RouteConfigurator</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/server/configuration/server.js~ServerConfigurator.html">ServerConfigurator</a></span></span></li>
+<li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">logic</div><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-create">create</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-getApplicationPath">getApplicationPath</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-getAuthUrl">getAuthUrl</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-getAvailableConnectors">getAvailableConnectors</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-getConnectorsForApplication">getConnectorsForApplication</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-getUniqueConnectorKey">getUniqueConnectorKey</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-loadConnector">loadConnector</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-populateConnector">populateConnector</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-setupDefaultConnector">setupDefaultConnector</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-getMessages">getMessages</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-getCodeForEvent">getCodeForEvent</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-saveScript">saveScript</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-sendForgottenPasswordEmail">sendForgottenPasswordEmail</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-sendNoUserAcountEmail">sendNoUserAcountEmail</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-createEvent">createEvent</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-createModuleForEvent">createModuleForEvent</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-getEvents">getEvents</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-mapEventToModule">mapEventToModule</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-create">create</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-createSessionForUser">createSessionForUser</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-ensureLogin">ensureLogin</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-getSessionDetails">getSessionDetails</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-logLogin">logLogin</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-updateApplication">updateApplication</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-updateOrganisation">updateOrganisation</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-getAllSettings">getAllSettings</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-activateForgottenPassword">activateForgottenPassword</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-create">create</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-createForgottenPassword">createForgottenPassword</a></span></span></li>
+<li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">models</div><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/server/models/connector_view_model.js~ConnectorViewModel.html">ConnectorViewModel</a></span></span></li>
+<li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">utils</div><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-closeConnection">closeConnection</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-getMessages">getMessages</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-setupQueue">setupQueue</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-sanitiseName">sanitiseName</a></span></span></li>
+</ul>
+</div>
+</nav>
+
+<div class="content" data-ice="content"><h1 data-ice="title">tests/server/unit_tests/logic/session_tests.js</h1>
+<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">import {SessionLogic} from &apos;../../../../src/server/logic&apos;;
+import chai, {expect} from &apos;chai&apos;;
+import {
+  IpLog,
+  LoginLog,
+  HoistUser,
+  Session,
+  Application,
+  Organisation
+} from &apos;@hoist/model&apos;;
+import sinon from &apos;sinon&apos;;
+
+describe(&apos;SessionLogic&apos;, () =&gt; {
+  /** @test {ensureLogin} */
+  describe(&apos;#ensureLogin&apos;, () =&gt; {
+    let validLogin = {
+      email: &apos;UnitTest@Hoist.Io&apos;,
+      password: &apos;some password&apos;,
+      ipAddress: &apos;some ip address&apos;
+    }
+    let user = {
+      verifyPassword: sinon
+        .stub()
+        .returns(true)
+    }
+    before(() =&gt; {
+      sinon
+        .stub(IpLog, &apos;assertIP&apos;)
+        .returns(Promise.resolve());
+      sinon
+        .stub(LoginLog, &apos;assertUser&apos;)
+        .returns(Promise.resolve())
+      sinon
+        .stub(HoistUser, &apos;findOneAsync&apos;)
+        .returns(user);
+    });
+    after(() =&gt; {
+      IpLog
+        .assertIP
+        .restore();
+      LoginLog
+        .assertUser
+        .restore()
+      HoistUser
+        .findOneAsync
+        .restore();
+    });
+    describe(&apos;with missing email&apos;, () =&gt; {
+      let loginResult;
+      before(() =&gt; {
+        //remove email without modifying the original object
+        let details = Object.assign({}, validLogin);
+        delete details.email;
+        loginResult = SessionLogic.ensureLogin(details);
+      });
+      it(&apos;returns rejection&apos;, () =&gt; {
+        return expect(loginResult)
+          .to
+          .be
+          .rejectedWith(&apos;invalid email supplied&apos;);
+      })
+      after(() =&gt; {
+        IpLog
+          .assertIP
+          .reset();
+      });
+    });
+    describe(&apos;with missing password&apos;, () =&gt; {
+      let loginResult;
+      before(() =&gt; {
+        //remove password without modifying the original object
+        let details = Object.assign({}, validLogin);
+        delete details.password;
+        loginResult = SessionLogic.ensureLogin(details);
+      });
+      it(&apos;returns rejection&apos;, () =&gt; {
+        return expect(loginResult)
+          .to
+          .be
+          .rejectedWith(&apos;invalid password supplied&apos;);
+      })
+      after(() =&gt; {
+        IpLog
+          .assertIP
+          .reset();
+      });
+    });
+    describe(&apos;with invalid ip address&apos;, () =&gt; {
+      let loginResult;
+      before(() =&gt; {
+        IpLog
+          .assertIP
+          .throws(new Error(&apos;this is an invalid ip address&apos;));
+        loginResult = SessionLogic.ensureLogin(validLogin);
+      });
+      after(() =&gt; {
+        IpLog
+          .assertIP
+          .returns(Promise.resolve());
+        IpLog
+          .assertIP
+          .reset();
+      });
+      it(&apos;returns rejection&apos;, () =&gt; {
+        return expect(loginResult)
+          .to
+          .be
+          .rejectedWith(&apos;this is an invalid ip address&apos;);
+      });
+      it(&apos;doesn\&apos;t load user&apos;, () =&gt; {
+        return expect(HoistUser.findOneAsync).to.have.not.been.called;
+      });
+    });
+    describe(&apos;with locked username&apos;, () =&gt; {
+      let loginResult;
+      before(() =&gt; {
+        LoginLog
+          .assertUser
+          .throws(new Error(&apos;this is an invalid username&apos;));
+        loginResult = SessionLogic.ensureLogin(validLogin);
+      });
+      it(&apos;checks lock with user&apos;, () =&gt; {
+        return expect(LoginLog.assertUser)
+          .to
+          .have
+          .been
+          .calledWith(user);
+      });
+      it(&apos;returns rejection&apos;, () =&gt; {
+        return expect(loginResult)
+          .to
+          .be
+          .rejectedWith(&apos;this is an invalid username&apos;);
+      });
+      it(&apos;doesn\&apos;t check user password&apos;, () =&gt; {
+        return expect(user.verifyPassword).to.have.not.been.called;
+      });
+      after(() =&gt; {
+        LoginLog
+          .assertUser
+          .returns(Promise.resolve());
+        LoginLog
+          .assertUser
+          .reset();
+        IpLog
+          .assertIP
+          .reset();
+      })
+    });
+    describe(&apos;with invalid password&apos;, () =&gt; {
+      let loginResult;
+      before(() =&gt; {
+        user
+          .verifyPassword
+          .returns(false);
+        loginResult = SessionLogic.ensureLogin(validLogin);
+      });
+      it(&apos;returns rejection&apos;, () =&gt; {
+        return expect(loginResult)
+          .to
+          .be
+          .rejectedWith(&apos;The username and/or password were not correct&apos;);
+      });
+      after(() =&gt; {
+        user
+          .verifyPassword
+          .returns(true);
+        user
+          .verifyPassword
+          .reset();
+        HoistUser
+          .findOneAsync
+          .reset();
+        LoginLog
+          .assertUser
+          .reset();
+        IpLog
+          .assertIP
+          .reset();
+      })
+    });
+    describe(&apos;with invalid username&apos;, () =&gt; {
+      let loginResult;
+      before(() =&gt; {
+        HoistUser
+          .findOneAsync
+          .returns(Promise.resolve(null));
+        loginResult = SessionLogic.ensureLogin(validLogin);
+      });
+      it(&apos;returns rejection&apos;, () =&gt; {
+        return expect(loginResult)
+          .to
+          .be
+          .rejectedWith(&apos;The username and/or password were not correct&apos;);
+      });
+      after(() =&gt; {
+        HoistUser
+          .findOneAsync
+          .returns(Promise.resolve(user));
+        user
+          .verifyPassword
+          .reset();
+        HoistUser
+          .findOneAsync
+          .reset();
+        LoginLog
+          .assertUser
+          .reset();
+        IpLog
+          .assertIP
+          .reset();
+      })
+    });
+    describe(&apos;with valid details&apos;, () =&gt; {
+      let loginResult;
+      before(() =&gt; {
+        loginResult = SessionLogic.ensureLogin(validLogin);
+      });
+      it(&apos;returns user&apos;, () =&gt; {
+        return expect(loginResult)
+          .to
+          .eventually
+          .become(user);
+      });
+      it(&apos;looks up user by lowercase email&apos;, () =&gt; {
+        return expect(HoistUser.findOneAsync)
+          .to
+          .have
+          .been
+          .calledWith({&apos;emailAddresses.address&apos;: &apos;unittest@hoist.io&apos;});
+      });
+      after(() =&gt; {
+        IpLog
+          .assertIP
+          .reset();
+        user
+          .verifyPassword
+          .reset();
+        LoginLog
+          .assertUser
+          .reset();
+        HoistUser
+          .findOneAsync
+          .reset();
+      });
+    });
+  });
+
+  /** @test {getSessionDetails} */
+  describe(&apos;#getSessionDetails&apos;, () =&gt; {
+    let result;
+    let user = {
+      organisations: [
+        &apos;org1&apos;, &apos;org2&apos;
+      ],
+      toJSON: sinon
+        .stub()
+        .returnsThis()
+    };
+    let organisation = {
+      _id: &apos;orgid&apos;,
+      name: &apos;organisation&apos;,
+      toJSON: sinon
+        .stub()
+        .returnsThis()
+    };
+    let application = {
+      _id: &apos;applicationid&apos;,
+      name: &apos;application&apos;,
+      toJSON: sinon
+        .stub()
+        .returnsThis()
+    };
+    let applications = [
+      {
+        slug: &apos;app1&apos;,
+        name: &apos;app1&apos;,
+        toJSON: sinon
+          .stub()
+          .returnsThis()
+      }, {
+        slug: &apos;app2&apos;,
+        name: &apos;app2&apos;,
+        toJSON: sinon
+          .stub()
+          .returnsThis()
+      }
+    ];
+    let organisations = [
+      {
+        slug: &apos;org1&apos;,
+        name: &apos;org1&apos;,
+        toJSON: sinon
+          .stub()
+          .returnsThis()
+      }, {
+        slug: &apos;org2&apos;,
+        name: &apos;org2&apos;,
+        toJSON: sinon
+          .stub()
+          .returnsThis()
+      }
+    ];
+    let session = {
+      user: user,
+      organisation: organisation,
+      application: application,
+      populate: sinon
+        .stub()
+        .returnsThis(),
+      execPopulate: sinon
+        .stub()
+        .returns(Promise.resolve()),
+      toJSON: sinon
+        .stub()
+        .returnsThis()
+    };
+    before(() =&gt; {
+      sinon
+        .stub(Application, &apos;findAsync&apos;)
+        .returns(Promise.resolve(applications));
+      sinon
+        .stub(Organisation, &apos;findAsync&apos;)
+        .returns(Promise.resolve(organisations));
+      return SessionLogic
+        .getSessionDetails(session)
+        .then((sessionDetails) =&gt; {
+          result = sessionDetails;
+        });
+    });
+
+    it(&apos;returns current user&apos;, () =&gt; {
+      return expect(result.user)
+        .to
+        .eql(user);
+    });
+    it(&apos;returns current organisation&apos;, () =&gt; {
+      return expect(result.organisation)
+        .to
+        .eql(organisation);
+    });
+    it(&apos;returns current application&apos;, () =&gt; {
+      return expect(result.application)
+        .to
+        .eql(application);
+    });
+    it(&apos;returns available applications&apos;, () =&gt; {
+      return expect(result.applications)
+        .to
+        .eql(applications);
+    });
+    it(&apos;returns available organisations&apos;, () =&gt; {
+      return expect(result.organisations)
+        .to
+        .eql(organisations);
+    });
+    it(&apos;looks up orgs based on user&apos;, () =&gt; {
+      return expect(Organisation.findAsync)
+        .to
+        .have
+        .been
+        .calledWith({
+          _id: {
+            $in: [&apos;org1&apos;, &apos;org2&apos;]
+          }
+        }, &apos;slug name isPersonal&apos;)
+    });
+    it(&apos;looks up applications based on organisation&apos;, () =&gt; {
+      return expect(Application.findAsync)
+        .to
+        .have
+        .been
+        .calledWith({
+          organisation: &apos;orgid&apos;
+        }, &apos;slug name apiKey settings&apos;);
+    })
+    after(() =&gt; {
+      Application
+        .findAsync
+        .restore();
+      Organisation
+        .findAsync
+        .restore();
+    });
+  });
+
+  /** @test {createSessionForUser} */
+  describe(&apos;#createSessionForUser&apos;, () =&gt; {
+    let sessionQuery = {
+      select: sinon
+        .stub()
+        .returnsThis(),
+      limit: sinon
+        .stub()
+        .returnsThis(),
+      sort: sinon
+        .stub()
+        .returnsThis(),
+      exec: sinon
+        .stub()
+        .returns(Promise.resolve([]))
+    }
+    let session = {
+      name: &apos;session&apos;
+    };
+    let user = {
+      _id: &apos;userid&apos;,
+      name: &apos;user&apos;,
+      organisations: [&apos;org1&apos;, &apos;org2&apos;]
+    };
+    before(() =&gt; {
+      sinon
+        .stub(Session, &apos;find&apos;)
+        .returns(sessionQuery)
+      sinon
+        .stub(Session.prototype, &apos;saveAsync&apos;)
+        .returns(Promise.resolve(session));
+    })
+    after(() =&gt; {
+      Session
+        .find
+        .restore();
+    })
+    describe(&apos;with previous session&apos;, () =&gt; {
+      let previousSession = {
+        organisation: &apos;organisationid&apos;,
+        application: &apos;applicationid&apos;
+      }
+      before(() =&gt; {
+        sessionQuery
+          .exec
+          .returns(Promise.resolve([previousSession]));
+      });
+      after(() =&gt; {
+        sessionQuery
+          .exec
+          .returns(Promise.resolve([]));
+      });
+      describe(&apos;with a selected organisation and application&apos;, () =&gt; {
+        let result;
+        before(() =&gt; {
+          result = SessionLogic.createSessionForUser(user);
+        })
+        it(&apos;loads the correct session&apos;, () =&gt; {
+          return expect(Session.find)
+            .to
+            .have
+            .been
+            .calledWith({user: &apos;userid&apos;});
+        });
+        it(&apos;selects only the organisation and application fields&apos;, () =&gt; {
+          return expect(sessionQuery.select)
+            .to
+            .have
+            .been
+            .calledWith({_id: -1, application: 1, organisation: 1});
+        });
+        it(&apos;creates session with matching application and organisation&apos;, () =&gt; {
+          return expect(Session.prototype.saveAsync)
+            .to
+            .have
+            .been
+            .calledOn(sinon.match({organisation: &apos;organisationid&apos;, application: &apos;applicationid&apos;, user: &apos;userid&apos;}));
+        });
+        it(&apos;returns saved session&apos;, () =&gt; {
+          return expect(result)
+            .to
+            .eventually
+            .become(session);
+        });
+        after(() =&gt; {
+          Session
+            .find
+            .reset();
+          Session
+            .prototype
+            .saveAsync
+            .reset();
+        })
+      });
+      describe(&apos;without a selected organisation and application&apos;, () =&gt; {
+        let result;
+        before(() =&gt; {
+          delete previousSession.organisation;
+          delete previousSession.application;
+          let application = {
+            _id: &apos;app2&apos;
+          };
+          let applicationQuery = {
+            limit:sinon.stub().returnsThis(),
+            sort:sinon.stub().returnsThis(),
+            select: sinon.stub().returnsThis(),
+            exec: sinon
+              .stub()
+              .returns(Promise.resolve([application]))
+          };
+          sinon
+            .stub(Application, &apos;find&apos;)
+            .returns(applicationQuery);
+          result = SessionLogic.createSessionForUser(user);
+        });
+        it(&apos;creates session with last created organisation and last created application&apos;, () =&gt; {
+          return expect(Session.prototype.saveAsync)
+            .to
+            .have
+            .been
+            .calledOn(sinon.match({user: &apos;userid&apos;, organisation: &apos;org2&apos;, application: &apos;app2&apos;}));
+        });
+        it(&apos;finds last created application&apos;, () =&gt; {
+          return expect(Application.find)
+            .to
+            .have
+            .been
+            .calledWith({
+              organisation: &quot;org2&quot;
+            });
+        });
+        it(&apos;returns saved session&apos;, () =&gt; {
+          return expect(result)
+            .to
+            .eventually
+            .become(session);
+        });
+        after(() =&gt; {
+          previousSession.organisation = &apos;organisationid&apos;;
+          previousSession.application = &apos;applicationid&apos;;
+          Session
+            .find
+            .reset();
+          Session
+            .prototype
+            .saveAsync
+            .reset();
+          Application
+            .find
+            .restore();
+        })
+      });
+    });
+  });
+
+  /** @test {logLogin}  */
+  describe(&apos;#logLogin&apos;, () =&gt; {
+    before(() =&gt; {
+      sinon.stub(LoginLog.prototype, &apos;saveAsync&apos;);
+      sinon.stub(IpLog.prototype, &apos;saveAsync&apos;);
+    });
+    after(() =&gt; {
+      LoginLog
+        .prototype
+        .saveAsync
+        .restore();
+      IpLog
+        .prototype
+        .saveAsync
+        .restore();
+    })
+    describe(&apos;with successful login&apos;, () =&gt; {
+      before(() =&gt; {
+        return SessionLogic.logLogin({
+          email: &quot;unittest@hoist.io&quot;,
+          ipAddress: &apos;test-ip-address&apos;
+        }, true);
+      });
+      it(&apos;saves a success ip log&apos;, () =&gt; {
+        return expect(IpLog.prototype.saveAsync)
+          .to
+          .have
+          .been
+          .calledOn(sinon.match({ip: &apos;test-ip-address&apos;, success: true}));
+      });
+      it(&apos;saves a success login log&apos;, () =&gt; {
+        return expect(LoginLog.prototype.saveAsync)
+          .to
+          .have
+          .been
+          .calledOn(sinon.match({username: &quot;unittest@hoist.io&quot;, success: true}));
+      });
+      after(() =&gt; {
+        IpLog
+          .prototype
+          .saveAsync
+          .reset();
+        LoginLog
+          .prototype
+          .saveAsync
+          .reset();
+      });
+    })
+    describe(&apos;with unsuccessful login&apos;, () =&gt; {
+      before(() =&gt; {
+        return SessionLogic.logLogin({
+          email: &quot;unittest@hoist.io&quot;,
+          ipAddress: &apos;test-ip-address&apos;
+        }, false);
+      });
+      it(&apos;saves a fail ip log&apos;, () =&gt; {
+        return expect(IpLog.prototype.saveAsync)
+          .to
+          .have
+          .been
+          .calledOn(sinon.match({ip: &apos;test-ip-address&apos;, success: false}));
+      });
+      it(&apos;saves a fail login log&apos;, () =&gt; {
+        return expect(LoginLog.prototype.saveAsync)
+          .to
+          .have
+          .been
+          .calledOn(sinon.match({username: &quot;unittest@hoist.io&quot;, success: false}));
+      });
+      after(() =&gt; {
+        IpLog
+          .prototype
+          .saveAsync
+          .reset();
+        LoginLog
+          .prototype
+          .saveAsync
+          .reset();
+      });
+    })
+  });
+});
+</code></pre>
+
+</div>
+
+<footer class="footer">
+  Generated by <a href="https://esdoc.org">ESDoc<span data-ice="esdocVersion">(0.4.3)</span></a>
+</footer>
+
+<script src="script/search_index.js"></script>
+<script src="script/search.js"></script>
+<script src="script/pretty-print.js"></script>
+<script src="script/inherited-summary.js"></script>
+<script src="script/test-summary.js"></script>
+<script src="script/inner-link.js"></script>
+<script src="script/patch-for-local.js"></script>
+</body>
+</html>

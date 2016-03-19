@@ -1,0 +1,7 @@
+{
+  "endpoints": {
+    "mention": {
+      "events": ["new", "modified"]
+    }
+  }
+}
