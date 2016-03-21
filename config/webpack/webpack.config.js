@@ -23,6 +23,9 @@ var webpackConfig = {
       connectorPath: config.get('Hoist.filePaths.connectors')
     })
   ],
+  node: {
+    fs: "empty"
+  },
   module: {
     loaders: [{
       test: /\.js[x]?$/,

@@ -28,13 +28,14 @@ export class PageTemplate extends Component {
       <IDE>
         <Helmet title='Overlord'/>
         <Menus.Navigation user={{
-          name: 'jamie'
+          name: 'Jamie Wilson'
         }} application={{
-          name: 'name'
+          name: 'Overlord'
         }} applications={[]} organisation={{
-          name: "my org"
+          name: "Account"
         }} organisations={[]} onLogout={this.logout} onOrganisationSelect={this.switchOrganisation} onApplicationSelect={this.switchApplication} onSwitchTheme={this.switchTheme} myAccount={this.myAccount} onWelcome={this.welcome} onAddApplication={this.createApplication} onAddOrganisation={this.createOrganisation}/>
-        {this.props.children}
+
+          {this.props.children}
       </IDE>
     );
   }

@@ -3418,16 +3418,52 @@
     "kind": "file",
     "static": true,
     "variation": null,
+    "name": "server/logic/fleetservices.js",
+    "memberof": null,
+    "longname": "server/logic/fleetservices.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1,
+    "content": "import config from 'config';\nimport Promise from 'bluebird';\nimport fs from 'fs';\nimport path from 'path';\nimport fleet from 'node-fleet-api';\n\nPromise.promisifyAll(fs);\n\nexport function getAllServices() {\n  var _fleet = fleet('http://fleet.hoist.io:2222');\n  return Promise\n    .resolve()\n    .then(() => {\n      return fleet.getAllUnits();\n    })\n    .then(([units]) => {\n      console.log(units);\n      return {units}\n    });\n}\n"
+  },
+  {
+    "__docId__": 136,
+    "kind": "function",
+    "static": true,
+    "variation": null,
+    "name": "getAllServices",
+    "memberof": "server/logic/fleetservices.js",
+    "longname": "server/logic/fleetservices.js~getAllServices",
+    "access": null,
+    "export": true,
+    "importPath": "overlord.hoist.io/server/logic/fleetservices.js",
+    "importStyle": "{getAllServices}",
+    "description": null,
+    "lineNumber": 9,
+    "undocument": true,
+    "params": [],
+    "return": {
+      "types": [
+        "*"
+      ]
+    },
+    "generator": false
+  },
+  {
+    "__docId__": 137,
+    "kind": "file",
+    "static": true,
+    "variation": null,
     "name": "server/logic/index.js",
     "memberof": null,
     "longname": "server/logic/index.js",
     "access": null,
     "description": null,
     "lineNumber": 1,
-    "content": "import * as SessionLogic from './session';\nimport * as ConnectorLogic from './connector';\nimport * as EditorLogic from './editor';\nimport * as ConsoleLogic from './console';\nimport * as EventLogic from './event';\nimport * as SettingsLogic from './settings';\nimport * as UserLogic from './user';\nimport * as ApplicationLogic from './application';\nimport * as OrganisationLogic from './organisation';\nexport {\n  SessionLogic as SessionLogic,\n  ConnectorLogic as ConnectorLogic,\n  EditorLogic as EditorLogic,\n  ConsoleLogic as ConsoleLogic,\n  EventLogic as EventLogic,\n  SettingsLogic as SettingsLogic,\n  UserLogic as UserLogic,\n  ApplicationLogic as ApplicationLogic,\n  OrganisationLogic as OrganisationLogic\n};\n"
+    "content": "import * as SessionLogic from './session';\nimport * as ConnectorLogic from './connector';\nimport * as EditorLogic from './editor';\nimport * as ConsoleLogic from './console';\nimport * as EventLogic from './event';\nimport * as SettingsLogic from './settings';\nimport * as UserLogic from './user';\nimport * as ApplicationLogic from './application';\nimport * as OrganisationLogic from './organisation';\nimport * as FleetServicesLogic from './fleetservices';\nexport {\n  SessionLogic as SessionLogic,\n  ConnectorLogic as ConnectorLogic,\n  EditorLogic as EditorLogic,\n  ConsoleLogic as ConsoleLogic,\n  EventLogic as EventLogic,\n  SettingsLogic as SettingsLogic,\n  UserLogic as UserLogic,\n  ApplicationLogic as ApplicationLogic,\n  OrganisationLogic as OrganisationLogic,\n  FleetServicesLogic as FleetServicesLogic\n};\n"
   },
   {
-    "__docId__": 136,
+    "__docId__": 138,
     "kind": "file",
     "static": true,
     "variation": null,
@@ -3440,7 +3476,7 @@
     "content": "import {Organisation} from '@hoist/model';\nimport slugify from 'slug';\nimport errors from '@hoist/errors';\nexport function create({\n  personal = false,\n  name,\n  slug = null\n}) {\n  return Promise\n    .resolve(slugify(slug || name))\n    .then((slug) => {\n      return Organisation\n        .countAsync({slug: slug})\n        .then((slugColisions) => {\n          if (slugColisions > 0) {\n            throw new errors.HoistError('an organisaiton with that slug already exists');\n          }\n        })\n        .then(() => {\n          return new Organisation({personal, name, slug}).saveAsync();\n        });\n    });\n\n}\n"
   },
   {
-    "__docId__": 137,
+    "__docId__": 139,
     "kind": "function",
     "static": true,
     "variation": null,
@@ -3476,7 +3512,7 @@
     "generator": false
   },
   {
-    "__docId__": 138,
+    "__docId__": 140,
     "kind": "file",
     "static": true,
     "variation": null,
@@ -3489,7 +3525,7 @@
     "content": "import {\n  IpLog,\n  LoginLog,\n  Application,\n  HoistUser,\n  Organisation,\n  Session\n} from '@hoist/model';\nimport errors from '@hoist/errors';\n\nimport logger from '@hoist/logger';\n\nlet _logger = logger.child({cls: 'SessionLogic'});\n\n/**\n * get a user based on login details, verifies password and ip address\n * @param {object} credentials - the user credentials\n * @param {string} credentials.email - the user email\n * @param {string} credentials.password - this user password\n * @param {string} credentials.ipAddress - the users ipAddress\n * @returns {Promise<HoistUser>} - the hoist user on successful login\n * @throws {errors.user.request.InvalidError} when the email or password is incorrect\n * @throws {errors.user.credentials.IncorrectError} when the user email or password are incorrect\n * @throws {errors.user.request.IPLockedError} when ip address is locked\n * @throws {errors.user.request.AccountLockedError} when ip address is locked\n */\nexport function ensureLogin({\n  email = \"\",\n  password,\n  ipAddress\n}) {\n  return Promise\n    .resolve()\n    .then(() => {\n      _logger.info('checking ip address');\n      return IpLog.assertIP({ipAddress});\n    })\n    .then(() => {\n      /* ensure request parameters are ok */\n      _logger.info('checking email and username are set');\n      if (!email || email.length < 1) {\n        throw new errors\n          .user\n          .request\n          .InvalidError(\"invalid email supplied\");\n      }\n      if (!password || password.length < 1) {\n        throw new errors\n          .user\n          .request\n          .InvalidError(\"invalid password supplied\");\n      }\n    })\n    .then(() => {\n      /* load up the user */\n      _logger.info('finding user');\n      return HoistUser.findOneAsync({\n        'emailAddresses.address': email.toLowerCase()\n      });\n    })\n    .then((user) => {\n      if (!user) {\n        _logger.info('email address supplied was incorrect');\n        throw new errors\n          .user\n          .credentials\n          .IncorrectError();\n      }\n      _logger.info('checking user lock');\n      /* ensure the user isn't locked*/\n      return LoginLog\n        .assertUser(user)\n        .then(() => user);\n    })\n    .then((user) => {\n      /* check the user password */\n      _logger.info('checking password');\n      if (!user.verifyPassword(password)) {\n        _logger.info('password supplied was incorrect');\n        throw new errors\n          .user\n          .credentials\n          .IncorrectError();\n      }\n      return user;\n    });\n}\n\n/**\n * creates a session for the user based on their last logged in session\n * @param {HoistUser} user - the user to create a session for\n * @returns {Promise<Session>} - the created session\n */\nexport function createSessionForUser(user) {\n  /* load up the last session from this user */\n  return Session\n    .find({user: user._id})\n    .sort({updatedAt: -1})\n    .limit(1)\n    .select({_id: -1, organisation: 1, application: 1})\n    .exec()\n    .then(([lastSession]) => {\n      let sessionData = Object.assign({}, {\n        user: user\n      }, lastSession);\n      if (!sessionData.organisation && user.organisations && user.organisations.length > 0) {\n        sessionData.organisation = user.organisations[user.organisations.length - 1];\n      }\n      if (!sessionData.application && sessionData.organisation) {\n        //load first application for organisation by created date desc\n        return Application\n          .find({organisation: sessionData.organisation})\n          .sort({updatedAt: -1})\n          .limit(1)\n          .select({_id: 1})\n          .exec()\n          .then(([application]) => {\n            if (application) {\n              sessionData.application = application._id;\n            }\n            return sessionData;\n          });\n      }\n      return sessionData;\n    })\n    .then((sessionData) => new Session(sessionData).saveAsync())\n    .then((result) => {\n      if (result && result.length) {\n        return result[0];\n      } else {\n        return result;\n      }\n    });\n}\n\n/**\n * saves login attempts to the database against username and ip addresses\n * @param {object} credentials - the user credentials\n * @param {string} credentials.email - the user email\n * @param {string} credentials.ipAddress - the users ipAddress\n * @param {bool} success - if the login was successful or not\n * @returns {Promise} - a promise to have saved the login logs\n */\nexport function logLogin({\n  email = \"\",\n  ipAddress\n}, success) {\n  return Promise.all([\n    new IpLog({ip: ipAddress, success}).saveAsync(),\n    new LoginLog({\n      username: email.toLowerCase(),\n      success\n    }).saveAsync()\n  ])\n}\n\n/**\n * load up details of the users session from a session object\n * @param {Session} session - the users current session\n * @returns {SessionDetails} - the details of the currently logged in session\n */\nexport function getSessionDetails(session) {\n  let user;\n  let organisation;\n  let application;\n  let organisations;\n  let applications;\n  return Promise\n    .resolve()\n    .then(() => {\n      return session\n        .populate({path: 'organisation', select: '_id slug name isPersonal'})\n        .populate({path: 'application', select: '_id slug name apiKey settings'})\n        .populate({path: 'user', select: 'name organisations emailAddresses role'})\n        .execPopulate();\n    })\n    .then(() => {\n      session = session.toJSON();\n      user = Object.assign({}, session.user);\n      application = Object.assign({}, session.application);\n      organisation = Object.assign({}, session.organisation);\n    })\n    .then(() => {\n      if (user && user.organisations) {\n        return Organisation.findAsync({\n          _id: {\n            $in: user.organisations\n          }\n        }, 'slug name isPersonal').then((result) => {\n          organisations = result.map((org) => Object.assign({}, org.toJSON()));\n          if (!organisation || !organisation._id) {\n            if (organisations.length > 0) {\n              organisation = organisations[organisations.length - 1];\n            }\n          }\n        });\n      }\n    })\n    .then(() => {\n      if (organisation && organisation._id) {\n        return Application.findAsync({\n          organisation: organisation._id\n        }, 'slug name apiKey settings').then((results) => {\n          applications = results.map((app) => Object.assign({}, app.toJSON()));\n          if (applications.length > 0) {\n            if (!application || !application._id) {\n              application = applications[applications.length - 1];\n            }\n          }\n        });\n      }\n    })\n    .then(() => {\n      return {user, organisation, application, organisations, applications}\n    });\n}\n\n/**\n * updates the session organisation, (sets the session application appropriately too) then returns the new session\n * @param {Session} session - the users current session\n * @param {string} organisationId - the new organisation id\n * @returns {SessionDetails} - the details of the currently logged in session\n * @throws {errors.model.organisation.NotFoundError} - either the organisation doesn't exist or the user doesn't have access\n */\nexport function updateOrganisation(session, organisationId) {\n  return Promise\n    .resolve()\n    .then(() => {\n      if (!session.user.organisations.find((id) => id === organisationId)) {\n        throw new errors\n          .model\n          .organisation\n          .NotFoundError();\n      } else {\n        session.organisation = organisationId;\n        session.application = null;\n        return getSessionDetails(session).then((sessionDetails) => {\n          session.application = sessionDetails.application._id;\n          return session\n            .saveAsync()\n            .then(() => sessionDetails);\n        });\n      }\n    });\n}\n\n/**\n * updates the session application then returns the new session\n * @param {Session} session - the users current session\n * @param {string} applicationId - the new application id\n * @returns {SessionDetails} - the details of the currently logged in session\n * @throws {errors.model.organisation.NotFoundError} - either the organisation doesn't exist or the user doesn't have access\n */\nexport function updateApplication(session, applicationId) {\n  return Promise\n    .resolve()\n    .then(() => {\n      return Application.countAsync({organisation: session.organisation._id, _id: applicationId});\n    })\n    .then((applicationCount) => {\n      if (applicationCount < 1) {\n        throw new errors\n          .model\n          .organisation\n          .NotFoundError();\n      }\n    })\n    .then(() => {\n      session.application = applicationId;\n      return session\n        .saveAsync()\n        .then(() => getSessionDetails(session));\n    });\n}\n"
   },
   {
-    "__docId__": 139,
+    "__docId__": 141,
     "kind": "variable",
     "static": true,
     "variation": null,
@@ -3510,7 +3546,7 @@
     }
   },
   {
-    "__docId__": 140,
+    "__docId__": 142,
     "kind": "function",
     "static": true,
     "variation": null,
@@ -3608,7 +3644,7 @@
     "generator": false
   },
   {
-    "__docId__": 141,
+    "__docId__": 143,
     "kind": "function",
     "static": true,
     "variation": null,
@@ -3650,7 +3686,7 @@
     "generator": false
   },
   {
-    "__docId__": 142,
+    "__docId__": 144,
     "kind": "function",
     "static": true,
     "variation": null,
@@ -3722,7 +3758,7 @@
     "generator": false
   },
   {
-    "__docId__": 143,
+    "__docId__": 145,
     "kind": "function",
     "static": true,
     "variation": null,
@@ -3764,7 +3800,7 @@
     "generator": false
   },
   {
-    "__docId__": 144,
+    "__docId__": 146,
     "kind": "function",
     "static": true,
     "variation": null,
@@ -3824,7 +3860,7 @@
     "generator": false
   },
   {
-    "__docId__": 145,
+    "__docId__": 147,
     "kind": "function",
     "static": true,
     "variation": null,
@@ -3884,7 +3920,7 @@
     "generator": false
   },
   {
-    "__docId__": 146,
+    "__docId__": 148,
     "kind": "file",
     "static": true,
     "variation": null,
@@ -3897,7 +3933,7 @@
     "content": "import config from 'config';\nimport Promise from 'bluebird';\nimport fs from 'fs';\nimport path from 'path';\nimport {getAvailableConnectors} from './connector';\n\nPromise.promisifyAll(fs);\n\nexport function getAllSettings() {\n  return Promise\n    .resolve()\n    .then(() => {\n      return Promise.all([getAvailableConnectors()]);\n    })\n    .then(([availableConnectors]) => {\n      return {availableConnectors}\n    });\n}\n"
   },
   {
-    "__docId__": 147,
+    "__docId__": 149,
     "kind": "function",
     "static": true,
     "variation": null,
@@ -3920,7 +3956,7 @@
     "generator": false
   },
   {
-    "__docId__": 148,
+    "__docId__": 150,
     "kind": "file",
     "static": true,
     "variation": null,
@@ -3933,7 +3969,7 @@
     "content": "import {\n  HoistUser,\n  Organisation,\n  HoistForgottenPassword\n} from '@hoist/model';\nimport * as ApplicationLogic from './application';\nimport * as OrganisationLogic from './organisation';\nimport * as EmailLogic from './emails';\nimport slugify from 'slug';\nimport errors from '@hoist/errors';\n\nimport logger from '@hoist/logger';\nimport validator from 'validator';\nimport config from 'config';\nimport moment from 'moment';\n\nlet _logger = logger.child({\n  cls: 'SessionLogic'\n});\n\n/**\n * create a new user. Also creates an organisation and an application for the user\n * @param {object} credentials - the user credentials\n * @param {string} credentials.username - the users username\n * @param {string} credentials.email - the user email\n * @param {string} credentials.password - this user password\n * @param {string} credentials.passwordCheck - this user password repeated\n * @returns {Promise<HoistUser>} - the hoist user that was created\n * @throws {errors.user.request.InvalidError} when the email is not valid\n * @throws {errors.user.credentials.IncorrectError} if the username already matches an existing username\n */\nexport function create({\n  username,\n  email,\n  password,\n  passwordCheck\n}) {\n  return Promise\n    .resolve()\n    .then(() => {\n      /* ensure request parameters are ok */\n      _logger.info('checking required fields');\n      if (!username || username.length < 1) {\n        throw new errors\n          .user\n          .request\n          .InvalidError(\"invalid name supplied\");\n      }\n      if (!email || email.length < 1 || !validator.isEmail(email)) {\n        throw new errors\n          .user\n          .request\n          .InvalidError(\"invalid email supplied\");\n      }\n      if (password !== passwordCheck) {\n        throw new errors\n          .user\n          .request\n          .InvalidError(\"supplied passwords don't match\");\n      }\n      if (!password || password.length < 6) {\n        throw new errors\n          .user\n          .request\n          .InvalidError(\"invalid password supplied, passwords must be longer than 6 characters\");\n      }\n    })\n    .then(() => {\n      /* load up the user */\n      _logger.info('finding user');\n      return HoistUser.countAsync({\n        \"$or\": [\n          {\n            'emailAddresses.address': email.toLowerCase()\n          }, {\n            name: username.toLowerCase()\n          }\n        ]\n      });\n    })\n    .then((userCount) => {\n      if (userCount > 0) {\n        _logger.info('an account for that email address or username already exists');\n        throw new errors\n          .user\n          .credentials\n          .IncorrectError('an account for that email address already exists');\n      }\n      return Organisation.countAsync({\n        slug: slugify(username)\n      });\n    })\n    .then(organisationCount => {\n      if (organisationCount > 0) {\n        _logger.info('an organisation for that username already exists');\n        throw new errors\n          .user\n          .credentials\n          .IncorrectError('an organisation for that username already exists');\n      }\n\n      let user = new HoistUser({\n        name: username.toLowerCase(),\n        emailAddresses: [\n          {\n            address: email.toLowerCase()\n          }\n        ]\n      });\n      return user.setPassword(password);\n    })\n    .then((user) => {\n      return OrganisationLogic\n        .create({\n          personal: true,\n          name: username\n        })\n        .then((organisation) => ApplicationLogic.create({\n            organisation: organisation,\n            name: username\n          })\n          .then((application) => {\n            user\n              .organisations\n              .push(organisation);\n            return user\n              .saveAsync()\n              .catch((err) => {\n                return Promise\n                  .all([application.remove()])\n                  .then(() => {\n                    throw err;\n                  })\n              });\n          })\n          .catch((err) => {\n            return Promise\n              .all([organisation.remove()])\n              .then(() => {\n                throw err;\n              })\n          }));\n    });\n}\n\n/**\n * creates a forgotten password for a user, or notifies them if they don't have an account.\n * @param {object} credentials - the user credentials\n * @param {string} credentials.email - the user email\n * @returns {Promise} - a promise to have created and emailed the forgotten password request\n * @throws {errors.user.request.InvalidError} when the email is not valid\n */\nexport function createForgottenPassword({\n  email\n}) {\n  return Promise\n    .resolve()\n    .then(() => {\n      return HoistUser.findOneAsync({\n        'emailAddresses.address': email.toLowerCase()\n      });\n    })\n    .then((user) => {\n      if (!user) {\n        return EmailLogic.sendNoUserAcountEmail(email);\n      }\n      return new HoistForgottenPassword({\n          user: user\n        })\n        .saveAsync()\n        .then((forgottenPasswordRequest) => EmailLogic.sendForgottenPasswordEmail(email, forgottenPasswordRequest.activationCode))\n    });\n\n}\n\nexport function activateForgottenPassword({\n  password,\n  passwordCheck,\n  activationCode\n}) {\n  return Promise.resolve()\n    .then(() => {\n      return HoistForgottenPassword.findOne({\n          activationCode,\n          activated: false,\n          $or: [{\n            activatedDate: null\n          }, {\n            activatedDate: {\n              $exists: false\n            }\n          }],\n          createdAt: {\n            $gt: moment()\n              .add('hour', -2)\n              .utc()\n              .toDate()\n          }\n        })\n        .populate('user')\n        .exec();\n    })\n    .then(forgottenPassword => {\n      if (!forgottenPassword) {\n        throw new errors.HoistError(\"ForgottenPassword token not found\");\n      }\n      if (password !== passwordCheck) {\n        throw new errors\n          .user\n          .request\n          .InvalidError(\"supplied passwords don't match\");\n      }\n      if (!password || password.length < 6) {\n        throw new errors\n          .user\n          .request\n          .InvalidError(\"invalid password supplied, passwords must be longer than 6 characters\");\n      }\n\n      return forgottenPassword.user.setPassword(password)\n        .then((u) => {\n          return u.saveAsync();\n        });\n    });\n}\n"
   },
   {
-    "__docId__": 149,
+    "__docId__": 151,
     "kind": "variable",
     "static": true,
     "variation": null,
@@ -3954,7 +3990,7 @@
     }
   },
   {
-    "__docId__": 150,
+    "__docId__": 152,
     "kind": "function",
     "static": true,
     "variation": null,
@@ -4050,7 +4086,7 @@
     "generator": false
   },
   {
-    "__docId__": 151,
+    "__docId__": 153,
     "kind": "function",
     "static": true,
     "variation": null,
@@ -4110,7 +4146,7 @@
     "generator": false
   },
   {
-    "__docId__": 152,
+    "__docId__": 154,
     "kind": "function",
     "static": true,
     "variation": null,
@@ -4146,7 +4182,7 @@
     "generator": false
   },
   {
-    "__docId__": 153,
+    "__docId__": 155,
     "kind": "file",
     "static": true,
     "variation": null,
@@ -4159,7 +4195,7 @@
     "content": "import fs from 'fs';\nimport Promise from 'bluebird';\nimport path from 'path';\nimport config from 'config';\nimport _ from 'lodash';\nimport bluebird from 'bluebird';\n\nbluebird.promisifyAll(fs);\n/**\n * this is a cut down class for views to look at connector settings\n */\nexport class ConnectorViewModel {\n  /**\n   * create a new connector view model from ConnectorSetting\n   * @param {ConnectorSetting} connectorSetting\n   */\n  constructor (connectorSetting) {\n    this._connectorSetting = connectorSetting\n  }\n  _connectorPath () {\n    return path.resolve(path.join(config.get('Hoist.filePaths.connectors'), this.type, 'current'));\n  }\n\n  /**\n   * @returns {string} - the key for this connector\n   */\n  get key () {\n    return this._connectorSetting.key;\n  }\n\n  /**\n   * @returns {String} the name of this connector\n   */\n  get name () {\n    return this._connectorSetting.name;\n  }\n\n  /**\n   * @returns {string} the type of this connector\n   */\n  get type () {\n    return this._connectorSetting.connectorType;\n  }\n\n  /**\n   * @returns {Object} the settings for this connector\n   */\n  get settings () {\n    return this._connectorSetting.settings;\n  }\n\n  /**\n   * @returns {Array<Object>} a list of available events for this connector\n   */\n  get events () {\n    return this._events;\n  }\n\n  codeForEvent (event) {\n    //returns the sample code for an event for this connector\n    return Promise\n      .resolve()\n      .then(() => {\n        let codePath = path.join(this._connectorPath(), 'samples', `${event.name}.js`);\n        if (!fs.existsSync(codePath)) {\n          return null;\n        } else {\n          return fs.readFileAsync(codePath, {encoding: 'utf8'});\n        }\n      })\n  }\n\n  /**\n   * populates the parts of the model that can't be done syncronously\n   * @returns {Promise} when the model has been populated\n   */\n  populate () {\n    return Promise\n      .resolve()\n      .then(() => {\n        //load up the connector.json\n        return require(path.join(this._connectorPath(), 'connector.json'))\n      })\n      .then((connectorJson) => {\n        this._connectorJson = connectorJson;\n        if (connectorJson.events) {\n          return connectorJson\n            .events\n            .map(({description, name}) => ({description: description, name: name, connector: `${this.key}`, key: `${this.key}:${name}`}));\n        } else {\n          return _.flatten(_.map(connectorJson.endpoints, (endpoint, name) => {\n            let eventsNames;\n            if (endpoint.events) {\n              return endpoint\n                .events\n                .map((eventName) => ({description: '', name: `${eventName}:${name}`, connector: `${this.key}`, key: `${this.key}:${eventName}:${name}`}));\n            } else {\n              return [\n                {\n                  description: '',\n                  name: `new:${name}`,\n                  connector: `${this.key}`,\n                  key: `${this.key}:new:${name}`\n                }, {\n                  description: '',\n                  name: `modified:${name}`,\n                  connector: `${this.key}`,\n                  key: `${this.key}:modified:${name}`\n                }, {\n                  description: '',\n                  name: `deleted:${name}`,\n                  connector: `${this.key}`,\n                  key: `${this.key}:deleted:${name}`\n                }\n              ]\n            }\n          }));\n        }\n      })\n      .then((events) => {\n        this._events = events;\n      });\n  }\n  toJSON () {\n    return Object.assign({}, {\n      key: this.key,\n      name: this.name,\n      events: this.events,\n      settings: this.settings,\n      type: this.type\n    });\n  }\n}\n"
   },
   {
-    "__docId__": 154,
+    "__docId__": 156,
     "kind": "class",
     "static": true,
     "variation": null,
@@ -4175,7 +4211,7 @@
     "interface": false
   },
   {
-    "__docId__": 155,
+    "__docId__": 157,
     "kind": "constructor",
     "static": false,
     "variation": null,
@@ -4200,7 +4236,7 @@
     "generator": false
   },
   {
-    "__docId__": 156,
+    "__docId__": 158,
     "kind": "member",
     "static": false,
     "variation": null,
@@ -4218,7 +4254,7 @@
     }
   },
   {
-    "__docId__": 157,
+    "__docId__": 159,
     "kind": "method",
     "static": false,
     "variation": null,
@@ -4238,7 +4274,7 @@
     "generator": false
   },
   {
-    "__docId__": 158,
+    "__docId__": 160,
     "kind": "get",
     "static": false,
     "variation": null,
@@ -4270,7 +4306,7 @@
     "generator": false
   },
   {
-    "__docId__": 159,
+    "__docId__": 161,
     "kind": "get",
     "static": false,
     "variation": null,
@@ -4302,7 +4338,7 @@
     "generator": false
   },
   {
-    "__docId__": 160,
+    "__docId__": 162,
     "kind": "get",
     "static": false,
     "variation": null,
@@ -4334,7 +4370,7 @@
     "generator": false
   },
   {
-    "__docId__": 161,
+    "__docId__": 163,
     "kind": "get",
     "static": false,
     "variation": null,
@@ -4366,7 +4402,7 @@
     "generator": false
   },
   {
-    "__docId__": 162,
+    "__docId__": 164,
     "kind": "get",
     "static": false,
     "variation": null,
@@ -4398,7 +4434,7 @@
     "generator": false
   },
   {
-    "__docId__": 163,
+    "__docId__": 165,
     "kind": "method",
     "static": false,
     "variation": null,
@@ -4425,7 +4461,7 @@
     "generator": false
   },
   {
-    "__docId__": 164,
+    "__docId__": 166,
     "kind": "method",
     "static": false,
     "variation": null,
@@ -4453,7 +4489,7 @@
     "generator": false
   },
   {
-    "__docId__": 165,
+    "__docId__": 167,
     "kind": "member",
     "static": false,
     "variation": null,
@@ -4471,7 +4507,7 @@
     }
   },
   {
-    "__docId__": 166,
+    "__docId__": 168,
     "kind": "member",
     "static": false,
     "variation": null,
@@ -4489,7 +4525,7 @@
     }
   },
   {
-    "__docId__": 167,
+    "__docId__": 169,
     "kind": "method",
     "static": false,
     "variation": null,
@@ -4509,7 +4545,7 @@
     "generator": false
   },
   {
-    "__docId__": 168,
+    "__docId__": 170,
     "kind": "file",
     "static": true,
     "variation": null,
@@ -4522,7 +4558,7 @@
     "content": "import * as StringUtils from './string_utils';\nexport {StringUtils as StringUtils}\n"
   },
   {
-    "__docId__": 169,
+    "__docId__": 171,
     "kind": "file",
     "static": true,
     "variation": null,
@@ -4535,7 +4571,7 @@
     "content": "import amqp from 'amqplib';\nimport config from 'config';\nimport logger from '@hoist/logger';\nimport moment from 'moment';\nconst _logger = logger.child({cls: 'RabbitUtils'});\n\nlet _connection = amqp\n  .connect(config.get('Hoist.rabbit.url'))\n  .then((connection) => {\n    connection.on('close', () => {\n      open = null;\n    });\n    connection.on('error', (err) => {\n      _logger.error(err);\n      _logger.alert(err);\n    });\n    return connection;\n  });\n\nfunction connect() {\n  if (!_connection) {\n    _connection = amqp\n      .connect(config.get('Hoist.rabbit.url'))\n      .then((connection) => {\n        connection.on('close', () => {\n          _connection = null;\n        });\n        connection.on('error', (err) => {\n          _logger.error(err);\n          _logger.alert(err);\n        });\n        return connection;\n      });\n  }\n  return _connection;\n}\n\nexport function setupQueue({queue, exchange}) {\n  return connect().then((connection) => {\n    _logger.info('creating channel');\n    return connection.createChannel()\n  }).then((channel) => {\n    let _err;\n    _logger.info('asserting queue');\n    return channel\n      .assertQueue(queue.name, queue.properties)\n      .then((queueDetails) => {\n        if (exchange) {\n          _logger.info('asserting exchange');\n          return channel\n            .assertExchange(exchange.name, exchange.type)\n            .then(() => {\n              _logger.info('binding queue to exchange');\n              return channel.bindQueue(queueDetails.queue, exchange.name, exchange.routingKey);\n            })\n        }\n      })\n      .catch((err) => {\n        _logger.info('saving error for later');\n        _err = err;\n      })\n      .then(() => {\n        _logger.info('closing channel');\n        return channel.close();\n      })\n      .then(() => {\n        if (_err) {\n          _logger.info('rethrowing error');\n          throw _err;\n        }\n      });\n  });\n}\n\nfunction _getMany(channel, queue, max = 10, current = []) {\n  _logger.info({\n    current\n  }, 'getting messages');\n  if (current.length > max) {\n    return current;\n  } else {\n    return channel\n      .get(queue, {noAck: true})\n      .then((message) => {\n        if (!message) {\n          return current;\n        } else {\n          let content = JSON.parse(message.content.toString());\n          _logger.info({\n            content\n          }, 'got a rabbit message');\n          return _getMany(channel, queue, max, current.concat(formatLogEntry(content)));\n        }\n      })\n  }\n}\n\nfunction formatLogEntry(eventLog) {\n  return {\n    id: eventLog._id,\n    type: eventLog.type || 'log',\n    message: eventLog.message,\n    time: moment(eventLog.createdAt).format('HH:mm:ss'),\n    stack: eventLog.errorStack\n  }\n}\nexport function getMessages(queue, max) {\n  return connect().then((connection) => {\n    _logger.info('creating channel');\n    return connection.createChannel()\n  }).then((channel) => {\n    let _err;\n    channel.prefetch(max);\n    return _getMany(channel, queue, max, []).catch((err) => {\n      _logger.info('saving error for later');\n      _err = err;\n    }).then((messages) => {\n      _logger.info('closing channel');\n      return channel\n        .close()\n        .then(() => messages);\n    }).then((messages) => {\n      if (_err) {\n        _logger.info('rethrowing error');\n        throw _err;\n      }\n      return messages;\n    });\n  }).then((messages) => {\n    _logger.info({\n      messages: messages\n    }, 'returning messages');\n    return messages || [];\n  });\n}\nexport function closeConnection() {\n  if (_connection) {\n    return connect().then((connection) => {\n      return connection.close();\n    });\n  }\n}\n"
   },
   {
-    "__docId__": 170,
+    "__docId__": 172,
     "kind": "variable",
     "static": true,
     "variation": null,
@@ -4556,7 +4592,7 @@
     }
   },
   {
-    "__docId__": 171,
+    "__docId__": 173,
     "kind": "variable",
     "static": true,
     "variation": null,
@@ -4577,7 +4613,7 @@
     }
   },
   {
-    "__docId__": 172,
+    "__docId__": 174,
     "kind": "function",
     "static": true,
     "variation": null,
@@ -4600,7 +4636,7 @@
     "generator": false
   },
   {
-    "__docId__": 173,
+    "__docId__": 175,
     "kind": "function",
     "static": true,
     "variation": null,
@@ -4635,7 +4671,7 @@
     "generator": false
   },
   {
-    "__docId__": 174,
+    "__docId__": 176,
     "kind": "function",
     "static": true,
     "variation": null,
@@ -4689,7 +4725,7 @@
     "generator": false
   },
   {
-    "__docId__": 175,
+    "__docId__": 177,
     "kind": "function",
     "static": true,
     "variation": null,
@@ -4719,7 +4755,7 @@
     "generator": false
   },
   {
-    "__docId__": 176,
+    "__docId__": 178,
     "kind": "function",
     "static": true,
     "variation": null,
@@ -4755,7 +4791,7 @@
     "generator": false
   },
   {
-    "__docId__": 177,
+    "__docId__": 179,
     "kind": "function",
     "static": true,
     "variation": null,
@@ -4778,7 +4814,7 @@
     "generator": false
   },
   {
-    "__docId__": 178,
+    "__docId__": 180,
     "kind": "file",
     "static": true,
     "variation": null,
@@ -4791,7 +4827,7 @@
     "content": "export function sanitiseName(name) {\n  var lowerCaseString = name.toLowerCase();\n  return lowerCaseString.replace(/\\W+/g, \"\");\n}\n"
   },
   {
-    "__docId__": 179,
+    "__docId__": 181,
     "kind": "function",
     "static": true,
     "variation": null,
@@ -4821,7 +4857,7 @@
     "generator": false
   },
   {
-    "__docId__": 181,
+    "__docId__": 183,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -4834,7 +4870,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 182,
+    "__docId__": 184,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -4847,7 +4883,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 183,
+    "__docId__": 185,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -4860,7 +4896,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 184,
+    "__docId__": 186,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -4873,7 +4909,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 185,
+    "__docId__": 187,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -4886,7 +4922,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 186,
+    "__docId__": 188,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -4899,7 +4935,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 187,
+    "__docId__": 189,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -4912,7 +4948,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 188,
+    "__docId__": 190,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -4925,7 +4961,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 189,
+    "__docId__": 191,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -4938,7 +4974,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 190,
+    "__docId__": 192,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -4951,7 +4987,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 191,
+    "__docId__": 193,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -4964,7 +5000,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 192,
+    "__docId__": 194,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -4977,7 +5013,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 193,
+    "__docId__": 195,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -4990,7 +5026,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 194,
+    "__docId__": 196,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -5003,7 +5039,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 195,
+    "__docId__": 197,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -5016,7 +5052,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 196,
+    "__docId__": 198,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -5029,7 +5065,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 197,
+    "__docId__": 199,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -5042,7 +5078,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 198,
+    "__docId__": 200,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -5055,7 +5091,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 199,
+    "__docId__": 201,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -5068,7 +5104,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 200,
+    "__docId__": 202,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -5081,7 +5117,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 201,
+    "__docId__": 203,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -5094,7 +5130,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 202,
+    "__docId__": 204,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -5107,7 +5143,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 203,
+    "__docId__": 205,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -5120,7 +5156,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 204,
+    "__docId__": 206,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -5133,7 +5169,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 205,
+    "__docId__": 207,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -5146,7 +5182,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 206,
+    "__docId__": 208,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -5159,7 +5195,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 207,
+    "__docId__": 209,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -5172,7 +5208,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 208,
+    "__docId__": 210,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -5185,7 +5221,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 209,
+    "__docId__": 211,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -5198,7 +5234,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 210,
+    "__docId__": 212,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -5211,7 +5247,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 211,
+    "__docId__": 213,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -5224,7 +5260,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 212,
+    "__docId__": 214,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -5237,7 +5273,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 213,
+    "__docId__": 215,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -5250,7 +5286,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 214,
+    "__docId__": 216,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -5263,7 +5299,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 215,
+    "__docId__": 217,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -5276,7 +5312,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 216,
+    "__docId__": 218,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -5289,7 +5325,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 217,
+    "__docId__": 219,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -5302,7 +5338,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 218,
+    "__docId__": 220,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -5315,7 +5351,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 219,
+    "__docId__": 221,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -5328,7 +5364,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 220,
+    "__docId__": 222,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -5341,7 +5377,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 221,
+    "__docId__": 223,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -5354,7 +5390,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 222,
+    "__docId__": 224,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -5367,7 +5403,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 223,
+    "__docId__": 225,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -5380,7 +5416,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 224,
+    "__docId__": 226,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -5393,7 +5429,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 225,
+    "__docId__": 227,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -5406,7 +5442,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 226,
+    "__docId__": 228,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -5419,7 +5455,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 227,
+    "__docId__": 229,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -5432,7 +5468,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 229,
+    "__docId__": 231,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -5445,7 +5481,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 230,
+    "__docId__": 232,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -5458,7 +5494,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 231,
+    "__docId__": 233,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -5471,7 +5507,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 232,
+    "__docId__": 234,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -5484,7 +5520,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 233,
+    "__docId__": 235,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -5497,7 +5533,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 234,
+    "__docId__": 236,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -5510,7 +5546,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 235,
+    "__docId__": 237,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -5523,7 +5559,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 236,
+    "__docId__": 238,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -5536,7 +5572,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 237,
+    "__docId__": 239,
     "kind": "testFile",
     "static": true,
     "variation": null,
@@ -5549,7 +5585,7 @@
     "content": "import sinon from 'sinon';\nimport {expect} from 'chai';\nimport {ConnectorSetting} from '@hoist/model';\nimport {ConnectorController} from '../../../../src/server/areas/connector/connector_controller';\nimport {ConnectorLogic} from '../../../../src/server/logic';\nimport nock from 'nock';\nimport url from 'url';\n/** @test {ConnectorController} */\ndescribe('ConnectorController', () => {\n  let controller;\n  before(() => {\n    controller = new ConnectorController();\n  });\n  /** @test {ConnectorController#list} */\n  describe('#list', () => {\n    let connectors = [\n      {\n        connectorType: 'test-connector',\n        key: 'connector-1'\n      }, {\n        connectorType: 'test-connector2',\n        key: 'connector-2'\n      }\n    ]\n    let request = {\n      auth: {\n        credentials: {\n          application: 'applicationid'\n        }\n      }\n    };\n    let reply = sinon.stub();\n    before(() => {\n      sinon\n        .stub(ConnectorSetting, 'findAsync')\n        .returns(connectors);\n      return controller.list(request, reply);\n    });\n    it('returns list of orgs current connectors', () => {\n      return expect(reply)\n        .to\n        .have\n        .been\n        .calledWith([\n          sinon.match({\n            key: 'connector-1',\n            events: [\n              {\n                description: '',\n                name: 'new:mention',\n                connector: 'connector-1',\n                key: 'connector-1:new:mention'\n              }, {\n                description: '',\n                name: 'modified:mention',\n                connector: 'connector-1',\n                key: 'connector-1:modified:mention'\n              }\n            ]\n          }),\n          sinon.match({\n            key: 'connector-2',\n            events: [\n              {\n                description: 'a new thing is created',\n                name: 'new:thing',\n                connector: 'connector-2',\n                key: 'connector-2:new:thing'\n              }\n            ]\n          })\n        ]);\n    });\n    it('loads up connectors based on current application', () => {\n      return expect(ConnectorSetting.findAsync)\n        .to\n        .have\n        .been\n        .calledWith({application: 'applicationid'});\n    })\n    after(() => {\n      ConnectorSetting\n        .findAsync\n        .restore();\n    });\n  });\n  describe('#getAvailable', () => {});\n  describe('#getTriggers', () => {});\n  describe('#connect', () => {\n    let request = {\n      auth: {\n        credentials: {\n          application: {\n            slug: 'appslug'\n          },\n          organisation: {\n            slug: 'orgslug'\n          }\n        }\n      },\n      payload: {\n        connectorType: 'test-connector'\n      }\n    };\n    let reply = sinon.stub();\n\n    let bouncerRequest;\n    before(() => {\n      sinon\n        .stub(ConnectorLogic, 'setupDefaultConnector')\n        .returns(Promise.resolve({key: 'connector-key'}));\n      nock('http://bouncer.hoist.test')\n        .get('/initiate/orgslug/appslug/connector-key')\n        .query(true)\n        .reply(302, function (uri, requestBody) {\n          bouncerRequest = url.parse(uri, true);\n          return \"\"\n        }, {'Location': 'http://auth-portal.test'});\n      return controller.connect(request, reply);\n    });\n    after(() => {\n      ConnectorLogic\n        .setupDefaultConnector\n        .restore();\n      nock.restore();\n    })\n    it('should return redirect url', () => {\n      return expect(reply)\n        .to\n        .have\n        .been\n        .calledWith({uri: 'http://auth-portal.test'})\n    });\n    it('should request the correct bucket key to bouncer', () => {\n      return expect(bouncerRequest.query.bucketKey)\n        .to\n        .eql('default');\n    });\n    it('should pass correct return url to bouncer', () => {\n      return expect(bouncerRequest.query.returnUrl)\n        .to\n        .eql('http://portal.hoist.test/orgslug/appslug/connector/connector-key')\n    });\n  });\n});\n"
   },
   {
-    "__docId__": 238,
+    "__docId__": 240,
     "kind": "testDescribe",
     "static": true,
     "variation": null,
@@ -5572,7 +5608,7 @@
     ]
   },
   {
-    "__docId__": 239,
+    "__docId__": 241,
     "kind": "testDescribe",
     "static": true,
     "variation": null,
@@ -5595,7 +5631,7 @@
     ]
   },
   {
-    "__docId__": 240,
+    "__docId__": 242,
     "kind": "testIt",
     "static": true,
     "variation": null,
@@ -5609,7 +5645,7 @@
     "lineNumber": 39
   },
   {
-    "__docId__": 241,
+    "__docId__": 243,
     "kind": "testIt",
     "static": true,
     "variation": null,
@@ -5623,7 +5659,7 @@
     "lineNumber": 74
   },
   {
-    "__docId__": 242,
+    "__docId__": 244,
     "kind": "testDescribe",
     "static": true,
     "variation": null,
@@ -5637,7 +5673,7 @@
     "lineNumber": 87
   },
   {
-    "__docId__": 243,
+    "__docId__": 245,
     "kind": "testDescribe",
     "static": true,
     "variation": null,
@@ -5651,7 +5687,7 @@
     "lineNumber": 88
   },
   {
-    "__docId__": 244,
+    "__docId__": 246,
     "kind": "testDescribe",
     "static": true,
     "variation": null,
@@ -5665,7 +5701,7 @@
     "lineNumber": 89
   },
   {
-    "__docId__": 245,
+    "__docId__": 247,
     "kind": "testIt",
     "static": true,
     "variation": null,
@@ -5679,7 +5715,7 @@
     "lineNumber": 127
   },
   {
-    "__docId__": 246,
+    "__docId__": 248,
     "kind": "testIt",
     "static": true,
     "variation": null,
@@ -5693,7 +5729,7 @@
     "lineNumber": 134
   },
   {
-    "__docId__": 247,
+    "__docId__": 249,
     "kind": "testIt",
     "static": true,
     "variation": null,
@@ -5707,7 +5743,7 @@
     "lineNumber": 139
   },
   {
-    "__docId__": 248,
+    "__docId__": 250,
     "kind": "testFile",
     "static": true,
     "variation": null,
@@ -5720,7 +5756,7 @@
     "content": "import sinon from 'sinon';\nimport {expect} from 'chai';\nimport {EditorController} from '../../../../src/server/areas/editor/editor_controller';\nimport {EditorLogic, ConnectorLogic} from '../../../../src/server/logic';\n/** @test {EditorController} */\ndescribe('EditorController', () => {\n  let controller;\n  before(() => {\n    controller = new EditorController();\n  });\n  /** @test {ConnectorController#list} */\n  describe('#state', () => {\n    let connectors = [\n      {\n        key: 'connector-1',\n        events: [\n          {\n            description: '',\n            name: 'new:mention',\n            connector: 'connector-1',\n            key: 'connector-1:new:mention'\n          }, {\n            description: '',\n            name: 'modified:mention',\n            connector: 'connector-1',\n            key: 'connector-1:modified:mention'\n          }\n        ]\n      }, {\n        key: 'connector-2',\n        events: [\n          {\n            key: 'connector-2:new:thing',\n            description: 'a new thing is created',\n            name: 'new:thing',\n            connector: 'connector-2'\n          }\n        ]\n      }\n    ]\n    let request = {\n      auth: {\n        credentials: {\n          application: {\n            _id: 'applicationid',\n            settings: {\n              live: {\n                on: {\n                  'my:event': {},\n                  \"connector-2:new:thing\": {}\n                }\n              }\n            }\n          }\n        }\n      }\n    };\n    let reply = sinon.stub();\n    before(() => {\n      sinon\n        .stub(ConnectorLogic, 'getConnectorsForApplication')\n        .returns(Promise.resolve(connectors));\n      sinon\n        .stub(EditorLogic, 'getCodeForEvent')\n        .returns(Promise.resolve('this is some code'))\n      return controller.state(request, reply);\n    });\n    it('returns list of current connectors and code', () => {\n      return expect(reply)\n        .to\n        .have\n        .been\n        .calledWith(sinon.match({\n          connectors,\n          events: connectors[0]\n            .events\n            .concat(connectors[1].events)\n            .concat({description: \"\", key: \"my:event\", name: \"my:event\"}),\n          code: {\n            event: 'connector-1:new:mention',\n            script: 'this is some code'\n          }\n        }));\n    });\n    after(() => {\n      ConnectorLogic\n        .getConnectorsForApplication\n        .restore();\n      EditorLogic\n        .getCodeForEvent\n        .restore();\n    });\n  });\n});\n"
   },
   {
-    "__docId__": 249,
+    "__docId__": 251,
     "kind": "testDescribe",
     "static": true,
     "variation": null,
@@ -5743,7 +5779,7 @@
     ]
   },
   {
-    "__docId__": 250,
+    "__docId__": 252,
     "kind": "testDescribe",
     "static": true,
     "variation": null,
@@ -5766,7 +5802,7 @@
     ]
   },
   {
-    "__docId__": 251,
+    "__docId__": 253,
     "kind": "testIt",
     "static": true,
     "variation": null,
@@ -5780,7 +5816,7 @@
     "lineNumber": 68
   },
   {
-    "__docId__": 252,
+    "__docId__": 254,
     "kind": "testFile",
     "static": true,
     "variation": null,
@@ -5793,7 +5829,7 @@
     "content": "import {\n  expect\n}\nfrom 'chai';\nimport {\n  SessionController\n}\nfrom '../../../../src/server/areas/session/session_controller';\nimport sinon from 'sinon';\nimport {\n  SessionLogic\n}\nfrom '../../../../src/server/logic';\n\n/** @test {SessionController} */\ndescribe('SessionController', () => {\n  let controller;\n  before(() => {\n    controller = new SessionController();\n  });\n\n  /** @test {SessionController#routes} */\n  describe('#routes', () => {\n    let routes;\n    before(() => {\n      routes = controller.routes();\n    });\n    it('defines a create route', () => {\n      return expect(routes)\n        .to\n        .contain({\n          \"config\": {\n            \"auth\": {\n              \"mode\": \"try\",\n              \"strategy\": \"session\"\n            },\n            \"handler\": controller.create,\n            \"plugins\": {\n              \"hapi-auth-cookie\": {\n                \"redirectTo\": false\n              }\n            }\n          },\n          \"method\": \"POST\",\n          \"path\": \"/session\"\n        })\n    });\n  });\n\n  /** @test {SessionController#create} */\n  describe('#create', () => {\n    let request = {\n      info: {\n        remoteAddress: 'unit-test-ip-address'\n      },\n      headers: {},\n      payload: {\n        email: 'unittest@hoist.io',\n        password: 'password'\n      },\n      cookieAuth: {\n        set: sinon.stub()\n      }\n\n    };\n    let reply = sinon.stub();\n    let user = {\n      name: 'users'\n    };\n    let session = {\n      _id: 'some id',\n      key: 'some key',\n      user: 'userid',\n      organisation: 'organisationid',\n      application: 'applicationid'\n    };\n    let sessionDetails = {\n      user: {}\n    }\n    before(() => {\n      sinon\n        .stub(SessionLogic, 'ensureLogin')\n        .returns(Promise.resolve(user));\n      sinon\n        .stub(SessionLogic, 'logLogin')\n        .returns(Promise.resolve());\n      sinon\n        .stub(SessionLogic, 'createSessionForUser')\n        .returns(Promise.resolve(session));\n      sinon\n        .stub(SessionLogic, 'getSessionDetails')\n        .returns(Promise.resolve(sessionDetails));\n    });\n    after(() => {\n      SessionLogic\n        .ensureLogin\n        .restore();\n      SessionLogic\n        .logLogin\n        .restore();\n      SessionLogic\n        .createSessionForUser\n        .restore();\n      SessionLogic\n        .getSessionDetails\n        .restore();\n    });\n    describe('if user validation fails', () => {\n      before(() => {\n        SessionLogic\n          .ensureLogin\n          .throws();\n        return controller.create(request, reply);\n      });\n      it('replies with error response', () => {\n        return expect(reply)\n          .to\n          .have\n          .been\n          .calledWith(sinon.match({\n            code: 500,\n            message: 'An unexpected HoistError occurred.'\n          }));\n      });\n      it('logs an invalid login', () => {\n        return expect(SessionLogic.logLogin)\n          .to\n          .have\n          .been\n          .calledWith({\n            email: 'unittest@hoist.io',\n            password: 'password',\n            ipAddress: 'unit-test-ip-address'\n          }, false);\n      });\n      after(() => {\n        SessionLogic\n          .ensureLogin\n          .returns(Promise.resolve(user));\n        SessionLogic\n          .ensureLogin\n          .reset();\n        SessionLogic\n          .createSessionForUser\n          .reset();\n        SessionLogic\n          .getSessionDetails\n          .reset();\n        SessionLogic\n          .logLogin\n          .reset();\n        reply.reset();\n      });\n    });\n    describe('if validation succeeds', () => {\n      before(() => {\n        return controller.create(request, reply);\n      });\n      it('replies with session details', () => {\n        return expect(reply)\n          .to\n          .have\n          .been\n          .calledWith(sessionDetails);\n      });\n      it('saves session to cookie', () => {\n        return expect(request.cookieAuth.set)\n          .to\n          .have\n          .been\n          .calledWith(session);\n      });\n      it('logs a valid login', () => {\n        return expect(SessionLogic.logLogin)\n          .to\n          .have\n          .been\n          .calledWith({\n            email: 'unittest@hoist.io',\n            password: 'password',\n            ipAddress: 'unit-test-ip-address'\n          }, true);\n      });\n      after(() => {\n        SessionLogic\n          .ensureLogin\n          .reset();\n        SessionLogic\n          .createSessionForUser\n          .reset();\n        SessionLogic\n          .getSessionDetails\n          .reset();\n        SessionLogic\n          .logLogin\n          .reset();\n        reply.reset();\n      });\n    });\n    describe('if header contains x-real-ip', () => {\n      before(() => {\n        request.headers['x-real-ip'] = 'ip-address-override';\n        return controller.create(request, reply);\n      });\n      it('uses the override ip address to log login attempt', () => {\n        return expect(SessionLogic.logLogin)\n          .to\n          .have\n          .been\n          .calledWith(sinon.match({\n            ipAddress: 'ip-address-override'\n          }));\n      });\n      it('uses override ip to validate user', () => {\n        return expect(SessionLogic.ensureLogin)\n          .to\n          .have\n          .been\n          .calledWith(sinon.match({\n            ipAddress: 'ip-address-override'\n          }))\n      });\n      after(() => {\n        delete request.headers['x-real-ip'];\n        SessionLogic\n          .ensureLogin\n          .reset();\n        SessionLogic\n          .createSessionForUser\n          .reset();\n        SessionLogic\n          .getSessionDetails\n          .reset();\n        SessionLogic\n          .logLogin\n          .reset();\n        reply.reset();\n      });\n    });\n  });\n  /** @test {SessionController#destroy} */\n  describe('#destroy', () => {\n    let request = {\n      cookieAuth: {\n        clear: sinon.stub()\n      },\n      auth: {\n        isAuthenticated: true,\n\n      }\n    };\n    let reply = sinon.stub();\n    before(() => {\n      return controller.destroy(request, reply);\n    });\n    it('returns simple message', () => {\n      return expect(reply)\n        .to\n        .have\n        .been\n        .calledWith({\n          ok: true\n        });\n    });\n    it('clears current session', () => {\n      return expect(request.cookieAuth.clear)\n        .to.have.been.called;\n    });\n\n  });\n});"
   },
   {
-    "__docId__": 253,
+    "__docId__": 255,
     "kind": "testDescribe",
     "static": true,
     "variation": null,
@@ -5816,7 +5852,7 @@
     ]
   },
   {
-    "__docId__": 254,
+    "__docId__": 256,
     "kind": "testDescribe",
     "static": true,
     "variation": null,
@@ -5839,7 +5875,7 @@
     ]
   },
   {
-    "__docId__": 255,
+    "__docId__": 257,
     "kind": "testIt",
     "static": true,
     "variation": null,
@@ -5853,7 +5889,7 @@
     "lineNumber": 28
   },
   {
-    "__docId__": 256,
+    "__docId__": 258,
     "kind": "testDescribe",
     "static": true,
     "variation": null,
@@ -5876,7 +5912,7 @@
     ]
   },
   {
-    "__docId__": 257,
+    "__docId__": 259,
     "kind": "testDescribe",
     "static": true,
     "variation": null,
@@ -5890,7 +5926,7 @@
     "lineNumber": 108
   },
   {
-    "__docId__": 258,
+    "__docId__": 260,
     "kind": "testIt",
     "static": true,
     "variation": null,
@@ -5904,7 +5940,7 @@
     "lineNumber": 115
   },
   {
-    "__docId__": 259,
+    "__docId__": 261,
     "kind": "testIt",
     "static": true,
     "variation": null,
@@ -5918,7 +5954,7 @@
     "lineNumber": 125
   },
   {
-    "__docId__": 260,
+    "__docId__": 262,
     "kind": "testDescribe",
     "static": true,
     "variation": null,
@@ -5932,7 +5968,7 @@
     "lineNumber": 155
   },
   {
-    "__docId__": 261,
+    "__docId__": 263,
     "kind": "testIt",
     "static": true,
     "variation": null,
@@ -5946,7 +5982,7 @@
     "lineNumber": 159
   },
   {
-    "__docId__": 262,
+    "__docId__": 264,
     "kind": "testIt",
     "static": true,
     "variation": null,
@@ -5960,7 +5996,7 @@
     "lineNumber": 166
   },
   {
-    "__docId__": 263,
+    "__docId__": 265,
     "kind": "testIt",
     "static": true,
     "variation": null,
@@ -5974,7 +6010,7 @@
     "lineNumber": 173
   },
   {
-    "__docId__": 264,
+    "__docId__": 266,
     "kind": "testDescribe",
     "static": true,
     "variation": null,
@@ -5988,7 +6024,7 @@
     "lineNumber": 200
   },
   {
-    "__docId__": 265,
+    "__docId__": 267,
     "kind": "testIt",
     "static": true,
     "variation": null,
@@ -6002,7 +6038,7 @@
     "lineNumber": 205
   },
   {
-    "__docId__": 266,
+    "__docId__": 268,
     "kind": "testIt",
     "static": true,
     "variation": null,
@@ -6016,7 +6052,7 @@
     "lineNumber": 214
   },
   {
-    "__docId__": 267,
+    "__docId__": 269,
     "kind": "testDescribe",
     "static": true,
     "variation": null,
@@ -6039,7 +6075,7 @@
     ]
   },
   {
-    "__docId__": 268,
+    "__docId__": 270,
     "kind": "testIt",
     "static": true,
     "variation": null,
@@ -6053,7 +6089,7 @@
     "lineNumber": 256
   },
   {
-    "__docId__": 269,
+    "__docId__": 271,
     "kind": "testIt",
     "static": true,
     "variation": null,
@@ -6067,7 +6103,7 @@
     "lineNumber": 265
   },
   {
-    "__docId__": 270,
+    "__docId__": 272,
     "kind": "testFile",
     "static": true,
     "variation": null,
@@ -6080,7 +6116,7 @@
     "content": "import * as ApplicationLogic from '../../../../src/server/logic/application';\nimport {_mongoose, Application} from '@hoist/model';\nimport config from 'config';\nimport {expect} from 'chai';\nimport path from 'path';\n\ndescribe('ApplicationLogic', () => {\n  /** @test {getApplicationPath} */\n  describe('#getApplicationPath', () => {\n    let appPath;\n    before(() => {\n      return appPath = _mongoose\n        .connectAsync(config.get('Hoist.mongo.core.connectionString'))\n        .then(() => {\n          return Application.findOneAsync({_id: 'test-app'})\n        })\n        .then((application) => {\n          return ApplicationLogic.getApplicationPath(application);\n        });\n    });\n    after(() => {\n      return _mongoose.disconnectAsync();\n    });\n    it('returns application real path', () => {\n      return expect(appPath)\n        .to\n        .become(path.resolve(__dirname, '../../../fixtures/deploys/test-org/test-app/release'));\n    });\n  });\n});\n"
   },
   {
-    "__docId__": 271,
+    "__docId__": 273,
     "kind": "testDescribe",
     "static": true,
     "variation": null,
@@ -6094,7 +6130,7 @@
     "lineNumber": 7
   },
   {
-    "__docId__": 272,
+    "__docId__": 274,
     "kind": "testDescribe",
     "static": true,
     "variation": null,
@@ -6117,7 +6153,7 @@
     ]
   },
   {
-    "__docId__": 273,
+    "__docId__": 275,
     "kind": "testIt",
     "static": true,
     "variation": null,
@@ -6131,7 +6167,7 @@
     "lineNumber": 24
   },
   {
-    "__docId__": 274,
+    "__docId__": 276,
     "kind": "testFile",
     "static": true,
     "variation": null,
@@ -6144,7 +6180,7 @@
     "content": "import {ConnectorSetting} from '@hoist/model';\nimport {ConnectorLogic} from '../../../../src/server/logic';\nimport sinon from 'sinon';\nimport {expect} from 'chai';\nimport config from 'config';\ndescribe('ConnectorLogic', () => {\n  describe('#setupDefaultConnector', () => {\n    before(() => {});\n    describe('if no connector exists', () => {\n      let connector;\n      let expectedConnector = {\n        expected: true\n      };\n      let rootConnector = {\n        name: 'test connector',\n        connectorType: 'hoist-connector-test',\n        settings: {\n          one: 1,\n          two: 2\n        },\n        defaultKey: 'test'\n      };\n      let connectorType = 'connectorType';\n      let application = {\n        _id: 'appid'\n      };\n      before(() => {\n        sinon\n          .stub(ConnectorSetting.prototype, 'saveAsync')\n          .returns(Promise.resolve(expectedConnector))\n        sinon\n          .stub(ConnectorSetting, 'findOneAsync')\n          .returns(Promise.resolve(rootConnector));\n        sinon\n          .stub(ConnectorSetting, 'countAsync')\n          .returns(Promise.resolve(0));\n        return (connector = ConnectorLogic.setupDefaultConnector(application, connectorType));\n      });\n      after(() => {\n        ConnectorSetting\n          .prototype\n          .saveAsync\n          .restore();\n        ConnectorSetting\n          .findOneAsync\n          .restore();\n        ConnectorSetting\n          .countAsync\n          .restore();\n      })\n      it('should save a new connector', () => {\n        return expect(ConnectorSetting.prototype.saveAsync)\n          .to\n          .have\n          .been\n          .calledOn(sinon.match((connector) => {\n            return expect(connector.key)\n              .to\n              .eql('test') && expect(connector.application)\n              .to\n              .eql('appid') && expect(connector.settings.one)\n              .to\n              .eql(1);\n          }));\n      });\n      it('should return saved connector', () => {\n        return expect(connector)\n          .to\n          .become(expectedConnector)\n      });\n      it('should look up root connector', () => {\n        return expect(ConnectorSetting.findOneAsync)\n          .to\n          .have\n          .been\n          .calledWith({\n            key: \"hoist-root-\" + connectorType,\n            application: config.get('Hoist.admin.applicationId')\n          });\n      });\n    });\n    describe('if default connector key already exists', () => {\n      let connector;\n      let expectedConnector = {\n        expected: true\n      };\n      let rootConnector = {\n        name: 'test connector',\n        connectorType: 'hoist-connector-test',\n        settings: {\n          one: 1,\n          two: 2\n        },\n        defaultKey: 'test'\n      };\n      let connectorType = 'connectorType';\n      let application = {\n        _id: 'appid'\n      };\n      before(() => {\n        sinon\n          .stub(ConnectorSetting.prototype, 'saveAsync')\n          .returns(Promise.resolve(expectedConnector))\n        sinon\n          .stub(ConnectorSetting, 'findOneAsync')\n          .returns(Promise.resolve(rootConnector));\n        sinon\n          .stub(ConnectorSetting, 'countAsync')\n          .onCall(0)\n          .returns(Promise.resolve(1));\n        ConnectorSetting\n          .countAsync\n          .returns(Promise.resolve(0));\n        return (connector = ConnectorLogic.setupDefaultConnector(application, connectorType));\n      });\n      it('should append a random number to key', () => {\n        return expect(ConnectorSetting.prototype.saveAsync)\n          .to\n          .have\n          .been\n          .calledOn(sinon.match((connector) => {\n            return expect(connector.key)\n              .to\n              .match(/^test[0-9]{1,4}/);\n          }));\n      });\n    });\n  });\n})\n"
   },
   {
-    "__docId__": 275,
+    "__docId__": 277,
     "kind": "testDescribe",
     "static": true,
     "variation": null,
@@ -6158,7 +6194,7 @@
     "lineNumber": 6
   },
   {
-    "__docId__": 276,
+    "__docId__": 278,
     "kind": "testDescribe",
     "static": true,
     "variation": null,
@@ -6172,7 +6208,7 @@
     "lineNumber": 7
   },
   {
-    "__docId__": 277,
+    "__docId__": 279,
     "kind": "testDescribe",
     "static": true,
     "variation": null,
@@ -6186,7 +6222,7 @@
     "lineNumber": 9
   },
   {
-    "__docId__": 278,
+    "__docId__": 280,
     "kind": "testIt",
     "static": true,
     "variation": null,
@@ -6200,7 +6236,7 @@
     "lineNumber": 51
   },
   {
-    "__docId__": 279,
+    "__docId__": 281,
     "kind": "testIt",
     "static": true,
     "variation": null,
@@ -6214,7 +6250,7 @@
     "lineNumber": 66
   },
   {
-    "__docId__": 280,
+    "__docId__": 282,
     "kind": "testIt",
     "static": true,
     "variation": null,
@@ -6228,7 +6264,7 @@
     "lineNumber": 71
   },
   {
-    "__docId__": 281,
+    "__docId__": 283,
     "kind": "testDescribe",
     "static": true,
     "variation": null,
@@ -6242,7 +6278,7 @@
     "lineNumber": 82
   },
   {
-    "__docId__": 282,
+    "__docId__": 284,
     "kind": "testIt",
     "static": true,
     "variation": null,
@@ -6256,7 +6292,7 @@
     "lineNumber": 116
   },
   {
-    "__docId__": 283,
+    "__docId__": 285,
     "kind": "testFile",
     "static": true,
     "variation": null,
@@ -6269,7 +6305,7 @@
     "content": "import * as EditorLogic from '../../../../src/server/logic/editor';\nimport * as ApplicationLogic from '../../../../src/server/logic/application';\nimport * as EventLogic from '../../../../src/server/logic/event';\nimport {Application} from '@hoist/model';\nimport sinon from 'sinon';\nimport {expect} from 'chai';\nimport path from 'path';\ndescribe('EditorLogic', () => {\n  describe('#getCodeForEvent', () => {\n    let code;\n    let application = {};\n    let query = {\n      populate: sinon\n        .stub()\n        .returnsThis(),\n      exec: sinon\n        .stub()\n        .returns(Promise.resolve(application))\n    }\n    before(() => {\n      let modulePath = path.resolve(__dirname, '../../../fixtures/test-application/');\n      sinon\n        .stub(Application, 'findOne')\n        .returns(query);\n      sinon\n        .stub(EventLogic, 'mapEventToModule')\n        .returns(Promise.resolve({name: 'module', src: 'module.js'}));\n      sinon\n        .stub(ApplicationLogic, 'getApplicationPath')\n        .returns(Promise.resolve(modulePath));\n      return code = EditorLogic.getCodeForEvent('app-id', 'eventName');\n    });\n    after(() => {\n      Application\n        .findOne\n        .restore();\n      EventLogic\n        .mapEventToModule\n        .restore();\n      ApplicationLogic\n        .getApplicationPath\n        .restore();\n    });\n    it('should return code', () => {\n      return expect(code)\n        .to\n        .eventually\n        .eql(`module.exports = function () {}\n`);\n    });\n  });\n});\n"
   },
   {
-    "__docId__": 284,
+    "__docId__": 286,
     "kind": "testDescribe",
     "static": true,
     "variation": null,
@@ -6283,7 +6319,7 @@
     "lineNumber": 8
   },
   {
-    "__docId__": 285,
+    "__docId__": 287,
     "kind": "testDescribe",
     "static": true,
     "variation": null,
@@ -6297,7 +6333,7 @@
     "lineNumber": 9
   },
   {
-    "__docId__": 286,
+    "__docId__": 288,
     "kind": "testIt",
     "static": true,
     "variation": null,
@@ -6311,7 +6347,7 @@
     "lineNumber": 44
   },
   {
-    "__docId__": 287,
+    "__docId__": 289,
     "kind": "testFile",
     "static": true,
     "variation": null,
@@ -6324,7 +6360,7 @@
     "content": "import * as EmailLogic from '../../../../src/server/logic/emails';\nimport {\n  Client as PostmarkClient\n} from 'postmark';\nimport sinon from 'sinon';\nimport {\n  expect\n} from 'chai';\n\ndescribe(\"#sendForgottenPasswordEmail\", () => {\n  before(() => {\n    sinon\n      .stub(PostmarkClient.prototype, 'send')\n      .yields();\n    return EmailLogic.sendForgottenPasswordEmail('test@hoi.io', 'ACTIVATIONCODE');\n  });\n  it('should send correct email', () => {\n    return expect(PostmarkClient.prototype.send)\n      .to.have.been\n      .calledWith(sinon.match((em) => {\n        expect(em.From)\n          .to.eql('Hoist <hoist@notifications.hoi.io>') &&\n          expect(em.ReplyTo)\n          .to.eql('Hoist <support@hoist.io>') &&\n          expect(em.To)\n          .to.eql('test@hoi.io') &&\n          expect(em.Subject)\n          .to.eql('Hoist Password Reset') &&\n          expect(em.TextBody)\n          .to.contain('/forgot-password/ACTIVATIONCODE') &&\n          expect(em.HtmlBody)\n          .to.contain('/forgot-password/ACTIVATIONCODE');\n        return true;\n      }));\n  });\n});\n"
   },
   {
-    "__docId__": 288,
+    "__docId__": 290,
     "kind": "testDescribe",
     "static": true,
     "variation": null,
@@ -6338,7 +6374,7 @@
     "lineNumber": 10
   },
   {
-    "__docId__": 289,
+    "__docId__": 291,
     "kind": "testIt",
     "static": true,
     "variation": null,
@@ -6352,7 +6388,7 @@
     "lineNumber": 17
   },
   {
-    "__docId__": 290,
+    "__docId__": 292,
     "kind": "testFile",
     "static": true,
     "variation": null,
@@ -6365,7 +6401,7 @@
     "content": "import * as EventLogic from '../../../../src/server/logic/event';\nimport settings from '../../../fixtures/test-application/hoist.json';\nimport {expect} from 'chai';\nimport setup from '../../../fixtures/setup';\ndescribe(\"EventLogic\", () => {\n  /** @test {mapEventToModule} */\n  describe(\"mapEventToModule\", () => {\n    let _result;\n    before(() => {\n      return EventLogic\n        .mapEventToModule('test-event', {live: settings})\n        .then((module) => {\n          _result = module;\n        });\n    });\n    it('returns correct module listing', () => {\n      return expect(_result)\n        .to\n        .eql({name: 'test_module', src: './modules/test.js'})\n    });\n  });\n});\n"
   },
   {
-    "__docId__": 291,
+    "__docId__": 293,
     "kind": "testDescribe",
     "static": true,
     "variation": null,
@@ -6379,7 +6415,7 @@
     "lineNumber": 5
   },
   {
-    "__docId__": 292,
+    "__docId__": 294,
     "kind": "testDescribe",
     "static": true,
     "variation": null,
@@ -6402,7 +6438,7 @@
     ]
   },
   {
-    "__docId__": 293,
+    "__docId__": 295,
     "kind": "testIt",
     "static": true,
     "variation": null,
@@ -6416,7 +6452,7 @@
     "lineNumber": 16
   },
   {
-    "__docId__": 294,
+    "__docId__": 296,
     "kind": "testFile",
     "static": true,
     "variation": null,
@@ -6429,7 +6465,7 @@
     "content": "describe('OrganisationLogic', () => {\n  describe('GetOrganisationBySlug', () => {});\n  describe('#create',()=>{\n    \n  });\n});\n"
   },
   {
-    "__docId__": 295,
+    "__docId__": 297,
     "kind": "testDescribe",
     "static": true,
     "variation": null,
@@ -6443,7 +6479,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 296,
+    "__docId__": 298,
     "kind": "testDescribe",
     "static": true,
     "variation": null,
@@ -6457,7 +6493,7 @@
     "lineNumber": 2
   },
   {
-    "__docId__": 297,
+    "__docId__": 299,
     "kind": "testDescribe",
     "static": true,
     "variation": null,
@@ -6471,7 +6507,7 @@
     "lineNumber": 3
   },
   {
-    "__docId__": 298,
+    "__docId__": 300,
     "kind": "testFile",
     "static": true,
     "variation": null,
@@ -6484,7 +6520,7 @@
     "content": "import {SessionLogic} from '../../../../src/server/logic';\nimport chai, {expect} from 'chai';\nimport {\n  IpLog,\n  LoginLog,\n  HoistUser,\n  Session,\n  Application,\n  Organisation\n} from '@hoist/model';\nimport sinon from 'sinon';\n\ndescribe('SessionLogic', () => {\n  /** @test {ensureLogin} */\n  describe('#ensureLogin', () => {\n    let validLogin = {\n      email: 'UnitTest@Hoist.Io',\n      password: 'some password',\n      ipAddress: 'some ip address'\n    }\n    let user = {\n      verifyPassword: sinon\n        .stub()\n        .returns(true)\n    }\n    before(() => {\n      sinon\n        .stub(IpLog, 'assertIP')\n        .returns(Promise.resolve());\n      sinon\n        .stub(LoginLog, 'assertUser')\n        .returns(Promise.resolve())\n      sinon\n        .stub(HoistUser, 'findOneAsync')\n        .returns(user);\n    });\n    after(() => {\n      IpLog\n        .assertIP\n        .restore();\n      LoginLog\n        .assertUser\n        .restore()\n      HoistUser\n        .findOneAsync\n        .restore();\n    });\n    describe('with missing email', () => {\n      let loginResult;\n      before(() => {\n        //remove email without modifying the original object\n        let details = Object.assign({}, validLogin);\n        delete details.email;\n        loginResult = SessionLogic.ensureLogin(details);\n      });\n      it('returns rejection', () => {\n        return expect(loginResult)\n          .to\n          .be\n          .rejectedWith('invalid email supplied');\n      })\n      after(() => {\n        IpLog\n          .assertIP\n          .reset();\n      });\n    });\n    describe('with missing password', () => {\n      let loginResult;\n      before(() => {\n        //remove password without modifying the original object\n        let details = Object.assign({}, validLogin);\n        delete details.password;\n        loginResult = SessionLogic.ensureLogin(details);\n      });\n      it('returns rejection', () => {\n        return expect(loginResult)\n          .to\n          .be\n          .rejectedWith('invalid password supplied');\n      })\n      after(() => {\n        IpLog\n          .assertIP\n          .reset();\n      });\n    });\n    describe('with invalid ip address', () => {\n      let loginResult;\n      before(() => {\n        IpLog\n          .assertIP\n          .throws(new Error('this is an invalid ip address'));\n        loginResult = SessionLogic.ensureLogin(validLogin);\n      });\n      after(() => {\n        IpLog\n          .assertIP\n          .returns(Promise.resolve());\n        IpLog\n          .assertIP\n          .reset();\n      });\n      it('returns rejection', () => {\n        return expect(loginResult)\n          .to\n          .be\n          .rejectedWith('this is an invalid ip address');\n      });\n      it('doesn\\'t load user', () => {\n        return expect(HoistUser.findOneAsync).to.have.not.been.called;\n      });\n    });\n    describe('with locked username', () => {\n      let loginResult;\n      before(() => {\n        LoginLog\n          .assertUser\n          .throws(new Error('this is an invalid username'));\n        loginResult = SessionLogic.ensureLogin(validLogin);\n      });\n      it('checks lock with user', () => {\n        return expect(LoginLog.assertUser)\n          .to\n          .have\n          .been\n          .calledWith(user);\n      });\n      it('returns rejection', () => {\n        return expect(loginResult)\n          .to\n          .be\n          .rejectedWith('this is an invalid username');\n      });\n      it('doesn\\'t check user password', () => {\n        return expect(user.verifyPassword).to.have.not.been.called;\n      });\n      after(() => {\n        LoginLog\n          .assertUser\n          .returns(Promise.resolve());\n        LoginLog\n          .assertUser\n          .reset();\n        IpLog\n          .assertIP\n          .reset();\n      })\n    });\n    describe('with invalid password', () => {\n      let loginResult;\n      before(() => {\n        user\n          .verifyPassword\n          .returns(false);\n        loginResult = SessionLogic.ensureLogin(validLogin);\n      });\n      it('returns rejection', () => {\n        return expect(loginResult)\n          .to\n          .be\n          .rejectedWith('The username and/or password were not correct');\n      });\n      after(() => {\n        user\n          .verifyPassword\n          .returns(true);\n        user\n          .verifyPassword\n          .reset();\n        HoistUser\n          .findOneAsync\n          .reset();\n        LoginLog\n          .assertUser\n          .reset();\n        IpLog\n          .assertIP\n          .reset();\n      })\n    });\n    describe('with invalid username', () => {\n      let loginResult;\n      before(() => {\n        HoistUser\n          .findOneAsync\n          .returns(Promise.resolve(null));\n        loginResult = SessionLogic.ensureLogin(validLogin);\n      });\n      it('returns rejection', () => {\n        return expect(loginResult)\n          .to\n          .be\n          .rejectedWith('The username and/or password were not correct');\n      });\n      after(() => {\n        HoistUser\n          .findOneAsync\n          .returns(Promise.resolve(user));\n        user\n          .verifyPassword\n          .reset();\n        HoistUser\n          .findOneAsync\n          .reset();\n        LoginLog\n          .assertUser\n          .reset();\n        IpLog\n          .assertIP\n          .reset();\n      })\n    });\n    describe('with valid details', () => {\n      let loginResult;\n      before(() => {\n        loginResult = SessionLogic.ensureLogin(validLogin);\n      });\n      it('returns user', () => {\n        return expect(loginResult)\n          .to\n          .eventually\n          .become(user);\n      });\n      it('looks up user by lowercase email', () => {\n        return expect(HoistUser.findOneAsync)\n          .to\n          .have\n          .been\n          .calledWith({'emailAddresses.address': 'unittest@hoist.io'});\n      });\n      after(() => {\n        IpLog\n          .assertIP\n          .reset();\n        user\n          .verifyPassword\n          .reset();\n        LoginLog\n          .assertUser\n          .reset();\n        HoistUser\n          .findOneAsync\n          .reset();\n      });\n    });\n  });\n\n  /** @test {getSessionDetails} */\n  describe('#getSessionDetails', () => {\n    let result;\n    let user = {\n      organisations: [\n        'org1', 'org2'\n      ],\n      toJSON: sinon\n        .stub()\n        .returnsThis()\n    };\n    let organisation = {\n      _id: 'orgid',\n      name: 'organisation',\n      toJSON: sinon\n        .stub()\n        .returnsThis()\n    };\n    let application = {\n      _id: 'applicationid',\n      name: 'application',\n      toJSON: sinon\n        .stub()\n        .returnsThis()\n    };\n    let applications = [\n      {\n        slug: 'app1',\n        name: 'app1',\n        toJSON: sinon\n          .stub()\n          .returnsThis()\n      }, {\n        slug: 'app2',\n        name: 'app2',\n        toJSON: sinon\n          .stub()\n          .returnsThis()\n      }\n    ];\n    let organisations = [\n      {\n        slug: 'org1',\n        name: 'org1',\n        toJSON: sinon\n          .stub()\n          .returnsThis()\n      }, {\n        slug: 'org2',\n        name: 'org2',\n        toJSON: sinon\n          .stub()\n          .returnsThis()\n      }\n    ];\n    let session = {\n      user: user,\n      organisation: organisation,\n      application: application,\n      populate: sinon\n        .stub()\n        .returnsThis(),\n      execPopulate: sinon\n        .stub()\n        .returns(Promise.resolve()),\n      toJSON: sinon\n        .stub()\n        .returnsThis()\n    };\n    before(() => {\n      sinon\n        .stub(Application, 'findAsync')\n        .returns(Promise.resolve(applications));\n      sinon\n        .stub(Organisation, 'findAsync')\n        .returns(Promise.resolve(organisations));\n      return SessionLogic\n        .getSessionDetails(session)\n        .then((sessionDetails) => {\n          result = sessionDetails;\n        });\n    });\n\n    it('returns current user', () => {\n      return expect(result.user)\n        .to\n        .eql(user);\n    });\n    it('returns current organisation', () => {\n      return expect(result.organisation)\n        .to\n        .eql(organisation);\n    });\n    it('returns current application', () => {\n      return expect(result.application)\n        .to\n        .eql(application);\n    });\n    it('returns available applications', () => {\n      return expect(result.applications)\n        .to\n        .eql(applications);\n    });\n    it('returns available organisations', () => {\n      return expect(result.organisations)\n        .to\n        .eql(organisations);\n    });\n    it('looks up orgs based on user', () => {\n      return expect(Organisation.findAsync)\n        .to\n        .have\n        .been\n        .calledWith({\n          _id: {\n            $in: ['org1', 'org2']\n          }\n        }, 'slug name isPersonal')\n    });\n    it('looks up applications based on organisation', () => {\n      return expect(Application.findAsync)\n        .to\n        .have\n        .been\n        .calledWith({\n          organisation: 'orgid'\n        }, 'slug name apiKey settings');\n    })\n    after(() => {\n      Application\n        .findAsync\n        .restore();\n      Organisation\n        .findAsync\n        .restore();\n    });\n  });\n\n  /** @test {createSessionForUser} */\n  describe('#createSessionForUser', () => {\n    let sessionQuery = {\n      select: sinon\n        .stub()\n        .returnsThis(),\n      limit: sinon\n        .stub()\n        .returnsThis(),\n      sort: sinon\n        .stub()\n        .returnsThis(),\n      exec: sinon\n        .stub()\n        .returns(Promise.resolve([]))\n    }\n    let session = {\n      name: 'session'\n    };\n    let user = {\n      _id: 'userid',\n      name: 'user',\n      organisations: ['org1', 'org2']\n    };\n    before(() => {\n      sinon\n        .stub(Session, 'find')\n        .returns(sessionQuery)\n      sinon\n        .stub(Session.prototype, 'saveAsync')\n        .returns(Promise.resolve(session));\n    })\n    after(() => {\n      Session\n        .find\n        .restore();\n    })\n    describe('with previous session', () => {\n      let previousSession = {\n        organisation: 'organisationid',\n        application: 'applicationid'\n      }\n      before(() => {\n        sessionQuery\n          .exec\n          .returns(Promise.resolve([previousSession]));\n      });\n      after(() => {\n        sessionQuery\n          .exec\n          .returns(Promise.resolve([]));\n      });\n      describe('with a selected organisation and application', () => {\n        let result;\n        before(() => {\n          result = SessionLogic.createSessionForUser(user);\n        })\n        it('loads the correct session', () => {\n          return expect(Session.find)\n            .to\n            .have\n            .been\n            .calledWith({user: 'userid'});\n        });\n        it('selects only the organisation and application fields', () => {\n          return expect(sessionQuery.select)\n            .to\n            .have\n            .been\n            .calledWith({_id: -1, application: 1, organisation: 1});\n        });\n        it('creates session with matching application and organisation', () => {\n          return expect(Session.prototype.saveAsync)\n            .to\n            .have\n            .been\n            .calledOn(sinon.match({organisation: 'organisationid', application: 'applicationid', user: 'userid'}));\n        });\n        it('returns saved session', () => {\n          return expect(result)\n            .to\n            .eventually\n            .become(session);\n        });\n        after(() => {\n          Session\n            .find\n            .reset();\n          Session\n            .prototype\n            .saveAsync\n            .reset();\n        })\n      });\n      describe('without a selected organisation and application', () => {\n        let result;\n        before(() => {\n          delete previousSession.organisation;\n          delete previousSession.application;\n          let application = {\n            _id: 'app2'\n          };\n          let applicationQuery = {\n            limit:sinon.stub().returnsThis(),\n            sort:sinon.stub().returnsThis(),\n            select: sinon.stub().returnsThis(),\n            exec: sinon\n              .stub()\n              .returns(Promise.resolve([application]))\n          };\n          sinon\n            .stub(Application, 'find')\n            .returns(applicationQuery);\n          result = SessionLogic.createSessionForUser(user);\n        });\n        it('creates session with last created organisation and last created application', () => {\n          return expect(Session.prototype.saveAsync)\n            .to\n            .have\n            .been\n            .calledOn(sinon.match({user: 'userid', organisation: 'org2', application: 'app2'}));\n        });\n        it('finds last created application', () => {\n          return expect(Application.find)\n            .to\n            .have\n            .been\n            .calledWith({\n              organisation: \"org2\"\n            });\n        });\n        it('returns saved session', () => {\n          return expect(result)\n            .to\n            .eventually\n            .become(session);\n        });\n        after(() => {\n          previousSession.organisation = 'organisationid';\n          previousSession.application = 'applicationid';\n          Session\n            .find\n            .reset();\n          Session\n            .prototype\n            .saveAsync\n            .reset();\n          Application\n            .find\n            .restore();\n        })\n      });\n    });\n  });\n\n  /** @test {logLogin}  */\n  describe('#logLogin', () => {\n    before(() => {\n      sinon.stub(LoginLog.prototype, 'saveAsync');\n      sinon.stub(IpLog.prototype, 'saveAsync');\n    });\n    after(() => {\n      LoginLog\n        .prototype\n        .saveAsync\n        .restore();\n      IpLog\n        .prototype\n        .saveAsync\n        .restore();\n    })\n    describe('with successful login', () => {\n      before(() => {\n        return SessionLogic.logLogin({\n          email: \"unittest@hoist.io\",\n          ipAddress: 'test-ip-address'\n        }, true);\n      });\n      it('saves a success ip log', () => {\n        return expect(IpLog.prototype.saveAsync)\n          .to\n          .have\n          .been\n          .calledOn(sinon.match({ip: 'test-ip-address', success: true}));\n      });\n      it('saves a success login log', () => {\n        return expect(LoginLog.prototype.saveAsync)\n          .to\n          .have\n          .been\n          .calledOn(sinon.match({username: \"unittest@hoist.io\", success: true}));\n      });\n      after(() => {\n        IpLog\n          .prototype\n          .saveAsync\n          .reset();\n        LoginLog\n          .prototype\n          .saveAsync\n          .reset();\n      });\n    })\n    describe('with unsuccessful login', () => {\n      before(() => {\n        return SessionLogic.logLogin({\n          email: \"unittest@hoist.io\",\n          ipAddress: 'test-ip-address'\n        }, false);\n      });\n      it('saves a fail ip log', () => {\n        return expect(IpLog.prototype.saveAsync)\n          .to\n          .have\n          .been\n          .calledOn(sinon.match({ip: 'test-ip-address', success: false}));\n      });\n      it('saves a fail login log', () => {\n        return expect(LoginLog.prototype.saveAsync)\n          .to\n          .have\n          .been\n          .calledOn(sinon.match({username: \"unittest@hoist.io\", success: false}));\n      });\n      after(() => {\n        IpLog\n          .prototype\n          .saveAsync\n          .reset();\n        LoginLog\n          .prototype\n          .saveAsync\n          .reset();\n      });\n    })\n  });\n});\n"
   },
   {
-    "__docId__": 299,
+    "__docId__": 301,
     "kind": "testDescribe",
     "static": true,
     "variation": null,
@@ -6498,7 +6534,7 @@
     "lineNumber": 13
   },
   {
-    "__docId__": 300,
+    "__docId__": 302,
     "kind": "testDescribe",
     "static": true,
     "variation": null,
@@ -6521,7 +6557,7 @@
     ]
   },
   {
-    "__docId__": 301,
+    "__docId__": 303,
     "kind": "testDescribe",
     "static": true,
     "variation": null,
@@ -6535,7 +6571,7 @@
     "lineNumber": 48
   },
   {
-    "__docId__": 302,
+    "__docId__": 304,
     "kind": "testIt",
     "static": true,
     "variation": null,
@@ -6549,7 +6585,7 @@
     "lineNumber": 56
   },
   {
-    "__docId__": 303,
+    "__docId__": 305,
     "kind": "testDescribe",
     "static": true,
     "variation": null,
@@ -6563,7 +6599,7 @@
     "lineNumber": 68
   },
   {
-    "__docId__": 304,
+    "__docId__": 306,
     "kind": "testIt",
     "static": true,
     "variation": null,
@@ -6577,7 +6613,7 @@
     "lineNumber": 76
   },
   {
-    "__docId__": 305,
+    "__docId__": 307,
     "kind": "testDescribe",
     "static": true,
     "variation": null,
@@ -6591,7 +6627,7 @@
     "lineNumber": 88
   },
   {
-    "__docId__": 306,
+    "__docId__": 308,
     "kind": "testIt",
     "static": true,
     "variation": null,
@@ -6605,7 +6641,7 @@
     "lineNumber": 104
   },
   {
-    "__docId__": 307,
+    "__docId__": 309,
     "kind": "testIt",
     "static": true,
     "variation": null,
@@ -6619,7 +6655,7 @@
     "lineNumber": 110
   },
   {
-    "__docId__": 308,
+    "__docId__": 310,
     "kind": "testDescribe",
     "static": true,
     "variation": null,
@@ -6633,7 +6669,7 @@
     "lineNumber": 114
   },
   {
-    "__docId__": 309,
+    "__docId__": 311,
     "kind": "testIt",
     "static": true,
     "variation": null,
@@ -6647,7 +6683,7 @@
     "lineNumber": 122
   },
   {
-    "__docId__": 310,
+    "__docId__": 312,
     "kind": "testIt",
     "static": true,
     "variation": null,
@@ -6661,7 +6697,7 @@
     "lineNumber": 129
   },
   {
-    "__docId__": 311,
+    "__docId__": 313,
     "kind": "testIt",
     "static": true,
     "variation": null,
@@ -6675,7 +6711,7 @@
     "lineNumber": 135
   },
   {
-    "__docId__": 312,
+    "__docId__": 314,
     "kind": "testDescribe",
     "static": true,
     "variation": null,
@@ -6689,7 +6725,7 @@
     "lineNumber": 150
   },
   {
-    "__docId__": 313,
+    "__docId__": 315,
     "kind": "testIt",
     "static": true,
     "variation": null,
@@ -6703,7 +6739,7 @@
     "lineNumber": 158
   },
   {
-    "__docId__": 314,
+    "__docId__": 316,
     "kind": "testDescribe",
     "static": true,
     "variation": null,
@@ -6717,7 +6753,7 @@
     "lineNumber": 182
   },
   {
-    "__docId__": 315,
+    "__docId__": 317,
     "kind": "testIt",
     "static": true,
     "variation": null,
@@ -6731,7 +6767,7 @@
     "lineNumber": 190
   },
   {
-    "__docId__": 316,
+    "__docId__": 318,
     "kind": "testDescribe",
     "static": true,
     "variation": null,
@@ -6745,7 +6781,7 @@
     "lineNumber": 214
   },
   {
-    "__docId__": 317,
+    "__docId__": 319,
     "kind": "testIt",
     "static": true,
     "variation": null,
@@ -6759,7 +6795,7 @@
     "lineNumber": 219
   },
   {
-    "__docId__": 318,
+    "__docId__": 320,
     "kind": "testIt",
     "static": true,
     "variation": null,
@@ -6773,7 +6809,7 @@
     "lineNumber": 225
   },
   {
-    "__docId__": 319,
+    "__docId__": 321,
     "kind": "testDescribe",
     "static": true,
     "variation": null,
@@ -6796,7 +6832,7 @@
     ]
   },
   {
-    "__docId__": 320,
+    "__docId__": 322,
     "kind": "testIt",
     "static": true,
     "variation": null,
@@ -6810,7 +6846,7 @@
     "lineNumber": 332
   },
   {
-    "__docId__": 321,
+    "__docId__": 323,
     "kind": "testIt",
     "static": true,
     "variation": null,
@@ -6824,7 +6860,7 @@
     "lineNumber": 337
   },
   {
-    "__docId__": 322,
+    "__docId__": 324,
     "kind": "testIt",
     "static": true,
     "variation": null,
@@ -6838,7 +6874,7 @@
     "lineNumber": 342
   },
   {
-    "__docId__": 323,
+    "__docId__": 325,
     "kind": "testIt",
     "static": true,
     "variation": null,
@@ -6852,7 +6888,7 @@
     "lineNumber": 347
   },
   {
-    "__docId__": 324,
+    "__docId__": 326,
     "kind": "testIt",
     "static": true,
     "variation": null,
@@ -6866,7 +6902,7 @@
     "lineNumber": 352
   },
   {
-    "__docId__": 325,
+    "__docId__": 327,
     "kind": "testIt",
     "static": true,
     "variation": null,
@@ -6880,7 +6916,7 @@
     "lineNumber": 357
   },
   {
-    "__docId__": 326,
+    "__docId__": 328,
     "kind": "testIt",
     "static": true,
     "variation": null,
@@ -6894,7 +6930,7 @@
     "lineNumber": 368
   },
   {
-    "__docId__": 327,
+    "__docId__": 329,
     "kind": "testDescribe",
     "static": true,
     "variation": null,
@@ -6917,7 +6953,7 @@
     ]
   },
   {
-    "__docId__": 328,
+    "__docId__": 330,
     "kind": "testDescribe",
     "static": true,
     "variation": null,
@@ -6931,7 +6967,7 @@
     "lineNumber": 424
   },
   {
-    "__docId__": 329,
+    "__docId__": 331,
     "kind": "testDescribe",
     "static": true,
     "variation": null,
@@ -6945,7 +6981,7 @@
     "lineNumber": 439
   },
   {
-    "__docId__": 330,
+    "__docId__": 332,
     "kind": "testIt",
     "static": true,
     "variation": null,
@@ -6959,7 +6995,7 @@
     "lineNumber": 444
   },
   {
-    "__docId__": 331,
+    "__docId__": 333,
     "kind": "testIt",
     "static": true,
     "variation": null,
@@ -6973,7 +7009,7 @@
     "lineNumber": 451
   },
   {
-    "__docId__": 332,
+    "__docId__": 334,
     "kind": "testIt",
     "static": true,
     "variation": null,
@@ -6987,7 +7023,7 @@
     "lineNumber": 458
   },
   {
-    "__docId__": 333,
+    "__docId__": 335,
     "kind": "testIt",
     "static": true,
     "variation": null,
@@ -7001,7 +7037,7 @@
     "lineNumber": 465
   },
   {
-    "__docId__": 334,
+    "__docId__": 336,
     "kind": "testDescribe",
     "static": true,
     "variation": null,
@@ -7015,7 +7051,7 @@
     "lineNumber": 481
   },
   {
-    "__docId__": 335,
+    "__docId__": 337,
     "kind": "testIt",
     "static": true,
     "variation": null,
@@ -7029,7 +7065,7 @@
     "lineNumber": 502
   },
   {
-    "__docId__": 336,
+    "__docId__": 338,
     "kind": "testIt",
     "static": true,
     "variation": null,
@@ -7043,7 +7079,7 @@
     "lineNumber": 509
   },
   {
-    "__docId__": 337,
+    "__docId__": 339,
     "kind": "testIt",
     "static": true,
     "variation": null,
@@ -7057,7 +7093,7 @@
     "lineNumber": 518
   },
   {
-    "__docId__": 338,
+    "__docId__": 340,
     "kind": "testDescribe",
     "static": true,
     "variation": null,
@@ -7080,7 +7116,7 @@
     ]
   },
   {
-    "__docId__": 339,
+    "__docId__": 341,
     "kind": "testDescribe",
     "static": true,
     "variation": null,
@@ -7094,7 +7130,7 @@
     "lineNumber": 558
   },
   {
-    "__docId__": 340,
+    "__docId__": 342,
     "kind": "testIt",
     "static": true,
     "variation": null,
@@ -7108,7 +7144,7 @@
     "lineNumber": 565
   },
   {
-    "__docId__": 341,
+    "__docId__": 343,
     "kind": "testIt",
     "static": true,
     "variation": null,
@@ -7122,7 +7158,7 @@
     "lineNumber": 572
   },
   {
-    "__docId__": 342,
+    "__docId__": 344,
     "kind": "testDescribe",
     "static": true,
     "variation": null,
@@ -7136,7 +7172,7 @@
     "lineNumber": 590
   },
   {
-    "__docId__": 343,
+    "__docId__": 345,
     "kind": "testIt",
     "static": true,
     "variation": null,
@@ -7150,7 +7186,7 @@
     "lineNumber": 597
   },
   {
-    "__docId__": 344,
+    "__docId__": 346,
     "kind": "testIt",
     "static": true,
     "variation": null,
@@ -7164,7 +7200,7 @@
     "lineNumber": 604
   },
   {
-    "__docId__": 345,
+    "__docId__": 347,
     "kind": "testFile",
     "static": true,
     "variation": null,
@@ -7177,7 +7213,7 @@
     "content": "import {UserLogic, OrganisationLogic, ApplicationLogic} from '../../../../src/server/logic';\nimport chai, {expect} from 'chai';\nimport {HoistUser, Organisation, Application} from '@hoist/model';\nimport sinon from 'sinon';\n\ndescribe('UserLogic', () => {\n  /* @test {create} */\n  describe('#create', () => {\n    let validUser = {\n      username: 'aname',\n      email: 'test@hoist.io',\n      password: 'aPasswordThatIsLong',\n      passwordCheck: 'aPasswordThatIsLong'\n    };\n    describe('if no name supplied', () => {\n      let _result;\n      before(() => {\n        _result = UserLogic.create(Object.assign({}, validUser, {username: null}))\n      })\n      it('fails with invalid message', () => {\n        return expect(_result)\n          .to\n          .be\n          .rejectedWith('invalid name supplied');\n      });\n    });\n    describe('if no email supplied', () => {\n      let _result;\n      before(() => {\n        _result = UserLogic.create(Object.assign({}, validUser, {email: null}))\n      })\n      it('fails with invalid message', () => {\n        return expect(_result)\n          .to\n          .be\n          .rejectedWith('invalid email supplied');\n      });\n    });\n    describe('if invalid email is supplied', () => {\n      let _result;\n      before(() => {\n        _result = UserLogic.create(Object.assign({}, validUser, {email: 'notanemailaddress'}))\n      })\n      it('fails with invalid message', () => {\n        return expect(_result)\n          .to\n          .be\n          .rejectedWith('invalid email supplied');\n      });\n    });\n    describe('if no password supplied', () => {\n      let _result;\n      before(() => {\n        _result = UserLogic.create(Object.assign({}, validUser, {\n          password: null,\n          passwordCheck: null\n        }))\n      })\n      it('fails with invalid message', () => {\n        return expect(_result)\n          .to\n          .be\n          .rejectedWith('invalid password supplied');\n      });\n    });\n    describe('if missmatched supplied', () => {\n      let _result;\n      before(() => {\n        _result = UserLogic.create(Object.assign({}, validUser, {\n          password: validUser\n            .passwordCheck\n            .toLowerCase()\n        }))\n      })\n      it('fails with invalid message', () => {\n        return expect(_result)\n          .to\n          .be\n          .rejectedWith('supplied passwords don\\'t match');\n      });\n    });\n    describe('if existing user with email', () => {\n      let _result;\n      before(() => {\n        sinon\n          .stub(HoistUser, 'countAsync')\n          .returns(Promise.resolve(1));\n        _result = UserLogic.create(validUser);\n      });\n      after(() => {\n        HoistUser\n          .countAsync\n          .restore();\n      })\n      it('looks up correct user', () => {\n        return expect(HoistUser.countAsync)\n          .to\n          .have\n          .been\n          .calledWith({\n            $or: [\n              {\n                'emailAddresses.address': validUser\n                  .email\n                  .toLowerCase()\n              }, {\n                'name': validUser.username\n              }\n            ]\n          });\n      });\n      it('fails with invalid message', () => {\n        return expect(_result)\n          .to\n          .be\n          .rejectedWith('an account for that email address already exists');\n      });\n    });\n    describe('if valid credentials passed in', () => {\n      let _result;\n      let _createdApplication = new Application();\n      let _createdOrganisation = new Organisation();\n      before(() => {\n\n        sinon\n          .stub(HoistUser.prototype, 'saveAsync', function () {\n            return Promise.resolve(this);\n          });\n        sinon\n          .stub(Organisation,'countAsync')\n          .returns(Promise.resolve(0));\n        sinon\n          .stub(HoistUser, 'countAsync')\n          .returns(Promise.resolve(0));\n        sinon\n          .stub(OrganisationLogic, 'create')\n          .returns(Promise.resolve(_createdOrganisation));\n        sinon\n          .stub(ApplicationLogic, 'create')\n          .returns(Promise.resolve(_createdApplication));\n        _result = UserLogic.create(validUser);\n      });\n      after(() => {\n        ApplicationLogic\n          .create\n          .restore();\n        OrganisationLogic\n          .create\n          .restore();\n        HoistUser\n          .prototype\n          .saveAsync\n          .restore();\n        HoistUser\n          .countAsync\n          .restore();\n        Organisation\n          .countAsync\n          .restore();\n      })\n      it('returns a new user', () => {\n        return expect(_result)\n          .to\n          .eventually\n          .be\n          .instanceof(HoistUser);\n      });\n      it('saves the user', () => {\n        return _result.then((user) => {\n          return expect(HoistUser.prototype.saveAsync)\n            .to\n            .have\n            .been\n            .calledOn(user);\n        });\n      });\n      it('sets the user organisation', () => {\n        return _result.then((user) => {\n          return expect(user.organisations)\n            .to\n            .contain([_createdOrganisation]);\n        });\n      })\n      it('creates organisation with the users name', () => {\n        return expect(OrganisationLogic.create)\n          .to\n          .have\n          .been\n          .calledWith({name: validUser.username, personal: true});\n      });\n      it('creates application with correct name and organisation', () => {\n        return expect(ApplicationLogic.create)\n          .to\n          .have\n          .been\n          .calledWith({name: validUser.username, organisation: _createdOrganisation});\n      })\n    });\n  });\n})\n"
   },
   {
-    "__docId__": 346,
+    "__docId__": 348,
     "kind": "testDescribe",
     "static": true,
     "variation": null,
@@ -7191,7 +7227,7 @@
     "lineNumber": 6
   },
   {
-    "__docId__": 347,
+    "__docId__": 349,
     "kind": "testDescribe",
     "static": true,
     "variation": null,
@@ -7205,7 +7241,7 @@
     "lineNumber": 8
   },
   {
-    "__docId__": 348,
+    "__docId__": 350,
     "kind": "testDescribe",
     "static": true,
     "variation": null,
@@ -7219,7 +7255,7 @@
     "lineNumber": 15
   },
   {
-    "__docId__": 349,
+    "__docId__": 351,
     "kind": "testIt",
     "static": true,
     "variation": null,
@@ -7233,7 +7269,7 @@
     "lineNumber": 20
   },
   {
-    "__docId__": 350,
+    "__docId__": 352,
     "kind": "testDescribe",
     "static": true,
     "variation": null,
@@ -7247,7 +7283,7 @@
     "lineNumber": 27
   },
   {
-    "__docId__": 351,
+    "__docId__": 353,
     "kind": "testIt",
     "static": true,
     "variation": null,
@@ -7261,7 +7297,7 @@
     "lineNumber": 32
   },
   {
-    "__docId__": 352,
+    "__docId__": 354,
     "kind": "testDescribe",
     "static": true,
     "variation": null,
@@ -7275,7 +7311,7 @@
     "lineNumber": 39
   },
   {
-    "__docId__": 353,
+    "__docId__": 355,
     "kind": "testIt",
     "static": true,
     "variation": null,
@@ -7289,7 +7325,7 @@
     "lineNumber": 44
   },
   {
-    "__docId__": 354,
+    "__docId__": 356,
     "kind": "testDescribe",
     "static": true,
     "variation": null,
@@ -7303,7 +7339,7 @@
     "lineNumber": 51
   },
   {
-    "__docId__": 355,
+    "__docId__": 357,
     "kind": "testIt",
     "static": true,
     "variation": null,
@@ -7317,7 +7353,7 @@
     "lineNumber": 59
   },
   {
-    "__docId__": 356,
+    "__docId__": 358,
     "kind": "testDescribe",
     "static": true,
     "variation": null,
@@ -7331,7 +7367,7 @@
     "lineNumber": 66
   },
   {
-    "__docId__": 357,
+    "__docId__": 359,
     "kind": "testIt",
     "static": true,
     "variation": null,
@@ -7345,7 +7381,7 @@
     "lineNumber": 75
   },
   {
-    "__docId__": 358,
+    "__docId__": 360,
     "kind": "testDescribe",
     "static": true,
     "variation": null,
@@ -7359,7 +7395,7 @@
     "lineNumber": 82
   },
   {
-    "__docId__": 359,
+    "__docId__": 361,
     "kind": "testIt",
     "static": true,
     "variation": null,
@@ -7373,7 +7409,7 @@
     "lineNumber": 95
   },
   {
-    "__docId__": 360,
+    "__docId__": 362,
     "kind": "testIt",
     "static": true,
     "variation": null,
@@ -7387,7 +7423,7 @@
     "lineNumber": 112
   },
   {
-    "__docId__": 361,
+    "__docId__": 363,
     "kind": "testDescribe",
     "static": true,
     "variation": null,
@@ -7401,7 +7437,7 @@
     "lineNumber": 119
   },
   {
-    "__docId__": 362,
+    "__docId__": 364,
     "kind": "testIt",
     "static": true,
     "variation": null,
@@ -7415,7 +7451,7 @@
     "lineNumber": 161
   },
   {
-    "__docId__": 363,
+    "__docId__": 365,
     "kind": "testIt",
     "static": true,
     "variation": null,
@@ -7429,7 +7465,7 @@
     "lineNumber": 168
   },
   {
-    "__docId__": 364,
+    "__docId__": 366,
     "kind": "testIt",
     "static": true,
     "variation": null,
@@ -7443,7 +7479,7 @@
     "lineNumber": 177
   },
   {
-    "__docId__": 365,
+    "__docId__": 367,
     "kind": "testIt",
     "static": true,
     "variation": null,
@@ -7457,7 +7493,7 @@
     "lineNumber": 184
   },
   {
-    "__docId__": 366,
+    "__docId__": 368,
     "kind": "testIt",
     "static": true,
     "variation": null,
@@ -7471,7 +7507,7 @@
     "lineNumber": 191
   },
   {
-    "__docId__": 367,
+    "__docId__": 369,
     "kind": "testFile",
     "static": true,
     "variation": null,
@@ -7484,7 +7520,7 @@
     "content": "import {_mongoose} from '@hoist/model';\nimport PortalServer from '../../../src/server';\nimport configurators from '../../../src/server/configuration';\nimport {Server as HapiServer} from 'hapi';\nimport sinon from 'sinon';\nimport {expect} from 'chai';\n\n/** @test {PortalServer} */\ndescribe('PortalServer', () => {\n  let server;\n  before(() => {\n    server = new PortalServer();\n  });\n  /** @test {PortalServer#start} */\n  describe('#start', () => {\n    before(() => {\n      sinon\n        .stub(configurators.server, 'configure')\n        .returns(Promise.resolve());\n      sinon\n        .stub(configurators.auth, 'configure')\n        .returns(Promise.resolve());\n      sinon\n        .stub(configurators.routes, 'configure')\n        .returns(Promise.resolve());\n      sinon\n        .stub(configurators.logging, 'configure')\n        .returns(Promise.resolve());\n      sinon\n        .stub(_mongoose, 'connectAsync')\n        .returns(Promise.resolve());\n      sinon\n        .stub(HapiServer.prototype, 'start')\n        .yields();\n      server.start();\n    });\n    after(() => {\n      configurators\n        .server\n        .configure\n        .restore();\n      configurators\n        .auth\n        .configure\n        .restore();\n      configurators\n        .routes\n        .configure\n        .restore();\n      configurators\n        .logging\n        .configure\n        .restore();\n      _mongoose\n        .connectAsync\n        .restore();\n      HapiServer\n        .prototype\n        .start\n        .restore();\n    });\n    it('connects to mongo', () => {\n      return expect(_mongoose.connectAsync).to.have.been.called;\n    });\n    it('configures the hapi server with base configuration', () => {\n      return expect(configurators.server.configure)\n        .to\n        .have\n        .been\n        .calledWith(server._hapiServer);\n    });\n    it('configures the hapi server with logging', () => {\n      return expect(configurators.logging.configure)\n        .to\n        .have\n        .been\n        .calledWith(server._hapiServer);\n    });\n    it('configures the hapi server with routes', () => {\n      return expect(configurators.routes.configure)\n        .to\n        .have\n        .been\n        .calledWith(server._hapiServer);\n    });\n    it('configures the hapi server with authentication', () => {\n      return expect(configurators.auth.configure)\n        .to\n        .have\n        .been\n        .calledWith(server._hapiServer);\n    });\n  })\n});\n"
   },
   {
-    "__docId__": 368,
+    "__docId__": 370,
     "kind": "testDescribe",
     "static": true,
     "variation": null,
@@ -7507,7 +7543,7 @@
     ]
   },
   {
-    "__docId__": 369,
+    "__docId__": 371,
     "kind": "testDescribe",
     "static": true,
     "variation": null,
@@ -7530,7 +7566,7 @@
     ]
   },
   {
-    "__docId__": 370,
+    "__docId__": 372,
     "kind": "testIt",
     "static": true,
     "variation": null,
@@ -7544,7 +7580,7 @@
     "lineNumber": 62
   },
   {
-    "__docId__": 371,
+    "__docId__": 373,
     "kind": "testIt",
     "static": true,
     "variation": null,
@@ -7558,7 +7594,7 @@
     "lineNumber": 65
   },
   {
-    "__docId__": 372,
+    "__docId__": 374,
     "kind": "testIt",
     "static": true,
     "variation": null,
@@ -7572,7 +7608,7 @@
     "lineNumber": 72
   },
   {
-    "__docId__": 373,
+    "__docId__": 375,
     "kind": "testIt",
     "static": true,
     "variation": null,
@@ -7586,7 +7622,7 @@
     "lineNumber": 79
   },
   {
-    "__docId__": 374,
+    "__docId__": 376,
     "kind": "testIt",
     "static": true,
     "variation": null,

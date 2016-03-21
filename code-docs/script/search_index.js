@@ -174,6 +174,12 @@ window.esdocSearchIndex = [
     "function"
   ],
   [
+    "overlord.hoist.io/server/logic/fleetservices.js~getallservices",
+    "function/index.html#static-function-getAllServices",
+    "<span>getAllServices</span> <span class=\"search-result-import-path\">overlord.hoist.io/server/logic/fleetservices.js</span>",
+    "function"
+  ],
+  [
     "overlord.hoist.io/server/logic/settings.js~getallsettings",
     "function/index.html#static-function-getAllSettings",
     "<span>getAllSettings</span> <span class=\"search-result-import-path\">overlord.hoist.io/server/logic/settings.js</span>",
@@ -1845,6 +1851,12 @@ window.esdocSearchIndex = [
     "server/logic/event.js",
     "file/server/logic/event.js.html",
     "server/logic/event.js",
+    "file"
+  ],
+  [
+    "server/logic/fleetservices.js",
+    "file/server/logic/fleetservices.js.html",
+    "server/logic/fleetservices.js",
     "file"
   ],
   [
