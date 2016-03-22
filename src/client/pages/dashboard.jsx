@@ -181,7 +181,7 @@ export class Dashboard extends Component {
             marginBottom: 40
           }}>
             <TextElements.Label text="Queues"/>
-            <QueueDisplay queue={this.props.queue} onClose={() => {
+            <QueueDisplay queue={this.state.queue} onClose={() => {
               this.setState({queue: ''})
             }}/>
             <input type="text" className="dark filter" placeholder="Filter"/> {this.props.queues.map((q, i) => {
