@@ -138,6 +138,7 @@ var lineChartData2 = {
 export class Dashboard extends Component {
   constructor(props) {
     super(props);
+    this.state({});
   }
   componentDidMount() {
     //this will update the state graph and thus rerender the component (although it should happen before the component renders)
