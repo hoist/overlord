@@ -1,0 +1,17 @@
+[Unit]
+Description=overlord.hoist.io service
+After=config.service
+
+[Service]
+User=core
+Restart=always
+ExecStartPre=-/usr/bin/docker kill overlord.hoist.io-%i
+ExecStartPre=-/usr/bin/docker rm overlord.hoist.io-%i
+ExecStartPre=-/usr/bin/docker pull hoist/overlord:2.0
+ExecStart=/usr/bin/docker run --name overlord.hoist.io-%i -e "SERVICE_TAGS=http,nodejs,overlord,production,https-hoist-io" -e "SERVICE_NAME=overlord" -e "SERVICE_8000_CHECK_HTTP=/api/healthcheck" -e "SERVICE_8000_CHECK_INTERVAL=15s" -e "NODE_ENV=production" --volumes-from config -P hoist/overlord:2.0
+ExecStop=/usr/bin/docker stop overlord.hoist.io-%i
+TimeoutStartSec=30m
+
+[X-Fleet]
+Conflicts=overlord.hoist.io@*.service
+MachineMetadata=container_type=web
