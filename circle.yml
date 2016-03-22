@@ -34,7 +34,7 @@ test:
     - docker rm overlord-test; true;
     - docker run -d --name mongodb mongo
     - docker run -d -e RABBITMQ_NODENAME=rabbitmq --name rabbitmq rabbitmq:3-management
-    - docker run -t --link mongodb:db --link rabbitmq:rabbitmq --name portal.hoist.io-test --entrypoint gulp hoist/overlord:${CIRCLE_TAG//release\//}${CIRCLE_BRANCH//feature\//} test
+    - docker run -t --link mongodb:db --link rabbitmq:rabbitmq --name overlord-test --entrypoint gulp hoist/overlord:${CIRCLE_TAG//release\//}${CIRCLE_BRANCH//feature\//} test
   post:
     - docker cp overlord-test:/usr/src/app/coverage ~/
 general:
