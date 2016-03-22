@@ -140,6 +140,7 @@ export class Dashboard extends Component {
     super(props);
   }
   componentDidMount() {
+    //this will update the state graph and thus rerender the component (although it should happen before the component renders)
     this.props.getLatestFleetConfiguration();
   }
   render() {
