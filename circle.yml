@@ -44,13 +44,8 @@ general:
     - log/*.log
     - npm-debug.log
 deployment:
-  master:
-    branch: [master,/feature\/.*/]
-    owner: hoist
-    commands:
-      - echo ${DOCKER_CONFIG} > .dockercfg
   release:
-    tag: /release\/.*/
+    branch: [master,/feature\/.*/]
     owner: hoist
     commands:
       - echo ${DOCKER_CONFIG} > .dockercfg
