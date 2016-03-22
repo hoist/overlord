@@ -21,22 +21,22 @@ dependencies:
     - "~/docker"
   override:
     - mkdir -p ~/docker
-    - if [[ -e ~/docker/overlord.hoist.io.tar ]]; then docker load -i ~/docker/overlord.hoist.io.tar; fi
-    - docker build -t hoist/overlord.hoist.io:${CIRCLE_TAG//release\//}${CIRCLE_BRANCH//feature\//} .
-    - docker save "hoist/overlord.hoist.io:${CIRCLE_TAG//release\//}${CIRCLE_BRANCH//feature\//}" > ~/docker/overlord.hoist.io.tar
+    - if [[ -e ~/docker/overlord.tar ]]; then docker load -i ~/docker/overlord.tar; fi
+    - docker build -t hoist/overlord:${CIRCLE_TAG//release\//}${CIRCLE_BRANCH//feature\//} .
+    - docker save "hoist/overlord:${CIRCLE_TAG//release\//}${CIRCLE_BRANCH//feature\//}" > ~/docker/overlord.tar
 test:
   override:
     - docker kill mongodb; true;
     - docker rm mongodb; true;
     - docker kill rabbitmq; true;
     - docker rm rabbitmq; true;
-    - docker kill overlord.hoist.io-test; true;
-    - docker rm overlord.hoist.io-test; true;
+    - docker kill overlord-test; true;
+    - docker rm overlord-test; true;
     - docker run -d --name mongodb mongo
     - docker run -d -e RABBITMQ_NODENAME=rabbitmq --name rabbitmq rabbitmq:3-management
-    - docker run -t --link mongodb:db --link rabbitmq:rabbitmq --name portal.hoist.io-test --entrypoint gulp hoist/overlord.hoist.io:${CIRCLE_TAG//release\//}${CIRCLE_BRANCH//feature\//} test
+    - docker run -t --link mongodb:db --link rabbitmq:rabbitmq --name portal.hoist.io-test --entrypoint gulp hoist/overlord:${CIRCLE_TAG//release\//}${CIRCLE_BRANCH//feature\//} test
   post:
-    - docker cp overlord.hoist.io-test:/usr/src/app/coverage ~/
+    - docker cp overlord-test:/usr/src/app/coverage ~/
 general:
   artifacts:
     - ~/coverage/*
@@ -50,7 +50,7 @@ deployment:
     commands:
       - echo ${DOCKER_CONFIG} > .dockercfg
       - docker login -e $DOCKER_EMAIL -u $DOCKER_USER -p $DOCKER_PASS
-      - docker push hoist/overlord.hoist.io:${CIRCLE_TAG//release\//}${CIRCLE_BRANCH//feature\//}
+      - docker push hoist/overlord:${CIRCLE_TAG//release\//}${CIRCLE_BRANCH//feature\//}
 notify:
   webhooks:
-    - url: https://overlord.hoist.io/api/webhook/circleci?api_token=xc1zrzacmxp9samlj9nya4gzay
+    - url: https://overlord/api/webhook/circleci?api_token=xc1zrzacmxp9samlj9nya4gzay
