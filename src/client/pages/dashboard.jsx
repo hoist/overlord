@@ -199,7 +199,7 @@ export class Dashboard extends Component {
             Deploy
           </div>
           <TextElements.Label text="Fleet"/>
-          <input type="text" className="dark filter" placeholder="Filter"/> {this.props.fleets.map((f, i) => {
+          <input type="text" className="dark filter" placeholder="Filter"/> {this.props.fleet.map((f, i) => {
             return <Fleet name={f.name} key={i} version={f.version}/>;
           })}
         </div>
@@ -217,15 +217,15 @@ export class Dashboard extends Component {
       </div>
     );
   }
-  static propTypes : {
-    //this matches the name imported on FleetActions
-    getLatestFleetConfiguration: PropTypes.func.isRequired,
-    services: PropTypes.array,
-    users: PropTypes.array,
-    queues: PropTypes.array,
-    fleets: PropTypes.array
-  }
 
+};
+Dashboard.propTypes = {
+  //this matches the name imported on FleetActions
+  getLatestFleetConfiguration: PropTypes.func.isRequired,
+  services: PropTypes.array,
+  users: PropTypes.array,
+  queues: PropTypes.array,
+  fleet: PropTypes.array
 };
 //use props over state as they can be fed in from Redux
 Dashboard.defaultProps = {
@@ -253,7 +253,7 @@ Dashboard.defaultProps = {
       status: 'orange'
     }
   ],
-  fleets: [
+  fleet: [
     {
       name: "beta.hoist.io@1.service",
       version: "v0.10.alpha"
@@ -427,4 +427,4 @@ export class KPI extends Component {
   }
 }
 
-export default connect(() => ({}), Object.assign({}, FleetActions))(Dashboard);
+export default connect(({fleet}) => ({fleet}), Object.assign({}, FleetActions))(Dashboard);
