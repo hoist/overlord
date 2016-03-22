@@ -427,4 +427,8 @@ export class KPI extends Component {
   }
 }
 
-export default connect(({fleet}) => ({fleet}), Object.assign({}, FleetActions))(Dashboard);
+export default connect((state) => {
+  return {fleet: state.fleet};
+},
+//create a new object with all the properties of FleetActions, basically all the FleetAction methods
+Object.assign({}, FleetActions))(Dashboard);
