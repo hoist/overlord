@@ -293,27 +293,4 @@ export class KPI extends Component {
   }
 }
 
-export default connect(({
-  user,
-  organisation,
-  application,
-  events,
-  connectors,
-  applications,
-  organisations,
-  editor,
-  console,
-  settings
-}) => ({
-  user,
-  application,
-  organisation,
-  events,
-  connectors,
-  applications,
-  organisations,
-  code: editor.current,
-  selectedEvent: editor.currentEvent,
-  console,
-  settings
-}), Object.assign({}, EditorActions, SessionActions))(Dashboard);
+export default connect()(Dashboard);

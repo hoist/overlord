@@ -1,13 +1,8 @@
 {
-  "coverage": "58.4%",
-  "expectCount": 113,
-  "actualCount": 66,
+  "coverage": "23.07%",
+  "expectCount": 26,
+  "actualCount": 6,
   "files": {
-    "server/areas/application/application_controller.js": {
-      "expectCount": 4,
-      "actualCount": 4,
-      "undocumentLines": []
-    },
     "server/configuration/authentication.js": {
       "expectCount": 2,
       "actualCount": 0,
@@ -30,47 +25,6 @@
       "actualCount": 3,
       "undocumentLines": []
     },
-    "server/areas/connector/connector_controller.js": {
-      "expectCount": 6,
-      "actualCount": 4,
-      "undocumentLines": [
-        65,
-        48
-      ]
-    },
-    "server/models/connector_view_model.js": {
-      "expectCount": 10,
-      "actualCount": 8,
-      "undocumentLines": [
-        59,
-        124
-      ]
-    },
-    "server/areas/console/console_controller.js": {
-      "expectCount": 4,
-      "actualCount": 4,
-      "undocumentLines": []
-    },
-    "server/areas/editor/editor_controller.js": {
-      "expectCount": 6,
-      "actualCount": 4,
-      "undocumentLines": [
-        124,
-        85
-      ]
-    },
-    "server/areas/event/event_controller.js": {
-      "expectCount": 4,
-      "actualCount": 3,
-      "undocumentLines": [
-        7
-      ]
-    },
-    "server/areas/healthcheck/healthcheck_controller.js": {
-      "expectCount": 4,
-      "actualCount": 4,
-      "undocumentLines": []
-    },
     "server/configuration/logging.js": {
       "expectCount": 2,
       "actualCount": 0,
@@ -78,11 +32,6 @@
         9,
         10
       ]
-    },
-    "server/areas/organisation/organisation_controller.js": {
-      "expectCount": 5,
-      "actualCount": 5,
-      "undocumentLines": []
     },
     "server/index.js": {
       "expectCount": 3,
@@ -93,12 +42,12 @@
       "expectCount": 6,
       "actualCount": 0,
       "undocumentLines": [
+        12,
+        16,
         13,
-        17,
-        14,
-        116,
-        48,
-        23
+        109,
+        47,
+        22
       ]
     },
     "server/configuration/server.js": {
@@ -110,23 +59,6 @@
         12
       ]
     },
-    "server/areas/session/session_controller.js": {
-      "expectCount": 8,
-      "actualCount": 8,
-      "undocumentLines": []
-    },
-    "server/areas/user/user_controller.js": {
-      "expectCount": 6,
-      "actualCount": 6,
-      "undocumentLines": []
-    },
-    "server/logic/user.js": {
-      "expectCount": 3,
-      "actualCount": 2,
-      "undocumentLines": [
-        176
-      ]
-    },
     "server/utils/rabbit.js": {
       "expectCount": 3,
       "actualCount": 0,
@@ -136,89 +68,11 @@
         38
       ]
     },
-    "server/logic/organisation.js": {
-      "expectCount": 1,
-      "actualCount": 0,
-      "undocumentLines": [
-        4
-      ]
-    },
-    "server/logic/application.js": {
-      "expectCount": 2,
-      "actualCount": 0,
-      "undocumentLines": [
-        31,
-        10
-      ]
-    },
-    "server/logic/event.js": {
-      "expectCount": 4,
-      "actualCount": 0,
-      "undocumentLines": [
-        70,
-        88,
-        50,
-        6
-      ]
-    },
-    "server/logic/session.js": {
-      "expectCount": 6,
-      "actualCount": 6,
-      "undocumentLines": []
-    },
-    "server/logic/fleetservices.js": {
-      "expectCount": 1,
-      "actualCount": 0,
-      "undocumentLines": [
-        9
-      ]
-    },
-    "server/logic/settings.js": {
-      "expectCount": 1,
-      "actualCount": 0,
-      "undocumentLines": [
-        9
-      ]
-    },
-    "server/logic/connector.js": {
-      "expectCount": 7,
-      "actualCount": 2,
-      "undocumentLines": [
-        161,
-        57,
-        144,
-        45,
-        109
-      ]
-    },
-    "server/logic/editor.js": {
-      "expectCount": 2,
-      "actualCount": 0,
-      "undocumentLines": [
-        22,
-        78
-      ]
-    },
-    "server/logic/console.js": {
-      "expectCount": 1,
-      "actualCount": 0,
-      "undocumentLines": [
-        2
-      ]
-    },
     "server/utils/string_utils.js": {
       "expectCount": 1,
       "actualCount": 0,
       "undocumentLines": [
         1
-      ]
-    },
-    "server/logic/emails.js": {
-      "expectCount": 2,
-      "actualCount": 0,
-      "undocumentLines": [
-        38,
-        54
       ]
     }
   }

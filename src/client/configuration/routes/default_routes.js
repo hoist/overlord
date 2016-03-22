@@ -3,12 +3,6 @@ import {
   Route,
   IndexRoute
 } from 'react-router';
-import {
-  setApplication
-} from './helpers';
-import {
-  EditorActions
-} from '../../actions';
 
 export function getRoutes(store) {
   return (

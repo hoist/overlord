@@ -13,7 +13,7 @@ import {
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import {connect} from 'react-redux';
 import Helmet from 'react-helmet';
-import {EditorActions, SessionActions} from '../actions';
+import {SessionActions} from '../actions';
 import _ from 'lodash';
 
 export class PageTemplate extends Component {
@@ -41,27 +41,4 @@ export class PageTemplate extends Component {
   }
 };
 
-export default connect(({
-  user,
-  organisation,
-  application,
-  events,
-  connectors,
-  applications,
-  organisations,
-  editor,
-  console,
-  settings
-}) => ({
-  user,
-  application,
-  organisation,
-  events,
-  connectors,
-  applications,
-  organisations,
-  code: editor.current,
-  selectedEvent: editor.currentEvent,
-  console,
-  settings
-}), Object.assign({}, EditorActions, SessionActions))(PageTemplate);
+export default connect()(PageTemplate);

@@ -3,8 +3,7 @@ import {BaseConfigurator} from './base_configurator';
 import path from 'path';
 import glob from 'glob';
 import Bluebird from 'bluebird';
-import {BaseController} from '../areas/base_controller'
-import {SessionLogic, SettingsLogic} from '../logic';
+import {BaseController} from '../areas/base_controller';
 import config from 'config';
 import Boom from 'boom';
 import {Session} from '@hoist/model';
@@ -74,17 +73,11 @@ export class RouteConfigurator extends BaseConfigurator {
             return Promise
               .resolve()
               .then(() => {
-                if (request.auth.isAuthenticated && request.auth.credentials._id) {
-                  return SessionLogic.getSessionDetails(request.auth.credentials);
-                }
+                //should load session here
                 return {};
               })
               .then((state) => {
-                return SettingsLogic
-                  .getAllSettings()
-                  .then((settings) => {
-                    return Object.assign({}, state, settings);
-                  });
+                return state;
               })
               .then((state) => {
                 let settings = {
