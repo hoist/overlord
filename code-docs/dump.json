@@ -196,6 +196,135 @@
     "kind": "file",
     "static": true,
     "variation": null,
+    "name": "server/areas/fleet/fleet_controller.js",
+    "memberof": null,
+    "longname": "server/areas/fleet/fleet_controller.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1,
+    "content": "let dummyData = [{\n  name: \"beta.hoist.io@1.service\",\n  version: \"v0.10.alpha\"\n}, {\n  name: \"beta.hoist.io@2.service\",\n  version: \"v0.11.alpha\"\n}, {\n  name: \"executor@1.service\",\n  version: \"v1.0.rc\"\n}, {\n  name: \"executor@2.service\",\n  version: \"v1.0.rc\"\n}, {\n  name: \"executor@3.service\",\n  version: \"v1.0.rc\"\n}, {\n  name: \"beta.hoist.io@1.service\",\n  version: \"v0.10.alpha\"\n}, {\n  name: \"beta.hoist.io@2.service\",\n  version: \"v0.11.alpha\"\n}, {\n  name: \"executor@1.service\",\n  version: \"v1.0.rc\"\n}, {\n  name: \"executor@2.service\",\n  version: \"v1.0.rc\"\n}, {\n  name: \"executor@3.service\",\n  version: \"v1.0.rc\"\n}, {\n  name: \"beta.hoist.io@1.service\",\n  version: \"v0.10.alpha\"\n}, {\n  name: \"beta.hoist.io@2.service\",\n  version: \"v0.11.alpha\"\n}, {\n  name: \"executor@1.service\",\n  version: \"v1.0.rc\"\n}, {\n  name: \"executor@2.service\",\n  version: \"v1.0.rc\"\n}, {\n  name: \"executor@3.service\",\n  version: \"v1.0.rc\"\n}]\n\nimport {\n  BaseController\n} from '../base_controller';\n/**\n * Controller for Fleet related actions\n * @extends {BaseController}\n */\nexport class FleetController extends BaseController {\n  /**\n   * create a new FleetController\n   */\n  constructor() {\n    super();\n  }\n\n  getStatus(request, reply) {\n    return Promise.resolve()\n      .then(() => {\n        reply(dummyData);\n      });\n\n  }\n\n  /**\n   * @override\n   * @returns {Array<Object>} - an array of route configurations @see http://hapijs.com/api#route-configuration\n   */\n  routes() {\n    return [{\n      method: ['GET'],\n      path: '/fleet/status',\n      config: {\n        handler: this.getStatus,\n        auth: {\n          strategy: 'session',\n          mode: 'try'\n        },\n        plugins: {\n          'hapi-auth-cookie': {\n            redirectTo: false\n          }\n        }\n      }\n    }]\n  }\n}\nexport default FleetController;\n"
+  },
+  {
+    "__docId__": 10,
+    "kind": "variable",
+    "static": true,
+    "variation": null,
+    "name": "dummyData",
+    "memberof": "server/areas/fleet/fleet_controller.js",
+    "longname": "server/areas/fleet/fleet_controller.js~dummyData",
+    "access": null,
+    "export": false,
+    "importPath": "overlord.hoist.io/server/areas/fleet/fleet_controller.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 1,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 11,
+    "kind": "class",
+    "static": true,
+    "variation": null,
+    "name": "FleetController",
+    "memberof": "server/areas/fleet/fleet_controller.js",
+    "longname": "server/areas/fleet/fleet_controller.js~FleetController",
+    "access": null,
+    "export": true,
+    "importPath": "overlord.hoist.io/server/areas/fleet/fleet_controller.js",
+    "importStyle": "{FleetController}",
+    "description": "Controller for Fleet related actions",
+    "lineNumber": 55,
+    "interface": false,
+    "extends": [
+      "BaseController"
+    ]
+  },
+  {
+    "__docId__": 12,
+    "kind": "constructor",
+    "static": false,
+    "variation": null,
+    "name": "constructor",
+    "memberof": "server/areas/fleet/fleet_controller.js~FleetController",
+    "longname": "server/areas/fleet/fleet_controller.js~FleetController#constructor",
+    "access": null,
+    "description": "create a new FleetController",
+    "lineNumber": 59,
+    "params": [],
+    "generator": false
+  },
+  {
+    "__docId__": 13,
+    "kind": "method",
+    "static": false,
+    "variation": null,
+    "name": "getStatus",
+    "memberof": "server/areas/fleet/fleet_controller.js~FleetController",
+    "longname": "server/areas/fleet/fleet_controller.js~FleetController#getStatus",
+    "access": null,
+    "description": null,
+    "lineNumber": 63,
+    "undocument": true,
+    "params": [
+      {
+        "name": "request",
+        "types": [
+          "*"
+        ]
+      },
+      {
+        "name": "reply",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": {
+      "types": [
+        "*"
+      ]
+    },
+    "generator": false
+  },
+  {
+    "__docId__": 14,
+    "kind": "method",
+    "static": false,
+    "variation": null,
+    "name": "routes",
+    "memberof": "server/areas/fleet/fleet_controller.js~FleetController",
+    "longname": "server/areas/fleet/fleet_controller.js~FleetController#routes",
+    "access": null,
+    "description": "",
+    "lineNumber": 75,
+    "unknown": [
+      {
+        "tagName": "@returns",
+        "tagValue": "{Array<Object>} - an array of route configurations @see http://hapijs.com/api#route-configuration"
+      }
+    ],
+    "params": [],
+    "return": {
+      "nullable": null,
+      "types": [
+        "Array<Object>"
+      ],
+      "spread": false,
+      "description": "an array of route configurations @see http://hapijs.com/api#route-configuration"
+    },
+    "override": true,
+    "generator": false
+  },
+  {
+    "__docId__": 15,
+    "kind": "file",
+    "static": true,
+    "variation": null,
     "name": "server/configuration/authentication.js",
     "memberof": null,
     "longname": "server/configuration/authentication.js",
@@ -205,7 +334,7 @@
     "content": "import {BaseConfigurator} from './base_configurator';\nimport config from 'config';\nimport HapiAuthCookie from 'hapi-auth-cookie';\nimport {Session} from '@hoist/model';\n/* istanbul ignore next */\nexport class AuthenticationConfigurator extends BaseConfigurator {\n  configure (hapiServer) {\n    return Promise\n      .resolve()\n      .then(() => {\n        return hapiServer.registerAsync(HapiAuthCookie)\n      })\n      .then(() => {\n        return hapiServer\n          .auth\n          .strategy('session', 'cookie', {\n            password: config.get('Hoist.cookies.beta.password'),\n            cookie: config.get('Hoist.cookies.beta.name'),\n            redirectTo: '/session/create',\n            isSecure: config.get('Hoist.cookies.beta.secure'),\n            validateFunc: (request, session, callback) => {\n              return Promise\n                .resolve(Session.findOne({_id: session._id, isValid: true}).populate({path: 'organisation'}).populate({path: 'user'}).populate({path: 'application'}).exec())\n                .then((loadedSession) => {\n                  callback(null, !!(loadedSession), loadedSession);\n                })\n                .catch((err) => {\n                  callback(err);\n                });\n            }\n          });\n      })\n  }\n}\n"
   },
   {
-    "__docId__": 10,
+    "__docId__": 16,
     "kind": "class",
     "static": true,
     "variation": null,
@@ -225,7 +354,7 @@
     ]
   },
   {
-    "__docId__": 11,
+    "__docId__": 17,
     "kind": "method",
     "static": false,
     "variation": null,
@@ -252,7 +381,7 @@
     "generator": false
   },
   {
-    "__docId__": 12,
+    "__docId__": 18,
     "kind": "file",
     "static": true,
     "variation": null,
@@ -265,7 +394,7 @@
     "content": "import logger from '@hoist/logger';\n/* istanbul ignore next */\nexport class BaseConfigurator {\n  constructor () {\n    this._logger = logger.child({cls: this.constructor.name});\n  }\n  configure () {\n    return Promise.resolve();\n  }\n}\n"
   },
   {
-    "__docId__": 13,
+    "__docId__": 19,
     "kind": "class",
     "static": true,
     "variation": null,
@@ -282,7 +411,7 @@
     "interface": false
   },
   {
-    "__docId__": 14,
+    "__docId__": 20,
     "kind": "constructor",
     "static": false,
     "variation": null,
@@ -297,7 +426,7 @@
     "generator": false
   },
   {
-    "__docId__": 15,
+    "__docId__": 21,
     "kind": "member",
     "static": false,
     "variation": null,
@@ -315,7 +444,7 @@
     }
   },
   {
-    "__docId__": 16,
+    "__docId__": 22,
     "kind": "method",
     "static": false,
     "variation": null,
@@ -335,7 +464,7 @@
     "generator": false
   },
   {
-    "__docId__": 17,
+    "__docId__": 23,
     "kind": "file",
     "static": true,
     "variation": null,
@@ -348,7 +477,7 @@
     "content": "'use strict';\nimport {RouteConfigurator} from './routes';\nimport {ServerConfigurator} from './server';\nimport {AuthenticationConfigurator} from './authentication';\nimport {LoggingConfigurator} from './logging';\nexport default {\n  routes: new RouteConfigurator(),\n  server: new ServerConfigurator(),\n  auth: new AuthenticationConfigurator(),\n  logging: new LoggingConfigurator()\n}\n"
   },
   {
-    "__docId__": 18,
+    "__docId__": 24,
     "kind": "file",
     "static": true,
     "variation": null,
@@ -361,7 +490,7 @@
     "content": "import {BaseConfigurator} from './base_configurator';\nimport path from 'path';\nimport HapiBunyan from 'hapi-bunyan';\nimport poop from 'poop';\nimport logger from '@hoist/logger';\nimport good from 'good';\nimport goodConsole from 'good-console';\n/* istanbul ignore next */\nexport class LoggingConfigurator extends BaseConfigurator {\n  configure (hapiServer) {\n    return Promise\n      .resolve()\n      .then(() => {\n        return hapiServer.registerAsync({\n          register: HapiBunyan,\n          options: {\n            logger: logger.child({cls: 'HAPI_CORE'})\n          }\n        });\n      })\n      .then(() => {\n        return hapiServer.registerAsync({\n          register: poop,\n          options: {\n            logPath: path.join(process.cwd(), 'poop.log')\n          }\n        });\n      })\n      .then(() => {\n        return hapiServer.registerAsync({\n          register: good,\n          options: {\n            opsInterval: 1000,\n            reporters: [\n              {\n                reporter: goodConsole,\n                events: {\n                  log: '*',\n                  response: '*'\n                }\n              }\n            ]\n          }\n        });\n      })\n  }\n}\n"
   },
   {
-    "__docId__": 19,
+    "__docId__": 25,
     "kind": "class",
     "static": true,
     "variation": null,
@@ -381,7 +510,7 @@
     ]
   },
   {
-    "__docId__": 20,
+    "__docId__": 26,
     "kind": "method",
     "static": false,
     "variation": null,
@@ -408,7 +537,7 @@
     "generator": false
   },
   {
-    "__docId__": 21,
+    "__docId__": 27,
     "kind": "file",
     "static": true,
     "variation": null,
@@ -421,7 +550,7 @@
     "content": "'use strict';\nimport {BaseConfigurator} from './base_configurator';\nimport path from 'path';\nimport glob from 'glob';\nimport Bluebird from 'bluebird';\nimport {BaseController} from '../areas/base_controller';\nimport config from 'config';\nimport Boom from 'boom';\nimport {Session} from '@hoist/model';\nlet globAsync = Bluebird.promisify(glob);\n/* istanbul ignore next */\nexport class RouteConfigurator extends BaseConfigurator {\n  constructor() {\n    super();\n  }\n  configure(hapiServer) {\n    return this\n      .mapControllerRoutes(hapiServer)\n      .then(() => this.mapStaticRoutes(hapiServer))\n      .then(() => this.mapDefaultRoute(hapiServer));\n  }\n  mapStaticRoutes(hapiServer) {\n    return hapiServer.route([\n      {\n        method: 'GET',\n        path: '/js/{param*}',\n        handler: {\n          directory: {\n            path: path.resolve(process.cwd(), './lib/client'),\n            redirectToSlash: true,\n            index: false\n          }\n        }\n      }, {\n        method: 'GET',\n        path: '/img/{param*}',\n        handler: {\n          directory: {\n            path: path.resolve(process.cwd(), './lib/assets/img'),\n            redirectToSlash: true,\n            index: false\n          }\n        }\n      }\n    ]);\n  }\n  mapDefaultRoute(hapiServer) {\n    return hapiServer.route([\n      {\n        method: [\n          'GET', 'POST', 'PUT', 'PATCH', 'DELETE'\n        ],\n        path: '/api/{p*}',\n        config: {\n          handler: (request, reply) => {\n            reply(Boom.notFound())\n          }\n        }\n      }, {\n        method: 'GET',\n        path: '/{p*}',\n        config: {\n          auth: {\n            mode: 'try',\n            strategy: 'session'\n          },\n          plugins: {\n            'hapi-auth-cookie': {\n              redirectTo: false\n            }\n          },\n          handler: (request, reply) => {\n            return Promise\n              .resolve()\n              .then(() => {\n                //should load session here\n                return {};\n              })\n              .then((state) => {\n                return state;\n              })\n              .then((state) => {\n                reply.view('index', {\n                  HoistConfig: config.get('Hoist'),\n                  initialState: Object.assign({}, state, {\n\n                  }, {})\n                });\n              })\n              .catch((err) => {\n                this\n                  ._logger\n                  .alert(err);\n                this\n                  ._logger\n                  .error(err);\n                reply(Boom.wrap(err));\n              });\n          }\n        }\n      }\n    ])\n  }\n  mapControllerRoutes(hapiServer) {\n    return globAsync('../areas/**/*_controller.js', {cwd: __dirname}).then((controllersPaths) => {\n      return controllersPaths.filter((controllerPath) => {\n        return !controllerPath.endsWith('base_controller.js');\n      }).map((controllerPath) => {\n        let Controller = require(controllerPath).default;\n        return new Controller();\n      });\n    }).then((controllers) => {\n      return Promise.all(controllers.filter((controller) => {\n        return (controller instanceof BaseController);\n      }).map((controller) => {\n        return controller._loadRoutes(hapiServer);\n      })).then(() => {});\n    });\n\n  }\n}\n"
   },
   {
-    "__docId__": 22,
+    "__docId__": 28,
     "kind": "variable",
     "static": true,
     "variation": null,
@@ -442,7 +571,7 @@
     }
   },
   {
-    "__docId__": 23,
+    "__docId__": 29,
     "kind": "class",
     "static": true,
     "variation": null,
@@ -462,7 +591,7 @@
     ]
   },
   {
-    "__docId__": 24,
+    "__docId__": 30,
     "kind": "constructor",
     "static": false,
     "variation": null,
@@ -477,7 +606,7 @@
     "generator": false
   },
   {
-    "__docId__": 25,
+    "__docId__": 31,
     "kind": "method",
     "static": false,
     "variation": null,
@@ -504,7 +633,7 @@
     "generator": false
   },
   {
-    "__docId__": 26,
+    "__docId__": 32,
     "kind": "method",
     "static": false,
     "variation": null,
@@ -531,7 +660,7 @@
     "generator": false
   },
   {
-    "__docId__": 27,
+    "__docId__": 33,
     "kind": "method",
     "static": false,
     "variation": null,
@@ -558,7 +687,7 @@
     "generator": false
   },
   {
-    "__docId__": 28,
+    "__docId__": 34,
     "kind": "method",
     "static": false,
     "variation": null,
@@ -585,7 +714,7 @@
     "generator": false
   },
   {
-    "__docId__": 29,
+    "__docId__": 35,
     "kind": "file",
     "static": true,
     "variation": null,
@@ -598,7 +727,7 @@
     "content": "'use strict';\nimport {BaseConfigurator} from './base_configurator';\nimport config from 'config';\nimport vision from 'vision';\n//import WebpackConfig from '../../../config/webpack/webpack.config';\nimport handlebars from 'handlebars';\nimport path from 'path';\nimport inert from 'inert';\n//const compiler = Webpack(WebpackConfig);\n/* istanbul ignore next */\nexport class ServerConfigurator extends BaseConfigurator {\n  constructor () {\n    super();\n  }\n  configure (hapiServer) {\n    return Promise\n      .resolve()\n      .then(() => this._configureMainConnection(hapiServer))\n      .then(() => this._configureWebpack(hapiServer))\n      .then(() => this._configureViewEngine(hapiServer))\n  }\n\n  _configureMainConnection (hapiServer) {\n    return hapiServer.connection({host: '0.0.0.0', port: 8000});\n  }\n  _configureWebpack (hapiServer) {\n    if (!config.get('Hoist.webpack.optimize')) {\n      let Webpack = require('webpack');\n      let webpackConfig = require('../../../config/webpack/webpack.config');\n      let compiler = Webpack(webpackConfig);\n      return hapiServer.registerAsync({\n        register: require('hapi-webpack-plugin'),\n        options: {\n          compiler: compiler,\n          hot: {},\n          assets: webpackConfig.assets\n        }\n      });\n      // Do \"hot-reloading\" of react stuff on the server\n      // Throw away the cached client modules and let them be re-required next time\n      compiler.plugin('done', function () {\n        Object\n          .keys(require.cache)\n          .forEach(function (id) {\n            if (/\\/client\\//.test(id))\n              delete require.cache[id];\n            }\n          );\n      });\n    }\n  }\n  _configureViewEngine (hapiServer) {\n    return hapiServer\n      .registerAsync(vision)\n      .then(() => {\n        handlebars.registerHelper('json', JSON.stringify);\n        return hapiServer.views({\n          engines: {\n            hbs: handlebars\n          },\n          isCached: false,\n          relativeTo: path.resolve(__dirname, '../'),\n          path: 'views'\n        })\n      })\n      .then(() => hapiServer.registerAsync(inert));\n  }\n}\n"
   },
   {
-    "__docId__": 30,
+    "__docId__": 36,
     "kind": "class",
     "static": true,
     "variation": null,
@@ -618,7 +747,7 @@
     ]
   },
   {
-    "__docId__": 31,
+    "__docId__": 37,
     "kind": "constructor",
     "static": false,
     "variation": null,
@@ -633,7 +762,7 @@
     "generator": false
   },
   {
-    "__docId__": 32,
+    "__docId__": 38,
     "kind": "method",
     "static": false,
     "variation": null,
@@ -660,7 +789,7 @@
     "generator": false
   },
   {
-    "__docId__": 33,
+    "__docId__": 39,
     "kind": "method",
     "static": false,
     "variation": null,
@@ -687,7 +816,7 @@
     "generator": false
   },
   {
-    "__docId__": 34,
+    "__docId__": 40,
     "kind": "method",
     "static": false,
     "variation": null,
@@ -714,7 +843,7 @@
     "generator": false
   },
   {
-    "__docId__": 35,
+    "__docId__": 41,
     "kind": "method",
     "static": false,
     "variation": null,
@@ -741,7 +870,7 @@
     "generator": false
   },
   {
-    "__docId__": 36,
+    "__docId__": 42,
     "kind": "file",
     "static": true,
     "variation": null,
@@ -754,7 +883,7 @@
     "content": "'use strict';\nimport {Server as HapiServer} from 'hapi';\nimport Bluebird from 'bluebird';\nimport configurators from './configuration';\nimport logger from '@hoist/logger';\nimport hapi from 'hapi';\nimport config from 'config';\nimport {_mongoose} from '@hoist/model';\n_mongoose.set('debug', true);\n/**\n * The main portal server itself\n */\n\nexport default class PortalServer {\n  /**\n   * create a new portal server\n   */\n  constructor () {\n    this._logger = logger.child({cls: this.constructor.name});\n  }\n  _createServer () {\n    return Promise\n      .resolve()\n      .then(() => {\n        this._hapiServer = new HapiServer();\n        Bluebird.promisifyAll(this._hapiServer);\n      })\n      .then(() => configurators.server.configure(this._hapiServer))\n      .then(() => configurators.logging.configure(this._hapiServer))\n      .then(() => configurators.auth.configure(this._hapiServer))\n      .then(() => configurators.routes.configure(this._hapiServer))\n      .then(() => this._hapiServer);\n  }\n\n  /**\n   * start the server and connect to mongo\n   * @returns {Promise} - for the server to have started\n   */\n  start () {\n    return _mongoose\n      .connectAsync(config.get('Hoist.mongo.core.connectionString'))\n      .then(() => this._createServer())\n      .then(() => this._hapiServer.startAsync())\n      .then(() => {\n        this\n          ._logger\n          .info({\n            info: this._hapiServer.info\n          }, 'server listening')\n      })\n      .catch((err) => {\n        this\n          ._logger\n          .error(err);\n        this\n          ._logger\n          .alert(err);\n      });\n  }\n}\n"
   },
   {
-    "__docId__": 37,
+    "__docId__": 43,
     "kind": "class",
     "static": true,
     "variation": null,
@@ -770,7 +899,7 @@
     "interface": false
   },
   {
-    "__docId__": 38,
+    "__docId__": 44,
     "kind": "constructor",
     "static": false,
     "variation": null,
@@ -784,7 +913,7 @@
     "generator": false
   },
   {
-    "__docId__": 39,
+    "__docId__": 45,
     "kind": "member",
     "static": false,
     "variation": null,
@@ -802,7 +931,7 @@
     }
   },
   {
-    "__docId__": 40,
+    "__docId__": 46,
     "kind": "method",
     "static": false,
     "variation": null,
@@ -822,7 +951,7 @@
     "generator": false
   },
   {
-    "__docId__": 41,
+    "__docId__": 47,
     "kind": "member",
     "static": false,
     "variation": null,
@@ -840,7 +969,7 @@
     }
   },
   {
-    "__docId__": 42,
+    "__docId__": 48,
     "kind": "method",
     "static": false,
     "variation": null,
@@ -868,7 +997,7 @@
     "generator": false
   },
   {
-    "__docId__": 43,
+    "__docId__": 49,
     "kind": "file",
     "static": true,
     "variation": null,
@@ -881,7 +1010,7 @@
     "content": "import * as StringUtils from './string_utils';\nexport {StringUtils as StringUtils}\n"
   },
   {
-    "__docId__": 44,
+    "__docId__": 50,
     "kind": "file",
     "static": true,
     "variation": null,
@@ -894,7 +1023,7 @@
     "content": "import amqp from 'amqplib';\nimport config from 'config';\nimport logger from '@hoist/logger';\nimport moment from 'moment';\nconst _logger = logger.child({cls: 'RabbitUtils'});\n\nlet _connection = amqp\n  .connect(config.get('Hoist.rabbit.url'))\n  .then((connection) => {\n    connection.on('close', () => {\n      open = null;\n    });\n    connection.on('error', (err) => {\n      _logger.error(err);\n      _logger.alert(err);\n    });\n    return connection;\n  });\n\nfunction connect() {\n  if (!_connection) {\n    _connection = amqp\n      .connect(config.get('Hoist.rabbit.url'))\n      .then((connection) => {\n        connection.on('close', () => {\n          _connection = null;\n        });\n        connection.on('error', (err) => {\n          _logger.error(err);\n          _logger.alert(err);\n        });\n        return connection;\n      });\n  }\n  return _connection;\n}\n\nexport function setupQueue({queue, exchange}) {\n  return connect().then((connection) => {\n    _logger.info('creating channel');\n    return connection.createChannel()\n  }).then((channel) => {\n    let _err;\n    _logger.info('asserting queue');\n    return channel\n      .assertQueue(queue.name, queue.properties)\n      .then((queueDetails) => {\n        if (exchange) {\n          _logger.info('asserting exchange');\n          return channel\n            .assertExchange(exchange.name, exchange.type)\n            .then(() => {\n              _logger.info('binding queue to exchange');\n              return channel.bindQueue(queueDetails.queue, exchange.name, exchange.routingKey);\n            })\n        }\n      })\n      .catch((err) => {\n        _logger.info('saving error for later');\n        _err = err;\n      })\n      .then(() => {\n        _logger.info('closing channel');\n        return channel.close();\n      })\n      .then(() => {\n        if (_err) {\n          _logger.info('rethrowing error');\n          throw _err;\n        }\n      });\n  });\n}\n\nfunction _getMany(channel, queue, max = 10, current = []) {\n  _logger.info({\n    current\n  }, 'getting messages');\n  if (current.length > max) {\n    return current;\n  } else {\n    return channel\n      .get(queue, {noAck: true})\n      .then((message) => {\n        if (!message) {\n          return current;\n        } else {\n          let content = JSON.parse(message.content.toString());\n          _logger.info({\n            content\n          }, 'got a rabbit message');\n          return _getMany(channel, queue, max, current.concat(formatLogEntry(content)));\n        }\n      })\n  }\n}\n\nfunction formatLogEntry(eventLog) {\n  return {\n    id: eventLog._id,\n    type: eventLog.type || 'log',\n    message: eventLog.message,\n    time: moment(eventLog.createdAt).format('HH:mm:ss'),\n    stack: eventLog.errorStack\n  }\n}\nexport function getMessages(queue, max) {\n  return connect().then((connection) => {\n    _logger.info('creating channel');\n    return connection.createChannel()\n  }).then((channel) => {\n    let _err;\n    channel.prefetch(max);\n    return _getMany(channel, queue, max, []).catch((err) => {\n      _logger.info('saving error for later');\n      _err = err;\n    }).then((messages) => {\n      _logger.info('closing channel');\n      return channel\n        .close()\n        .then(() => messages);\n    }).then((messages) => {\n      if (_err) {\n        _logger.info('rethrowing error');\n        throw _err;\n      }\n      return messages;\n    });\n  }).then((messages) => {\n    _logger.info({\n      messages: messages\n    }, 'returning messages');\n    return messages || [];\n  });\n}\nexport function closeConnection() {\n  if (_connection) {\n    return connect().then((connection) => {\n      return connection.close();\n    });\n  }\n}\n"
   },
   {
-    "__docId__": 45,
+    "__docId__": 51,
     "kind": "variable",
     "static": true,
     "variation": null,
@@ -915,7 +1044,7 @@
     }
   },
   {
-    "__docId__": 46,
+    "__docId__": 52,
     "kind": "variable",
     "static": true,
     "variation": null,
@@ -936,7 +1065,7 @@
     }
   },
   {
-    "__docId__": 47,
+    "__docId__": 53,
     "kind": "function",
     "static": true,
     "variation": null,
@@ -959,7 +1088,7 @@
     "generator": false
   },
   {
-    "__docId__": 48,
+    "__docId__": 54,
     "kind": "function",
     "static": true,
     "variation": null,
@@ -994,7 +1123,7 @@
     "generator": false
   },
   {
-    "__docId__": 49,
+    "__docId__": 55,
     "kind": "function",
     "static": true,
     "variation": null,
@@ -1048,7 +1177,7 @@
     "generator": false
   },
   {
-    "__docId__": 50,
+    "__docId__": 56,
     "kind": "function",
     "static": true,
     "variation": null,
@@ -1078,7 +1207,7 @@
     "generator": false
   },
   {
-    "__docId__": 51,
+    "__docId__": 57,
     "kind": "function",
     "static": true,
     "variation": null,
@@ -1114,7 +1243,7 @@
     "generator": false
   },
   {
-    "__docId__": 52,
+    "__docId__": 58,
     "kind": "function",
     "static": true,
     "variation": null,
@@ -1137,7 +1266,7 @@
     "generator": false
   },
   {
-    "__docId__": 53,
+    "__docId__": 59,
     "kind": "file",
     "static": true,
     "variation": null,
@@ -1150,7 +1279,7 @@
     "content": "export function sanitiseName(name) {\n  var lowerCaseString = name.toLowerCase();\n  return lowerCaseString.replace(/\\W+/g, \"\");\n}\n"
   },
   {
-    "__docId__": 54,
+    "__docId__": 60,
     "kind": "function",
     "static": true,
     "variation": null,
@@ -1180,7 +1309,7 @@
     "generator": false
   },
   {
-    "__docId__": 56,
+    "__docId__": 62,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -1193,7 +1322,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 57,
+    "__docId__": 63,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -1206,7 +1335,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 58,
+    "__docId__": 64,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -1219,7 +1348,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 59,
+    "__docId__": 65,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -1232,7 +1361,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 60,
+    "__docId__": 66,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -1245,7 +1374,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 61,
+    "__docId__": 67,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -1258,7 +1387,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 62,
+    "__docId__": 68,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -1271,7 +1400,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 63,
+    "__docId__": 69,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -1284,7 +1413,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 64,
+    "__docId__": 70,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -1297,7 +1426,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 65,
+    "__docId__": 71,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -1310,7 +1439,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 66,
+    "__docId__": 72,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -1323,7 +1452,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 67,
+    "__docId__": 73,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -1336,7 +1465,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 68,
+    "__docId__": 74,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -1349,7 +1478,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 69,
+    "__docId__": 75,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -1362,7 +1491,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 70,
+    "__docId__": 76,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -1375,7 +1504,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 71,
+    "__docId__": 77,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -1388,7 +1517,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 72,
+    "__docId__": 78,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -1401,7 +1530,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 73,
+    "__docId__": 79,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -1414,7 +1543,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 74,
+    "__docId__": 80,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -1427,7 +1556,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 75,
+    "__docId__": 81,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -1440,7 +1569,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 76,
+    "__docId__": 82,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -1453,7 +1582,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 77,
+    "__docId__": 83,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -1466,7 +1595,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 78,
+    "__docId__": 84,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -1479,7 +1608,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 79,
+    "__docId__": 85,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -1492,7 +1621,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 80,
+    "__docId__": 86,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -1505,7 +1634,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 81,
+    "__docId__": 87,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -1518,7 +1647,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 82,
+    "__docId__": 88,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -1531,7 +1660,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 83,
+    "__docId__": 89,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -1544,7 +1673,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 84,
+    "__docId__": 90,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -1557,7 +1686,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 85,
+    "__docId__": 91,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -1570,7 +1699,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 86,
+    "__docId__": 92,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -1583,7 +1712,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 87,
+    "__docId__": 93,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -1596,7 +1725,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 88,
+    "__docId__": 94,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -1609,7 +1738,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 89,
+    "__docId__": 95,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -1622,7 +1751,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 90,
+    "__docId__": 96,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -1635,7 +1764,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 91,
+    "__docId__": 97,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -1648,7 +1777,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 92,
+    "__docId__": 98,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -1661,7 +1790,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 93,
+    "__docId__": 99,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -1674,7 +1803,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 94,
+    "__docId__": 100,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -1687,7 +1816,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 95,
+    "__docId__": 101,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -1700,7 +1829,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 96,
+    "__docId__": 102,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -1713,7 +1842,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 97,
+    "__docId__": 103,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -1726,7 +1855,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 98,
+    "__docId__": 104,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -1739,7 +1868,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 99,
+    "__docId__": 105,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -1752,7 +1881,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 100,
+    "__docId__": 106,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -1765,7 +1894,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 101,
+    "__docId__": 107,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -1778,7 +1907,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 102,
+    "__docId__": 108,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -1791,7 +1920,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 104,
+    "__docId__": 110,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -1804,7 +1933,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 105,
+    "__docId__": 111,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -1817,7 +1946,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 106,
+    "__docId__": 112,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -1830,7 +1959,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 107,
+    "__docId__": 113,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -1843,7 +1972,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 108,
+    "__docId__": 114,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -1856,7 +1985,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 109,
+    "__docId__": 115,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -1869,7 +1998,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 110,
+    "__docId__": 116,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -1882,7 +2011,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 111,
+    "__docId__": 117,
     "kind": "external",
     "static": true,
     "variation": null,

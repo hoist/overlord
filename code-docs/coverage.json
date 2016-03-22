@@ -1,7 +1,7 @@
 {
-  "coverage": "23.07%",
-  "expectCount": 26,
-  "actualCount": 6,
+  "coverage": "30%",
+  "expectCount": 30,
+  "actualCount": 9,
   "files": {
     "server/configuration/authentication.js": {
       "expectCount": 2,
@@ -24,6 +24,13 @@
       "expectCount": 3,
       "actualCount": 3,
       "undocumentLines": []
+    },
+    "server/areas/fleet/fleet_controller.js": {
+      "expectCount": 4,
+      "actualCount": 3,
+      "undocumentLines": [
+        63
+      ]
     },
     "server/configuration/logging.js": {
       "expectCount": 2,

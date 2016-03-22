@@ -18,6 +18,12 @@ window.esdocSearchIndex = [
     "class"
   ],
   [
+    "overlord.hoist.io/server/areas/fleet/fleet_controller.js~fleetcontroller",
+    "class/server/areas/fleet/fleet_controller.js~FleetController.html",
+    "<span>FleetController</span> <span class=\"search-result-import-path\">overlord.hoist.io/server/areas/fleet/fleet_controller.js</span>",
+    "class"
+  ],
+  [
     "overlord.hoist.io/server/configuration/logging.js~loggingconfigurator",
     "class/server/configuration/logging.js~LoggingConfigurator.html",
     "<span>LoggingConfigurator</span> <span class=\"search-result-import-path\">overlord.hoist.io/server/configuration/logging.js</span>",
@@ -418,6 +424,30 @@ window.esdocSearchIndex = [
     "external/index.html",
     "server/areas/base_controller.js~HapiReply",
     "external"
+  ],
+  [
+    "server/areas/fleet/fleet_controller.js",
+    "file/server/areas/fleet/fleet_controller.js.html",
+    "server/areas/fleet/fleet_controller.js",
+    "file"
+  ],
+  [
+    "server/areas/fleet/fleet_controller.js~fleetcontroller#constructor",
+    "class/server/areas/fleet/fleet_controller.js~FleetController.html#instance-constructor-constructor",
+    "server/areas/fleet/fleet_controller.js~FleetController#constructor",
+    "method"
+  ],
+  [
+    "server/areas/fleet/fleet_controller.js~fleetcontroller#getstatus",
+    "class/server/areas/fleet/fleet_controller.js~FleetController.html#instance-method-getStatus",
+    "server/areas/fleet/fleet_controller.js~FleetController#getStatus",
+    "method"
+  ],
+  [
+    "server/areas/fleet/fleet_controller.js~fleetcontroller#routes",
+    "class/server/areas/fleet/fleet_controller.js~FleetController.html#instance-method-routes",
+    "server/areas/fleet/fleet_controller.js~FleetController#routes",
+    "method"
   ],
   [
     "server/configuration/authentication.js",

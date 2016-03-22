@@ -2,8 +2,8 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <base data-ice="baseUrl" href="../../../">
-  <title data-ice="title">server/configuration/authentication.js | API Document</title>
+  <base data-ice="baseUrl" href="../../../../">
+  <title data-ice="title">server/areas/fleet/fleet_controller.js | API Document</title>
   <link type="text/css" rel="stylesheet" href="css/style.css">
   <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
   <script src="script/prettify/prettify.js"></script>
@@ -49,41 +49,101 @@
 </div>
 </nav>
 
-<div class="content" data-ice="content"><h1 data-ice="title">server/configuration/authentication.js</h1>
-<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">import {BaseConfigurator} from &apos;./base_configurator&apos;;
-import config from &apos;config&apos;;
-import HapiAuthCookie from &apos;hapi-auth-cookie&apos;;
-import {Session} from &apos;@hoist/model&apos;;
-/* istanbul ignore next */
-export class AuthenticationConfigurator extends BaseConfigurator {
-  configure (hapiServer) {
-    return Promise
-      .resolve()
+<div class="content" data-ice="content"><h1 data-ice="title">server/areas/fleet/fleet_controller.js</h1>
+<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">let dummyData = [{
+  name: &quot;beta.hoist.io@1.service&quot;,
+  version: &quot;v0.10.alpha&quot;
+}, {
+  name: &quot;beta.hoist.io@2.service&quot;,
+  version: &quot;v0.11.alpha&quot;
+}, {
+  name: &quot;executor@1.service&quot;,
+  version: &quot;v1.0.rc&quot;
+}, {
+  name: &quot;executor@2.service&quot;,
+  version: &quot;v1.0.rc&quot;
+}, {
+  name: &quot;executor@3.service&quot;,
+  version: &quot;v1.0.rc&quot;
+}, {
+  name: &quot;beta.hoist.io@1.service&quot;,
+  version: &quot;v0.10.alpha&quot;
+}, {
+  name: &quot;beta.hoist.io@2.service&quot;,
+  version: &quot;v0.11.alpha&quot;
+}, {
+  name: &quot;executor@1.service&quot;,
+  version: &quot;v1.0.rc&quot;
+}, {
+  name: &quot;executor@2.service&quot;,
+  version: &quot;v1.0.rc&quot;
+}, {
+  name: &quot;executor@3.service&quot;,
+  version: &quot;v1.0.rc&quot;
+}, {
+  name: &quot;beta.hoist.io@1.service&quot;,
+  version: &quot;v0.10.alpha&quot;
+}, {
+  name: &quot;beta.hoist.io@2.service&quot;,
+  version: &quot;v0.11.alpha&quot;
+}, {
+  name: &quot;executor@1.service&quot;,
+  version: &quot;v1.0.rc&quot;
+}, {
+  name: &quot;executor@2.service&quot;,
+  version: &quot;v1.0.rc&quot;
+}, {
+  name: &quot;executor@3.service&quot;,
+  version: &quot;v1.0.rc&quot;
+}]
+
+import {
+  BaseController
+} from &apos;../base_controller&apos;;
+/**
+ * Controller for Fleet related actions
+ * @extends {BaseController}
+ */
+export class FleetController extends BaseController {
+  /**
+   * create a new FleetController
+   */
+  constructor() {
+    super();
+  }
+
+  getStatus(request, reply) {
+    return Promise.resolve()
       .then(() =&gt; {
-        return hapiServer.registerAsync(HapiAuthCookie)
-      })
-      .then(() =&gt; {
-        return hapiServer
-          .auth
-          .strategy(&apos;session&apos;, &apos;cookie&apos;, {
-            password: config.get(&apos;Hoist.cookies.beta.password&apos;),
-            cookie: config.get(&apos;Hoist.cookies.beta.name&apos;),
-            redirectTo: &apos;/session/create&apos;,
-            isSecure: config.get(&apos;Hoist.cookies.beta.secure&apos;),
-            validateFunc: (request, session, callback) =&gt; {
-              return Promise
-                .resolve(Session.findOne({_id: session._id, isValid: true}).populate({path: &apos;organisation&apos;}).populate({path: &apos;user&apos;}).populate({path: &apos;application&apos;}).exec())
-                .then((loadedSession) =&gt; {
-                  callback(null, !!(loadedSession), loadedSession);
-                })
-                .catch((err) =&gt; {
-                  callback(err);
-                });
-            }
-          });
-      })
+        reply(dummyData);
+      });
+
+  }
+
+  /**
+   * @override
+   * @returns {Array&lt;Object&gt;} - an array of route configurations @see http://hapijs.com/api#route-configuration
+   */
+  routes() {
+    return [{
+      method: [&apos;GET&apos;],
+      path: &apos;/fleet/status&apos;,
+      config: {
+        handler: this.getStatus,
+        auth: {
+          strategy: &apos;session&apos;,
+          mode: &apos;try&apos;
+        },
+        plugins: {
+          &apos;hapi-auth-cookie&apos;: {
+            redirectTo: false
+          }
+        }
+      }
+    }]
   }
 }
+export default FleetController;
 </code></pre>
 
 </div>
