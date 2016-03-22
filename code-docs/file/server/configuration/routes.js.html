@@ -131,16 +131,11 @@ export class RouteConfigurator extends BaseConfigurator {
                 return state;
               })
               .then((state) =&gt; {
-                let settings = {
-                  domains: config.get(&apos;Hoist.domains&apos;)
-                };
                 reply.view(&apos;index&apos;, {
                   HoistConfig: config.get(&apos;Hoist&apos;),
                   initialState: Object.assign({}, state, {
-                    session: {
-                      isValid: request.auth.isAuthenticated &amp;&amp; !!(request.auth.credentials)
-                    }
-                  }, {settings})
+
+                  }, {})
                 });
               })
               .catch((err) =&gt; {

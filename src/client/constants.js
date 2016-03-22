@@ -1,2 +1,9 @@
 export const actions = {
+  fleet: {
+    STATUS_UPDATE: {
+      IN_PROGRESS: 'FLEET:STATUSUPDATE:INPROGRESS',
+      SUCCEEDED: 'FLEET:STATUSUPDATE:SUCCESS',
+      FAILED: 'FLEET:STATUSUPDATE:FAILED'
+    }
+  }
 }

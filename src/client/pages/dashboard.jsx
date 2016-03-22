@@ -14,22 +14,29 @@ import {
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import {connect} from 'react-redux';
 import Helmet from 'react-helmet';
-import {Queue, SmallKPI, SmallInlineKPI, Server, Fleet, User, Service, QueueDisplay} from '../components/pieces.jsx';
-import {EditorActions, SessionActions} from '../actions';
+import {
+  Queue,
+  SmallKPI,
+  SmallInlineKPI,
+  Server,
+  Fleet,
+  User,
+  Service,
+  QueueDisplay
+} from '../components/pieces.jsx';
+import {FleetActions} from '../actions';
 import _ from 'lodash';
 import css from './styles/main.scss';
 
-
-
-var randomScalingFactor = function() {
+var randomScalingFactor = function () {
   var max = 5;
   var min = 3;
-  return Math.floor(Math.random()*(max-min+1)+min);
+  return Math.floor(Math.random() * (max - min + 1) + min);
 };
-var randomScalingFactor2 = function() {
+var randomScalingFactor2 = function () {
   var max = 8;
   var min = 7;
-  return Math.floor(Math.random()*(max-min+1)+min);
+  return Math.floor(Math.random() * (max - min + 1) + min);
 };
 
 var lineChartData2 = {
@@ -131,155 +138,282 @@ var lineChartData2 = {
 export class Dashboard extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      queues: [
-        {name: 'BiTecvyP8oVJIVeUtsmG_events', status: 'green'},
-        {name: '25wExrU0XxRlnnWrl5Jo_events', status: 'green'},
-        {name: '2AG_0ZQ9Qr7IW6agTcHc_events', status: 'green'},
-        {name: '3p3V_5yIZR6QS_vdAZSo_events', status: 'red'},
-        {name: '4pAaOrZzzzu_p74KiSHZ_events', status: 'green'},
-        {name: '4w3mS10kTV85zhi-idkD_events', status: 'green'},
-        {name: '5pBsEybgnRqfhjVgMjD1_events', status: 'orange'}
-      ],
-      fleets: [
-        {name: "beta.hoist.io@1.service", version: "v0.10.alpha"},
-        {name: "beta.hoist.io@2.service", version: "v0.11.alpha"},
-        {name: "executor@1.service", version: "v1.0.rc"},
-        {name: "executor@2.service", version: "v1.0.rc"},
-        {name: "executor@3.service", version: "v1.0.rc"},
-        {name: "beta.hoist.io@1.service", version: "v0.10.alpha"},
-        {name: "beta.hoist.io@2.service", version: "v0.11.alpha"},
-        {name: "executor@1.service", version: "v1.0.rc"},
-        {name: "executor@2.service", version: "v1.0.rc"},
-        {name: "executor@3.service", version: "v1.0.rc"},
-        {name: "beta.hoist.io@1.service", version: "v0.10.alpha"},
-        {name: "beta.hoist.io@2.service", version: "v0.11.alpha"},
-        {name: "executor@1.service", version: "v1.0.rc"},
-        {name: "executor@2.service", version: "v1.0.rc"},
-        {name: "executor@3.service", version: "v1.0.rc"}
-      ],
-      users: [
-        {name: "Jamie Wilson", email: 'jamie@hoist.io'},
-        {name: "Owen Evans", email: 'owen@bgeek.net'},
-        {name: "Andrew Cox", email: 'andrew@cox.com'},
-        {name: "Andrew Butel", email: 'andrew@butel.co.nz'},
-        {name: "Helen Simonson", email: 'simonsonster@gmail.com'},
-        {name: "Jamie Wilson", email: 'jamie@hoist.io'},
-        {name: "Owen Evans", email: 'owen@bgeek.net'},
-        {name: "Andrew Cox", email: 'andrew@cox.com'},
-        {name: "Andrew Butel", email: 'andrew@butel.co.nz'},
-        {name: "Helen Simonson", email: 'simonsonster@gmail.com'},
-        {name: "Jamie Wilson", email: 'jamie@hoist.io'},
-        {name: "Owen Evans", email: 'owen@bgeek.net'},
-        {name: "Andrew Cox", email: 'andrew@cox.com'},
-        {name: "Andrew Butel", email: 'andrew@butel.co.nz'},
-        {name: "Helen Simonson", email: 'simonsonster@gmail.com'},
-        {name: "Jamie Wilson", email: 'jamie@hoist.io'},
-        {name: "Owen Evans", email: 'owen@bgeek.net'},
-        {name: "Andrew Cox", email: 'andrew@cox.com'},
-        {name: "Andrew Butel", email: 'andrew@butel.co.nz'},
-        {name: "Helen Simonson", email: 'simonsonster@gmail.com'}
-      ],
-      servers: [
-        {name: 'ip-172-16-2-103.hoist.internal', ip: '172-16-2-103'},
-        {name: 'ip-172-16-2-103.hoist.internal', ip: '172-16-2-103'},
-        {name: 'ip-172-16-2-103.hoist.internal', ip: '172-16-2-103'},
-        {name: 'ip-172-16-2-103.hoist.internal', ip: '172-16-2-103'},
-        {name: 'ip-172-16-2-103.hoist.internal', ip: '172-16-2-103'}
-      ],
-      services: [
-        {name: 'api', status: 'green'},
-        {name: 'api', status: 'green'},
-        {name: 'api', status: 'green'},
-        {name: 'api', status: 'green'},
-        {name: 'api', status: 'green'},
-        {name: 'api', status: 'green'}
-      ]
-    };
+  }
+  componentDidMount() {
+    this.props.getLatestFleetConfiguration();
   }
   render() {
     return (
       <div className="wrapper">
-          <div className="column">
-            <div className="page-title">
-              Health Check
-            </div>
-            <TextElements.Label text="Executors" />
-            <div style={{
-                marginTop:5,
-                marginBottom:30
-              }}>
-            <KPI number={192} title="Active Executors" subtitle="Last Updated 10:01 am" />
-            <KPI number={41} title="Failing Executors" subtitle="Last Updated 10:01 am"  />
-            </div>
-              <TextElements.Label text="Errors" />
-              <Charts.Line height={100} data={lineChartData2} />
-              <div style={{
-                  marginTop:5,
-                  marginBottom:30
-                }}>
-              <SmallKPI number={200} title="Errors" subtitle="Last Updated 10:01 am" icon="icon-cloudhosting"  />
-              <SmallKPI number={200} title="Errors" subtitle="Last Updated 10:01 am" icon="icon-websitealt"  />
-              <SmallKPI number={200} title="Errors" subtitle="Last Updated 10:01 am" icon="icon-ram"  />
-              <SmallKPI number={200} title="Errors" subtitle="Last Updated 10:01 am" icon="icon-vps"  />
-              </div>
-              <TextElements.Label text="Services" />
-              {this.state.services.map((s, i) => {
-                return <Service name={s.name} key={i} status={s.status} />;
-              })}
+        <div className="column">
+          <div className="page-title">
+            Health Check
           </div>
-          <div className="column">
-            <div className="page-title">
-              &nbsp;
-            </div>
-            <div style={{marginBottom:40}}>
-            <TextElements.Label text="Queues" />
-            <QueueDisplay queue={this.state.queue} onClose={() => {
-                this.setState({queue: ''})
-              }} />
-            <input type="text" className="dark filter" placeholder="Filter" />
-            {this.state.queues.map((q, i) => {
+          <TextElements.Label text="Executors"/>
+          <div style={{
+            marginTop: 5,
+            marginBottom: 30
+          }}>
+            <KPI number={192} title="Active Executors" subtitle="Last Updated 10:01 am"/>
+            <KPI number={41} title="Failing Executors" subtitle="Last Updated 10:01 am"/>
+          </div>
+          <TextElements.Label text="Errors"/>
+          <Charts.Line height={100} data={lineChartData2}/>
+          <div style={{
+            marginTop: 5,
+            marginBottom: 30
+          }}>
+            <SmallKPI number={200} title="Errors" subtitle="Last Updated 10:01 am" icon="icon-cloudhosting"/>
+            <SmallKPI number={200} title="Errors" subtitle="Last Updated 10:01 am" icon="icon-websitealt"/>
+            <SmallKPI number={200} title="Errors" subtitle="Last Updated 10:01 am" icon="icon-ram"/>
+            <SmallKPI number={200} title="Errors" subtitle="Last Updated 10:01 am" icon="icon-vps"/>
+          </div>
+          <TextElements.Label text="Services"/> {this.props.services.map((s, i) => {
+            return <Service name={s.name} key={i} status={s.status}/>;
+          })}
+        </div>
+        <div className="column">
+          <div className="page-title">
+            &nbsp;
+          </div>
+          <div style={{
+            marginBottom: 40
+          }}>
+            <TextElements.Label text="Queues"/>
+            <QueueDisplay queue={this.props.queue} onClose={() => {
+              this.setState({queue: ''})
+            }}/>
+            <input type="text" className="dark filter" placeholder="Filter"/> {this.props.queues.map((q, i) => {
               return <Queue name={q.name} key={i} status={q.status} onClick={() => {
-                  this.setState({queue: q.name});
-                }} />;
-            })}
-            </div>
-            <TextElements.Label text="Servers" />
-            <input type="text" className="dark filter" placeholder="Filter" />
-            {this.state.servers.map((s, i) => {
-              return <Server name={s.name} key={i} ip={s.ip} />;
+                this.setState({queue: q.name});
+              }}/>;
             })}
           </div>
+          <TextElements.Label text="Servers"/>
+          <input type="text" className="dark filter" placeholder="Filter"/> {this.props.servers.map((s, i) => {
+            return <Server name={s.name} key={i} ip={s.ip}/>;
+          })}
+        </div>
         <div className="column">
           <div className="page-title">
             Deploy
           </div>
-          <TextElements.Label text="Fleet" />
-          <input type="text" className="dark filter" placeholder="Filter" />
-          {this.state.fleets.map((f, i) => {
-            return <Fleet name={f.name} key={i} version={f.version} />;
+          <TextElements.Label text="Fleet"/>
+          <input type="text" className="dark filter" placeholder="Filter"/> {this.props.fleets.map((f, i) => {
+            return <Fleet name={f.name} key={i} version={f.version}/>;
           })}
         </div>
-        <div className="column" style={{color:'white'}}>
+        <div className="column" style={{
+          color: 'white'
+        }}>
           <div className="page-title">
             Users
           </div>
-          <TextElements.Label text="Users" />
-          <input type="text" className="dark filter" placeholder="Filter" />
-          {this.state.users.map((u, i) => {
-            return <User name={u.name} key={i} email={u.email} />;
+          <TextElements.Label text="Users"/>
+          <input type="text" className="dark filter" placeholder="Filter"/> {this.props.users.map((u, i) => {
+            return <User name={u.name} key={i} email={u.email}/>;
           })}
         </div>
       </div>
     );
   }
+  static propTypes : {
+    //this matches the name imported on FleetActions
+    getLatestFleetConfiguration: PropTypes.func.isRequired,
+    services: PropTypes.array,
+    users: PropTypes.array,
+    queues: PropTypes.array,
+    fleets: PropTypes.array
+  }
+
+};
+//use props over state as they can be fed in from Redux
+Dashboard.defaultProps = {
+  queues: [
+    {
+      name: 'BiTecvyP8oVJIVeUtsmG_events',
+      status: 'green'
+    }, {
+      name: '25wExrU0XxRlnnWrl5Jo_events',
+      status: 'green'
+    }, {
+      name: '2AG_0ZQ9Qr7IW6agTcHc_events',
+      status: 'green'
+    }, {
+      name: '3p3V_5yIZR6QS_vdAZSo_events',
+      status: 'red'
+    }, {
+      name: '4pAaOrZzzzu_p74KiSHZ_events',
+      status: 'green'
+    }, {
+      name: '4w3mS10kTV85zhi-idkD_events',
+      status: 'green'
+    }, {
+      name: '5pBsEybgnRqfhjVgMjD1_events',
+      status: 'orange'
+    }
+  ],
+  fleets: [
+    {
+      name: "beta.hoist.io@1.service",
+      version: "v0.10.alpha"
+    }, {
+      name: "beta.hoist.io@2.service",
+      version: "v0.11.alpha"
+    }, {
+      name: "executor@1.service",
+      version: "v1.0.rc"
+    }, {
+      name: "executor@2.service",
+      version: "v1.0.rc"
+    }, {
+      name: "executor@3.service",
+      version: "v1.0.rc"
+    }, {
+      name: "beta.hoist.io@1.service",
+      version: "v0.10.alpha"
+    }, {
+      name: "beta.hoist.io@2.service",
+      version: "v0.11.alpha"
+    }, {
+      name: "executor@1.service",
+      version: "v1.0.rc"
+    }, {
+      name: "executor@2.service",
+      version: "v1.0.rc"
+    }, {
+      name: "executor@3.service",
+      version: "v1.0.rc"
+    }, {
+      name: "beta.hoist.io@1.service",
+      version: "v0.10.alpha"
+    }, {
+      name: "beta.hoist.io@2.service",
+      version: "v0.11.alpha"
+    }, {
+      name: "executor@1.service",
+      version: "v1.0.rc"
+    }, {
+      name: "executor@2.service",
+      version: "v1.0.rc"
+    }, {
+      name: "executor@3.service",
+      version: "v1.0.rc"
+    }
+  ],
+  users: [
+    {
+      name: "Jamie Wilson",
+      email: 'jamie@hoist.io'
+    }, {
+      name: "Owen Evans",
+      email: 'owen@bgeek.net'
+    }, {
+      name: "Andrew Cox",
+      email: 'andrew@cox.com'
+    }, {
+      name: "Andrew Butel",
+      email: 'andrew@butel.co.nz'
+    }, {
+      name: "Helen Simonson",
+      email: 'simonsonster@gmail.com'
+    }, {
+      name: "Jamie Wilson",
+      email: 'jamie@hoist.io'
+    }, {
+      name: "Owen Evans",
+      email: 'owen@bgeek.net'
+    }, {
+      name: "Andrew Cox",
+      email: 'andrew@cox.com'
+    }, {
+      name: "Andrew Butel",
+      email: 'andrew@butel.co.nz'
+    }, {
+      name: "Helen Simonson",
+      email: 'simonsonster@gmail.com'
+    }, {
+      name: "Jamie Wilson",
+      email: 'jamie@hoist.io'
+    }, {
+      name: "Owen Evans",
+      email: 'owen@bgeek.net'
+    }, {
+      name: "Andrew Cox",
+      email: 'andrew@cox.com'
+    }, {
+      name: "Andrew Butel",
+      email: 'andrew@butel.co.nz'
+    }, {
+      name: "Helen Simonson",
+      email: 'simonsonster@gmail.com'
+    }, {
+      name: "Jamie Wilson",
+      email: 'jamie@hoist.io'
+    }, {
+      name: "Owen Evans",
+      email: 'owen@bgeek.net'
+    }, {
+      name: "Andrew Cox",
+      email: 'andrew@cox.com'
+    }, {
+      name: "Andrew Butel",
+      email: 'andrew@butel.co.nz'
+    }, {
+      name: "Helen Simonson",
+      email: 'simonsonster@gmail.com'
+    }
+  ],
+  servers: [
+    {
+      name: 'ip-172-16-2-103.hoist.internal',
+      ip: '172-16-2-103'
+    }, {
+      name: 'ip-172-16-2-103.hoist.internal',
+      ip: '172-16-2-103'
+    }, {
+      name: 'ip-172-16-2-103.hoist.internal',
+      ip: '172-16-2-103'
+    }, {
+      name: 'ip-172-16-2-103.hoist.internal',
+      ip: '172-16-2-103'
+    }, {
+      name: 'ip-172-16-2-103.hoist.internal',
+      ip: '172-16-2-103'
+    }
+  ],
+  services: [
+    {
+      name: 'api',
+      status: 'green'
+    }, {
+      name: 'api',
+      status: 'green'
+    }, {
+      name: 'api',
+      status: 'green'
+    }, {
+      name: 'api',
+      status: 'green'
+    }, {
+      name: 'api',
+      status: 'green'
+    }, {
+      name: 'api',
+      status: 'green'
+    }
+  ]
 };
 
 export class KPI extends Component {
   render() {
     return (
       <div className="kpi cf">
-        {this.props.icon ? <div className="left"><span className={this.props.icon}></span></div> : ''}
+        {this.props.icon
+          ? <div className="left">
+              <span className={this.props.icon}></span>
+            </div>
+          : ''}
         <div className="left">
           <span className="kpi-figure">{this.props.number}</span>
         </div>
@@ -293,4 +427,4 @@ export class KPI extends Component {
   }
 }
 
-export default connect()(Dashboard);
+export default connect(() => ({}), Object.assign({}, FleetActions))(Dashboard);
