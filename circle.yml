@@ -17,28 +17,24 @@ checkout:
     - find . -exec touch -t 201401010000 {} \;
     - for x in $(git ls-tree --full-tree --name-only -r HEAD); do touch -t $(date -d "$(git log -1 --format=%ci "${x}")" +%y%m%d%H%M.%S) "${x}"; done
 dependencies:
-  cache_directories:
-    - "~/docker"
   override:
-    - mkdir -p ~/docker
-    - if [[ -e ~/docker/portal.hoist.io.tar ]]; then docker load -i ~/docker/portal.hoist.io.tar; fi
-    - if [[ -e ~/docker/hoist-core.tar ]]; then docker load -i ~/docker/hoist-core.tar; fi
-    - docker build -t hoist/portal.hoist.io:${CIRCLE_TAG//release\//}${CIRCLE_BRANCH//feature\//} .
-    - docker save "hoist/portal.hoist.io:${CIRCLE_TAG//release\//}${CIRCLE_BRANCH//feature\//}" > ~/docker/portal.hoist.io.tar
-    - docker save "hoist/core-box:4" > ~/docker/hoist-core
+    - echo ${DOCKER_CONFIG} > .dockercfg
+    - docker login -e $DOCKER_EMAIL -u $DOCKER_USER -p $DOCKER_PASS
+    - docker pull hoist/overlord:${CIRCLE_TAG//release\//}${CIRCLE_BRANCH//feature\//}
+    - docker build -t hoist/overlord:${CIRCLE_TAG//release\//}${CIRCLE_BRANCH//feature\//} .
 test:
   override:
     - docker kill mongodb; true;
     - docker rm mongodb; true;
     - docker kill rabbitmq; true;
     - docker rm rabbitmq; true;
-    - docker kill portal.hoist.io-test; true;
-    - docker rm portal.hoist.io-test; true;
+    - docker kill overlord-test; true;
+    - docker rm overlord-test; true;
     - docker run -d --name mongodb mongo
     - docker run -d -e RABBITMQ_NODENAME=rabbitmq --name rabbitmq rabbitmq:3-management
-    - docker run -t --link mongodb:db --link rabbitmq:rabbitmq --name portal.hoist.io-test --entrypoint gulp hoist/portal.hoist.io:${CIRCLE_TAG//release\//}${CIRCLE_BRANCH//feature\//} test
+    - docker run -t --link mongodb:db --link rabbitmq:rabbitmq --name overlord-test --entrypoint gulp hoist/overlord:${CIRCLE_TAG//release\//}${CIRCLE_BRANCH//feature\//} test
   post:
-    - docker cp portal.hoist.io-test:/usr/src/app/coverage ~/
+    - docker cp overlord-test:/usr/src/app/coverage ~/
 general:
   artifacts:
     - ~/coverage/*
@@ -46,18 +42,11 @@ general:
     - log/*.log
     - npm-debug.log
 deployment:
-  master:
+  release:
     branch: [master,/feature\/.*/]
     owner: hoist
     commands:
-      - echo ${DOCKER_CONFIG} > .dockercfg
-  release:
-    tag: /release\/.*/
-    owner: hoist
-    commands:
-      - echo ${DOCKER_CONFIG} > .dockercfg
-      - docker login -e $DOCKER_EMAIL -u $DOCKER_USER -p $DOCKER_PASS
-      - docker push hoist/portal.hoist.io:${CIRCLE_TAG//release\//}${CIRCLE_BRANCH//feature\//}
+      - docker push hoist/overlord:${CIRCLE_TAG//release\//}${CIRCLE_BRANCH//feature\//}
 notify:
   webhooks:
-    - url: https://overlord.hoist.io/api/webhook/circleci?api_token=xc1zrzacmxp9samlj9nya4gzay
+    - url: https://overlord/api/webhook/circleci?api_token=xc1zrzacmxp9samlj9nya4gzay
