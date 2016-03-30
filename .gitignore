@@ -16,6 +16,7 @@ npm-debug.log
 jobs.log
 node_modules
 public/components/*
+connectors
 
 .sass-cache
 app/.sass-cache
@@ -43,11 +44,8 @@ public/css/style.css
 coverage/*
 log/*
 config/runtime.json
-config/production_test.json
 .queues
-config/production_test.json
-
-lib/web_app/assets/compiled
-*.heapsnapshot
-spike.js
 .npmrc
+lib
+code-docs
+deploys

@@ -24,16 +24,16 @@ import {
   Service,
   QueueDisplay
 } from '../components/pieces.jsx';
-import {FleetActions} from '../actions';
+import {FleetActions, ConsulActions, RabbitActions} from '../actions';
 import _ from 'lodash';
 import css from './styles/main.scss';
 
-var randomScalingFactor = function () {
+var randomScalingFactor = function() {
   var max = 5;
   var min = 3;
   return Math.floor(Math.random() * (max - min + 1) + min);
 };
-var randomScalingFactor2 = function () {
+var randomScalingFactor2 = function() {
   var max = 8;
   var min = 7;
   return Math.floor(Math.random() * (max - min + 1) + min);
@@ -138,11 +138,35 @@ var lineChartData2 = {
 export class Dashboard extends Component {
   constructor(props) {
     super(props);
-    this.state ={};
+    this.getFleet = this.getFleet.bind(this);
+    this.filterFleet = this.filterFleet.bind(this);
+    this.state = {
+      fleetFilter: null
+    };
   }
   componentDidMount() {
     //this will update the state graph and thus rerender the component (although it should happen before the component renders)
     this.props.getLatestFleetConfiguration();
+    this.props.getLatestConsulStatus();
+    this.props.getQueues();
+    this.props.getQueueStats();
+    setInterval(this.props.getQueueStats, 5000);
+  }
+  componentDidUpdate(prevProps) {
+    // if(this.props.rabbit.stats.stamp !== prevProps.rabbit.stats.stamp) {
+    //
+    // }
+  }
+  getFleet() {
+    if(this.state.fleetFilter) {
+      return _.filter(this.props.fleet, (f) => {
+        return f.name.indexOf(this.state.fleetFilter) !== -1
+      });
+    }
+    return this.props.fleet;
+  }
+  filterFleet(event) {
+    this.setState({fleetFilter: event.target.value || null});
   }
   render() {
     return (
@@ -151,27 +175,31 @@ export class Dashboard extends Component {
           <div className="page-title">
             Health Check
           </div>
-          <TextElements.Label text="Executors"/>
           <div style={{
-            marginTop: 5,
-            marginBottom: 30
-          }}>
-            <KPI number={192} title="Active Executors" subtitle="Last Updated 10:01 am"/>
-            <KPI number={41} title="Failing Executors" subtitle="Last Updated 10:01 am"/>
+              display:'none'
+            }}>
+            <TextElements.Label text="Executors"/>
+            <div style={{
+              marginTop: 5,
+              marginBottom: 30
+            }}>
+              <KPI number={192} title="Active Executors" subtitle="Last Updated 10:01 am"/>
+              <KPI number={41} title="Failing Executors" subtitle="Last Updated 10:01 am"/>
+            </div>
+            <TextElements.Label text="Errors"/>
+            <Charts.Line height={100} data={lineChartData2}/>
+            <div style={{
+              marginTop: 5,
+              marginBottom: 30
+            }}>
+              <SmallKPI number={200} title="Errors" subtitle="Last Updated 10:01 am" icon="icon-cloudhosting"/>
+              <SmallKPI number={200} title="Errors" subtitle="Last Updated 10:01 am" icon="icon-websitealt"/>
+              <SmallKPI number={200} title="Errors" subtitle="Last Updated 10:01 am" icon="icon-ram"/>
+              <SmallKPI number={200} title="Errors" subtitle="Last Updated 10:01 am" icon="icon-vps"/>
+            </div>
           </div>
-          <TextElements.Label text="Errors"/>
-          <Charts.Line height={100} data={lineChartData2}/>
-          <div style={{
-            marginTop: 5,
-            marginBottom: 30
-          }}>
-            <SmallKPI number={200} title="Errors" subtitle="Last Updated 10:01 am" icon="icon-cloudhosting"/>
-            <SmallKPI number={200} title="Errors" subtitle="Last Updated 10:01 am" icon="icon-websitealt"/>
-            <SmallKPI number={200} title="Errors" subtitle="Last Updated 10:01 am" icon="icon-ram"/>
-            <SmallKPI number={200} title="Errors" subtitle="Last Updated 10:01 am" icon="icon-vps"/>
-          </div>
-          <TextElements.Label text="Services"/> {this.props.services.map((s, i) => {
-            return <Service name={s.name} key={i} status={s.status}/>;
+          <TextElements.Label text="Services"/> {this.props.consul.services.map((s, i) => {
+            return <Service name={s.name} key={i} tags={s.tags}/>;
           })}
         </div>
         <div className="column">
@@ -182,39 +210,43 @@ export class Dashboard extends Component {
             marginBottom: 40
           }}>
             <TextElements.Label text="Queues"/>
-            <QueueDisplay queue={this.state.queue} onClose={() => {
+            <QueueDisplay queue={this.state.queue} stats={this.props.rabbit.stats} onClose={() => {
               this.setState({queue: ''})
             }}/>
-            <input type="text" className="dark filter" placeholder="Filter"/> {this.props.queues.map((q, i) => {
-              return <Queue name={q.name} key={i} status={q.status} onClick={() => {
+          <input type="text" className="dark filter" placeholder="Filter"/> {this.props.rabbit.queues.map((q, i) => {
+              return <Queue name={q.name} key={i} status={q.state} onClick={() => {
                 this.setState({queue: q.name});
               }}/>;
             })}
           </div>
-          <TextElements.Label text="Servers"/>
-          <input type="text" className="dark filter" placeholder="Filter"/> {this.props.servers.map((s, i) => {
-            return <Server name={s.name} key={i} ip={s.ip}/>;
-          })}
         </div>
         <div className="column">
           <div className="page-title">
             Deploy
           </div>
           <TextElements.Label text="Fleet"/>
-          <input type="text" className="dark filter" placeholder="Filter"/> {this.props.fleet.map((f, i) => {
-            return <Fleet name={f.name} key={i} version={f.version}/>;
+          <input type="text" className="dark filter" placeholder="Filter" onChange={this.filterFleet}/> {this.getFleet().map((f, i) => {
+            return <Fleet name={f.name} key={i} state={f.currentState}/>;
           })}
         </div>
         <div className="column" style={{
           color: 'white'
         }}>
           <div className="page-title">
-            Users
+            &nbsp;
           </div>
+          <TextElements.Label text="Servers"/>
+          <input type="text" className="dark filter" placeholder="Filter"/> {this.props.consul.nodes.map((s, i) => {
+            return <Server name={s.Node} key={i} ip={s.Address}/>;
+          })}
+          <div style={{
+              display:'none'
+            }}>
           <TextElements.Label text="Users"/>
           <input type="text" className="dark filter" placeholder="Filter"/> {this.props.users.map((u, i) => {
             return <User name={u.name} key={i} email={u.email}/>;
           })}
+        </div>
         </div>
       </div>
     );
@@ -255,54 +287,7 @@ Dashboard.defaultProps = {
       status: 'orange'
     }
   ],
-  fleet: [
-    {
-      name: "beta.hoist.io@1.service",
-      version: "v0.10.alpha"
-    }, {
-      name: "beta.hoist.io@2.service",
-      version: "v0.11.alpha"
-    }, {
-      name: "executor@1.service",
-      version: "v1.0.rc"
-    }, {
-      name: "executor@2.service",
-      version: "v1.0.rc"
-    }, {
-      name: "executor@3.service",
-      version: "v1.0.rc"
-    }, {
-      name: "beta.hoist.io@1.service",
-      version: "v0.10.alpha"
-    }, {
-      name: "beta.hoist.io@2.service",
-      version: "v0.11.alpha"
-    }, {
-      name: "executor@1.service",
-      version: "v1.0.rc"
-    }, {
-      name: "executor@2.service",
-      version: "v1.0.rc"
-    }, {
-      name: "executor@3.service",
-      version: "v1.0.rc"
-    }, {
-      name: "beta.hoist.io@1.service",
-      version: "v0.10.alpha"
-    }, {
-      name: "beta.hoist.io@2.service",
-      version: "v0.11.alpha"
-    }, {
-      name: "executor@1.service",
-      version: "v1.0.rc"
-    }, {
-      name: "executor@2.service",
-      version: "v1.0.rc"
-    }, {
-      name: "executor@3.service",
-      version: "v1.0.rc"
-    }
-  ],
+  fleet: [],
   users: [
     {
       name: "Jamie Wilson",
@@ -430,7 +415,7 @@ export class KPI extends Component {
 }
 
 export default connect((state) => {
-  return {fleet: state.fleet};
+  return {fleet: state.fleet, consul: state.consul, rabbit: state.rabbit};
 },
 //create a new object with all the properties of FleetActions, basically all the FleetAction methods
-Object.assign({}, FleetActions))(Dashboard);
+Object.assign({}, FleetActions, ConsulActions, RabbitActions))(Dashboard);

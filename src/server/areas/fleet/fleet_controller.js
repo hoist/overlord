@@ -1,49 +1,6 @@
-let dummyData = [{
-  name: "beta.hoist.io@1.service",
-  version: "v0.10.alpha"
-}, {
-  name: "beta.hoist.io@2.service",
-  version: "v0.11.alpha"
-}, {
-  name: "executor@1.service",
-  version: "v1.0.rc"
-}, {
-  name: "executor@2.service",
-  version: "v1.0.rc"
-}, {
-  name: "executor@3.service",
-  version: "v1.0.rc"
-}, {
-  name: "beta.hoist.io@1.service",
-  version: "v0.10.alpha"
-}, {
-  name: "beta.hoist.io@2.service",
-  version: "v0.11.alpha"
-}, {
-  name: "executor@1.service",
-  version: "v1.0.rc"
-}, {
-  name: "executor@2.service",
-  version: "v1.0.rc"
-}, {
-  name: "executor@3.service",
-  version: "v1.0.rc"
-}, {
-  name: "beta.hoist.io@1.service",
-  version: "v0.10.alpha"
-}, {
-  name: "beta.hoist.io@2.service",
-  version: "v0.11.alpha"
-}, {
-  name: "executor@1.service",
-  version: "v1.0.rc"
-}, {
-  name: "executor@2.service",
-  version: "v1.0.rc"
-}, {
-  name: "executor@3.service",
-  version: "v1.0.rc"
-}]
+import Fleet from 'node-fleet-api';
+import config from 'config';
+import Boom from 'boom';
 
 import {
   BaseController
@@ -61,9 +18,21 @@ export class FleetController extends BaseController {
   }
 
   getStatus(request, reply) {
+    if(!config.has('Hoist.fleet.host')) {
+        reply(Boom.preconditionFailed("Fleet config missing"));
+        return;
+    }
+    let fleet = Fleet("http://" + config.get('Hoist.fleet.host') + ":" + config.get('Hoist.fleet.port'));
     return Promise.resolve()
       .then(() => {
-        reply(dummyData);
+        return new Promise(function(resolve) {
+          fleet.getAllUnits(function(error, results) {
+            resolve(results.units);
+          });
+        });
+      })
+      .then((results) => {
+        reply(results);
       });
 
   }

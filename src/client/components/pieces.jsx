@@ -12,109 +12,35 @@ import {
   Charts
 } from '@hoist/ui';
 
-
-var randomScalingFactor = function() {
-  var max = 5;
-  var min = 3;
-  return Math.floor(Math.random()*(max-min+1)+min);
-};
-var randomScalingFactor2 = function() {
-  var max = 8;
-  var min = 7;
-  return Math.floor(Math.random()*(max-min+1)+min);
-};
-
-var lineChartData = {
+var lineChartDataBase = {
   labels: [
-    "10:00",
-    "10:10",
-    "10:20",
-    "10:30",
-    "10:40",
-    "10:50",
-    "11:00",
-    "11:10",
-    "11:20",
-    "11:30",
-    "11:40",
-    "11:50",
-    "12:00",
-    "12:10",
-    "12:20",
-    "12:30",
-    "12:40",
-    "12:50",
-    "13:00",
-    "13:10",
-    "13:20",
-    "13:30",
-    "13:40",
-    "13:50"
+    "","","","","","","","","","",""
   ],
   datasets: [
     {
-      label: "My First dataset",
+      label: "No Label",
       fillColor: "RGBA(238, 69, 126, 0)",
       strokeColor: "RGBA(238, 69, 126, 1)",
       pointColor: "RGBA(238, 69, 126, 1)",
       pointStrokeColor: "#292D34",
       data: [
-        randomScalingFactor(),
-        randomScalingFactor(),
-        randomScalingFactor(),
-        randomScalingFactor(),
-        randomScalingFactor(),
-        randomScalingFactor(),
-        randomScalingFactor(),
-        randomScalingFactor(),
-        randomScalingFactor(),
-        randomScalingFactor(),
-        randomScalingFactor(),
-        randomScalingFactor(),
-        randomScalingFactor(),
-        randomScalingFactor(),
-        randomScalingFactor(),
-        randomScalingFactor(),
-        randomScalingFactor(),
-        randomScalingFactor(),
-        randomScalingFactor(),
-        randomScalingFactor(),
-        randomScalingFactor(),
-        randomScalingFactor(),
-        randomScalingFactor(),
-        randomScalingFactor()
       ]
     }, {
-      label: "My Second dataset",
+      label: "No Label",
       fillColor: "RGBA(255, 173, 93, 0)",
       strokeColor: "RGBA(255, 173, 93, 1)",
       pointColor: "RGBA(255, 173, 93, 1)",
       pointStrokeColor: "#292D34",
       data: [
-        randomScalingFactor2(),
-        randomScalingFactor2(),
-        randomScalingFactor2(),
-        randomScalingFactor2(),
-        randomScalingFactor2(),
-        randomScalingFactor2(),
-        randomScalingFactor2(),
-        randomScalingFactor2(),
-        randomScalingFactor2(),
-        randomScalingFactor2(),
-        randomScalingFactor2(),
-        randomScalingFactor2(),
-        randomScalingFactor2(),
-        randomScalingFactor2(),
-        randomScalingFactor2(),
-        randomScalingFactor2(),
-        randomScalingFactor2(),
-        randomScalingFactor2(),
-        randomScalingFactor2(),
-        randomScalingFactor2(),
-        randomScalingFactor2(),
-        randomScalingFactor2(),
-        randomScalingFactor2(),
-        randomScalingFactor2()
+      ]
+    },
+    {
+      label: "No Label",
+      fillColor: "RGBA(0,0,0,0)",
+      strokeColor: "RGBA(0,0,0,0)",
+      pointColor: "RGBA(0,0,0,0)",
+      pointStrokeColor: "#000000",
+      data: [
       ]
     }
   ]
@@ -161,6 +87,7 @@ export class Server extends Component {
         <div className="left">
           <span className="status"></span>
           <span className="title">{this.props.name}</span>
+          <div className="meta">{this.props.ip}</div>
         </div>
       </div>
     )
@@ -175,7 +102,7 @@ export class Fleet extends Component {
           <div className="meta" style={{
               paddingLeft:0
             }}>
-            {this.props.version}
+            {this.props.state}
           </div>
         </div>
         <div className="right">
@@ -212,7 +139,7 @@ export class Service extends Component {
           <span className={"status " + this.props.status}></span>
           <span className="title">{this.props.name}</span>
           <div className="meta">
-            2 passing
+            {this.props.tags.length > 0 ? this.props.tags.join(', ') : 'No Tags'}
           </div>
         </div>
         <div className="right">
@@ -235,8 +162,35 @@ export class Queue extends Component {
     )
   }
 }
+function numberWithCommas(x) {
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
+
+
 export class QueueDisplay extends Component {
   render() {
+    var ready = '-', unack = '-', total = '-', pub = '-', ack = '-', deliver = '-', chartData = null, chartData2 = null;
+    if(this.props.stats.message_stats) {
+      //rate = this.props.stats.message_stats.ack_details.rate + '/s';
+      ready = numberWithCommas(this.props.stats.queue_totals.messages_ready);
+      unack = numberWithCommas(this.props.stats.queue_totals.messages_unacknowledged);
+      total = numberWithCommas(this.props.stats.queue_totals.messages);
+      pub = this.props.stats.message_stats.publish_details.rate + '/s';
+      ack = this.props.stats.message_stats.ack_details.rate + '/s';
+      deliver = this.props.stats.message_stats.deliver_details.rate + '/s';
+      //this.props.stats.queue_totals.messages_details
+      chartData = Object.assign({}, lineChartDataBase);
+      chartData.datasets[0].data = this.props.stats.queue_totals.messages_ready_details.samples.map((s) => {
+        return Math.floor(s.sample / 1);
+      }).reverse();
+      chartData.datasets[1].data = this.props.stats.queue_totals.messages_unacknowledged_details.samples.map((s) => {
+        return Math.floor(s.sample / 1);
+      }).reverse();
+      chartData.datasets[2].data = this.props.stats.queue_totals.messages_details.samples.map((s) => {
+        return Math.floor(s.sample / 1);
+      }).reverse();
+    }
+
     if(this.props.queue) {
     return(
       <div className="filtered-queue">
@@ -244,21 +198,26 @@ export class QueueDisplay extends Component {
           <span className="collapse" onClick={this.props.onClose}>&times;</span>
         </div>
         <div className="padded">
-          <Charts.Line height={100} data={lineChartData} />
-          <SmallInlineKPI number="446,854" title="Ready" subtitle="" icon="" background="RGBA(240, 65, 125, 1)" />
-          <SmallInlineKPI number="447,020" title="In Progress" subtitle="" icon="" background="RGBA(255, 174, 84, 1)" />
-          <SmallInlineKPI number="10/s" title="Throughput" subtitle="" icon="" background="rgba(0, 0, 0, 0.2)" />
+          <Charts.Line height={100} data={chartData} />
+          <SmallInlineKPI number={ready} title="Ready" subtitle="" icon="" background="RGBA(240, 65, 125, 1)" />
+          <SmallInlineKPI number={unack} title="Publish Rate" subtitle="" icon="" background="RGBA(255, 174, 84, 1)" />
+          <SmallInlineKPI number={total} title="Throughput" subtitle="" icon="" background="rgba(0, 0, 0, 0.2)" />
         </div>
       </div>
-    )
+    ) 
   } else {
     return(
-      <div >
+      <div>
         <div className="padded">
-          <Charts.Line height={100} data={lineChartData} />
-          <SmallInlineKPI number="446,854" title="Ready" subtitle="" icon=""  background="RGBA(240, 65, 125, 1)"  />
-          <SmallInlineKPI number="447,020" title="In Progress" subtitle="" icon=""  background="RGBA(255, 174, 84, 1)" />
-          <SmallInlineKPI number="10/s" title="Throughput" subtitle="" icon="" background="rgba(0, 0, 0, 0.2)"  />
+          <Charts.Line height={100} data={chartData} />
+          <SmallInlineKPI number={ready} title="Ready" subtitle="" icon=""  background="RGBA(240, 65, 125, 1)"  />
+          <SmallInlineKPI number={unack} title="Unacked" subtitle="" icon=""  background="RGBA(255, 174, 84, 1)" />
+          <SmallInlineKPI number={total} title="Total" subtitle="" icon="" background="rgba(0, 0, 0, 0.2)" />
+        </div>
+        <div className="padded">
+          <SmallInlineKPI number={pub} title="Publish" subtitle="" icon="" background="RGBA(240, 65, 125, 1)" />
+          <SmallInlineKPI number={ack} title="Acknowledge" subtitle="" icon="" background="RGBA(255, 174, 84, 1)" />
+          <SmallInlineKPI number={deliver} title="Deliver" subtitle="" icon="" background="rgba(0, 0, 0, 0.2)" />
         </div>
       </div>
     )
