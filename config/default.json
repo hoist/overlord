@@ -10,6 +10,14 @@
       "url": "amqp://rabbitmq",
       "managementUrl": "http://guest:guest@rabbitmq:15672/"
     },
+    "consul" : {
+      "host" : "consul.hoist.io",
+      "port" : 8500
+    },
+    "fleet" : {
+      "host" : "fleet.hoist.io",
+      "port":  49153
+    },
     "cookies": {
       "portal": {
         "secure": false,
